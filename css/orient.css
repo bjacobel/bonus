@@ -1420,10 +1420,19 @@ article header, .authorheader {
 	padding:0 5px;
 	background-color:#fff;
 	z-index:99;
+	color:green;
 }
 
 #subtitle.charsremaining {
 	top:-55px;
+}
+
+.lowchars {
+	color:#E3170D;
+}
+
+.toolongwarning {
+	border:2px solid red;
 }
 
 /* NEXT/PREV IN SERIES */

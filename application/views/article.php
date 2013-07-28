@@ -349,16 +349,23 @@
     // if only i really knew javascript
     // #dry :(
 
-    $('#articletitle').keyup(function() {
+    $('#articletitle').keydown(function() {
     	titleedited=true;
     	$('#articletitle').css("color", "darkred");
-    	document.title = $('#articletitle').html() + " — The Bowdoin Orient";
     	$('#title.charsremaining').html(200 - $('#articletitle').html().length);
-    	if((200 - $('#articletitle').html().length) < 25){
-    		$('#title.charsremaining').css("color", "#E3170D");
+    	if ($('#articletitle').html().length>200) {
+    		$("button#savearticle").attr("disabled", "disabled");
+    		$("#articletitle").addClass("toolongwarning");
+    	} else if((200 - $('#articletitle').html().length) < 25) {
+    		$("#articletitle").removeClass("toolongwarning");
+    		$("button#savearticle").removeAttr("disabled");
+    		$('#title.charsremaining').addClass("lowchars");
     	} else {
-    		$('#title.charsremaining').css("color", "green");
+    		$('#title.charsremaining').removeClass("lowchars");
     	}
+    });
+    $('#articletitle').keyup(function() {
+    	document.title = $('#articletitle').html() + " — The Bowdoin Orient";
     });
     $("#articletitle").bind('paste', function() {
     	titleedited=true;
@@ -369,10 +376,15 @@
     	subtitleedited=true;
     	$('#articlesubtitle').css("color", "darkred");
     	$('#subtitle.charsremaining').html(200 - $('#articlesubtitle').html().length);
-    	  if((200 - $('#articlesubtitle').html().length) < 25){
-    		$('#subtitle.charsremaining').css("color", "#E3170D");
+    	if ($('#articlesubtitle').html().length>200) {
+    		$("button#savearticle").attr("disabled", "disabled");
+    		$("#articlesubtitle").addClass("toolongwarning");
+    	} else if((200 - $('#articlesubtitle').html().length) < 25) {
+    		$("#articlesubtitle").removeClass("toolongwarning");
+    		$("button#savearticle").removeAttr("disabled");
+    		$('#subtitle.charsremaining').addClass("lowchars");
     	} else {
-    		$('#subtitle.charsremaining').css("color", "green");
+    		$('#subtitle.charsremaining').removeClass("lowchars");
     	}
     });
     $('#articlesubtitle').bind('paste', function() {
