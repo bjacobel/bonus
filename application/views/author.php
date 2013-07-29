@@ -26,18 +26,8 @@
 		</div>
 		
 		<? if(count($photos) > 1): ?>
-			<figure class="articlemedia">
-				<div id="swipeview_wrapper" class="author-swipeview"></div>
-				<div id="swipeview_relative_nav">
-					<span id="prev" onclick="carousel.prev();hasInteracted=true">&laquo;</span>
-					<span id="next" onclick="carousel.next();hasInteracted=true">&raquo;</span>
-				</div>
-				<ul id="swipeview_nav">
-					<? foreach($photos as $key => $photo): ?>
-					<li <? if($key==0): ?>class="selected"<? endif; ?> onclick="carousel.goToPage(<?=$key; ?>);hasInteracted=true"></li>
-					<? endforeach; ?>
-				</ul>
-			</figure>
+			<? $carousel_options = array("type"=>2); ?>
+			<? $this->load->view('template/carousel', $carousel_options); ?>
 		<? endif; ?>
 		
 	</header>
