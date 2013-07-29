@@ -9,18 +9,8 @@
 	<section id="abovethefold" class="">
 		
 		<!-- carousel -->
-		<div id="carousel">
-			<div id="swipeview_wrapper"></div>
-			<div id="swipeview_relative_nav">
-				<span id="prev" onclick="carousel.prev();hasInteracted=true">&laquo;</span>
-				<span id="next" onclick="carousel.next();hasInteracted=true">&raquo;</span>
-			</div>
-			<ul id="swipeview_nav">
-				<? foreach($popular as $key => $article): ?>
-				<li <? if($key==0): ?>class="selected"<? endif; ?> onclick="carousel.goToPage(<?=$key?>);hasInteracted=true"></li>
-				<? endforeach; ?>
-			</ul>			
-		</div>
+		<? $carousel_options = array("type"=>1); ?>
+		<? $this->load->view('template/carousel', $carousel_options); ?>
 		
 		<!-- tweets -->
 		<div id="twitter-widget" class="hidetablet">
