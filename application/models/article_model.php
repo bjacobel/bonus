@@ -99,7 +99,7 @@ class Article_model extends CI_Model {
 		}
     }
     
-    function get_popular_articles_by_date($date_up_to, $date_since = false, $limit = '10', $featured=false, $author=false, $series=false)
+    function get_popular_articles_by_date($date_up_to, $date_since = false, $limit = '10', $featured=false, $author=false, $series=false, $must_have_photos=false)
     {
     	$this->db->select("
     		article.id, 
@@ -114,7 +114,7 @@ class Article_model extends CI_Model {
     		series.id 'series_id',
     		series.name 'series', 
     		articletype.name 'type', 
-    		photo.filename_small"
+    		photo.filename_large"
     		);
 		$this->db->from("article");
 		
@@ -130,6 +130,9 @@ class Article_model extends CI_Model {
 		$this->db->where("article.active", "1");
 		// show draft (unpublished) articles only if logged into bonus.
 		if(!bonus()) $this->db->where("article.published", "1");
+
+		// only show stories with photos if $must_have_photos
+		if($must_have_photos) $this->db->where("photo.filename_large IS NOT NULL");
 		
 		// for carousel or whatever, may choose to just fetch featured articles
 		if($featured) $this->db->where("article.featured", "1");		
