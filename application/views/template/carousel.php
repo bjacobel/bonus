@@ -41,12 +41,15 @@
         </div>
     </div>
     <script type="text/javascript">
-        window.carousel = $('#carousel').Swipe({
-            "auto": 4500,
-            "continuous": true,
-            "disableScroll": true,
-            "stopPropagation": true,
+        window.carousel = new Swipe(document.getElementById('carousel'), {
+            speed: 400,
+            auto: 5500,
+            continuous: true,
+            disableScroll: false,
+            stopPropagation: false,
         });
+        $("#carousel").mouseenter(function(){window.carousel.pause();});
+        $("#carousel").mouseleave(function(){window.carousel.resume();});
     </script>
 <? else: ?>
     <div><h1>Error</h1></div>
