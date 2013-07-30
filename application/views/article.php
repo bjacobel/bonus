@@ -321,17 +321,17 @@
 		{
 		    // SET TOOLTIPS
 		    $("#series, #articletitle, #articlesubtitle, #addauthor, #addauthorjob, #photocreditbonus, #photocaptionbonus, #articlebody").each(function() {
-		      if($("#"+$(this).attr("id")).html().trim() == "" || $("#"+$(this).attr("id")).html().trim() == "<br>" || $("#"+$(this).attr("id")).html().trim() == "<p></p>") {
-			$("#"+$(this).attr("id")).addClass("tooltip");
-		      }
-		      $("#"+$(this).attr("id")).focus(function() {
-			$(this).removeClass("tooltip");
-		      });
-		      $("#"+$(this).attr("id")).blur(function() {
-			if($(this).html().trim() == "" || $(this).html().trim() == "<br>" || $(this).html().trim() == "<p></p>") {
-			  $(this).addClass("tooltip");
-			}
-		      });
+		      	if($("#"+$(this).attr("id")).html().trim() == "" || $("#"+$(this).attr("id")).html().trim() == "<br>" || $("#"+$(this).attr("id")).html().trim() == "<p></p>") {
+					$("#"+$(this).attr("id")).addClass("tooltip");
+		      	}
+		      	$("#"+$(this).attr("id")).focus(function() {
+					$(this).removeClass("tooltip");
+		      	});
+		      	$("#"+$(this).attr("id")).blur(function() {
+					if($(this).html().trim() == "" || $(this).html().trim() == "<br>" || $(this).html().trim() == "<p></p>") {
+			  			$(this).addClass("tooltip");
+					}
+		      	});
 		    });
 		    
 		    // SET PUBLISHED
@@ -730,90 +730,86 @@
 		    });
 		    
 		    $(".articlemedia .bigAttachmentToggle").live("click", function(event) {
+		      	var attachmentId = $("#"+event.target.id).data("attachment-id");
+		      	var toggle = $("#"+event.target.id).data("toggle");
 		      
-		      var attachmentId = $("#"+event.target.id).data("attachment-id");
-		      var toggle = $("#"+event.target.id).data("toggle");
-		      
-		      $.ajax({
-			type: "POST",
-			url: "<?=site_url()?>article/ajax_attachment_big/"+attachmentId,
-			data: "big="+toggle,
-			success: function(result){
-			  if(result=="Big enabled.") {
-			    $("#attachment"+attachmentId).addClass("bigphoto");
-			    $("#bigEnable"+attachmentId).hide();
-			    $("#bigDisable"+attachmentId).show();
-			  }
-			  else if(result=="Big disabled.") {
-			    $("#attachment"+attachmentId).removeClass("bigphoto");
-			    $("#bigEnable"+attachmentId).show();
-			    $("#bigDisable"+attachmentId).hide();
-			  }
-			  //show alert
-							$("#savenotify").html(result);
-			}
-		      });
-		      
+		      	$.ajax({
+					type: "POST",
+					url: "<?=site_url()?>article/ajax_attachment_big/"+attachmentId,
+					data: "big="+toggle,
+					success: function(result){
+			  			if(result=="Big enabled.") {
+			    			$("#attachment"+attachmentId).addClass("bigphoto");
+			    			$("#bigEnable"+attachmentId).hide();
+						    $("#bigDisable"+attachmentId).show();
+						} else if(result=="Big disabled.") {
+						    $("#attachment"+attachmentId).removeClass("bigphoto");
+						    $("#bigEnable"+attachmentId).show();
+						    $("#bigDisable"+attachmentId).hide();
+						}
+						//show alert
+						$("#savenotify").html(result);
+					}
+			    });
 		    });
-		    
-		  });
+		});
 
-		  // ugh, i forget what this is even for.
-		  // i think to help autocomplete work on contenteditable?
-		  (function ($) {
-		    var original = $.fn.val;
-		    $.fn.val = function() {
-		      if ($(this).is('*[contenteditable=true]')) {
-			return $.fn.html.apply(this, arguments);
-		      };
-		      return original.apply(this, arguments);
-		    };
-		  })(jQuery);
+		// ugh, i forget what this is even for.
+		// i think to help autocomplete work on contenteditable?
+		(function ($) {
+			var original = $.fn.val;
+			$.fn.val = function() {
+				if ($(this).is('*[contenteditable=true]')) {
+					return $.fn.html.apply(this, arguments);
+				};
+				return original.apply(this, arguments);
+			};
+		})(jQuery);
 
-		  $(function() {
-		    $( "#addauthor" ).autocomplete({
-		      source: "<?=site_url()?>article/ajax_suggest/author/name"
-		    });
-		  });
+		$(function() {
+			$( "#addauthor" ).autocomplete({
+				source: "<?=site_url()?>article/ajax_suggest/author/name"
+			});
+		});
 
-		  $(function() {
-		    $( "#addauthorjob" ).autocomplete({
-		      source: "<?=site_url()?>article/ajax_suggest/job/name"
-		    });
-		  });
+		$(function() {
+			$( "#addauthorjob" ).autocomplete({
+				source: "<?=site_url()?>article/ajax_suggest/job/name"
+			});
+		});
 
 
-		  $(function() {
-		    $( "#photocreditbonus" ).autocomplete({
-		      source: "<?=site_url()?>article/ajax_suggest/author/name"
-		    });
-		  });
+		$(function() {
+			$( "#photocreditbonus" ).autocomplete({
+				source: "<?=site_url()?>article/ajax_suggest/author/name"
+			});
+		});
 
-		  <? if(!empty($photos)): ?>
-		  <? foreach($photos as $photo): ?>
-		  $(function() {
-		    $( "#photocredit<?=$photo->photo_id?>" ).autocomplete({
-		      source: "<?=site_url()?>article/ajax_suggest/author/name"
-		    });
-		  });	
-		  <? endforeach; ?>
-		  <? endif; ?>
-		  
-		  <? if(!empty($attachments)): ?>
-		  <? foreach($attachments as $attachment): ?>
-		  $(function() {
-		    $( "#attachmentcredit<?=$attachment->id?>" ).autocomplete({
-		      source: "<?=site_url()?>article/ajax_suggest/author/name"
-		    });
-		  });	
-		  <? endforeach; ?>
-		  <? endif; ?>
-		  
-		  $(function() {
-		    $( "#series" ).autocomplete({
-		      source: "<?=site_url()?>article/ajax_suggest/series/name"
-		    });
-		  });
+		<? if(!empty($photos)): ?>
+			<? foreach($photos as $photo): ?>
+				$(function() {
+					$( "#photocredit<?=$photo->photo_id?>" ).autocomplete({
+						source: "<?=site_url()?>article/ajax_suggest/author/name"
+					});
+				});	
+			<? endforeach; ?>
+		<? endif; ?>
+
+		<? if(!empty($attachments)): ?>
+			<? foreach($attachments as $attachment): ?>
+				$(function() {
+					$( "#attachmentcredit<?=$attachment->id?>" ).autocomplete({
+						source: "<?=site_url()?>article/ajax_suggest/author/name"
+					});
+				});
+			<? endforeach; ?>
+		<? endif; ?>
+
+		$(function() {
+			$( "#series" ).autocomplete({
+				source: "<?=site_url()?>article/ajax_suggest/series/name"
+			});
+		});
 
 	</script>
 
