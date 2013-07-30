@@ -917,9 +917,8 @@
 	  	}
 	</script>
 
-<? endif; ?>
+<? else: // references all the way back to the if(bonus) on line ~300 ?>
 
-<? if(!bonus()): // doesn't work with ckeditor, i think bc of the injection of IDs ?>
 <!-- Table of Contents -->
 	<script>
 		$(document).ready(function(){
@@ -935,50 +934,51 @@
 			    tocTopLink   : ''
 	    	});
 
-	    // Set up localScroll smooth scroller to scroll the whole document
-	    // when a table of contents link is clicked
-	    $('#toc_container').localScroll({
-	    	target:'body',
-	    	duration: '1000' //not duration timing is working
-	    });
+	    	// Set up localScroll smooth scroller to scroll the whole document
+	    	// when a table of contents link is clicked
+	    	$('#toc_container').localScroll({
+	    		target:'body',
+	    		duration: '1000' //not duration timing is working
+	    	});
 
-	    // not actually sure i want this to happen...
-	    // should the url change as ppl navigate the article? i guess so, right?
-	    // add section anchor to url
-	    $("#toc_container a").click(function () {
-	    	location.hash = $(this).attr('href');
-	    });
+	    	// not actually sure i want this to happen...
+	    	// should the url change as ppl navigate the article? i guess so, right?
+	    	// add section anchor to url
+	    	$("#toc_container a").click(function () {
+	    		location.hash = $(this).attr('href');
+	    	});
 
-	    // thanks hartbro!
-	    // http://blog.hartleybrody.com/creating-sticky-sidebar-widgets-that-scrolls-with-you/
-	    // function used to detect whether you've scrolled to an element
-	    function isScrolledTo(elem) {
-	    	var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
-	    	var docViewBottom = docViewTop + $(window).height();
-	    	var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
-	    	var elemBottom = elemTop + $(elem).height();
-	    	return ((elemTop <= docViewTop));
-	    }
+	    	// thanks hartbro!
+	    	// http://blog.hartleybrody.com/creating-sticky-sidebar-widgets-that-scrolls-with-you/
+	    	// function used to detect whether you've scrolled to an element
+	    	function isScrolledTo(elem) {
+	    		var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
+	    		var docViewBottom = docViewTop + $(window).height();
+	    		var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
+	    		var elemBottom = elemTop + $(elem).height();
+	    		return ((elemTop <= docViewTop));
+	    	}
 
-	    // set up the table of contents navigation stickiness
-	    var catcher = $('#toc_container_catcher');
-	    var sticky = $('#toc_container');
-	    $(window).scroll(function() {
-	    	if(isScrolledTo(sticky)) {
-				sticky.css('position','fixed');
-				sticky.css('top','100px');
-				var bodyLeftOffset = $("#articlebodycontainer").offset().left - 200;
-				sticky.css('left',bodyLeftOffset+'px');
-	      	}
-	      	var stopHeight = catcher.offset().top + catcher.height() - 200;
-	      	if ( stopHeight > sticky.offset().top) {
-				sticky.css('position','absolute');
-				sticky.css('top','0');
-				sticky.css('left','-200px');
-	     	}
+	    	// set up the table of contents navigation stickiness
+	    	var catcher = $('#toc_container_catcher');
+	    	var sticky = $('#toc_container');
+	    	$(window).scroll(function() {
+	    		if(isScrolledTo(sticky)) {
+					sticky.css('position','fixed');
+					sticky.css('top','100px');
+					var bodyLeftOffset = $("#articlebodycontainer").offset().left - 200;
+					sticky.css('left',bodyLeftOffset+'px');
+	    	  	}
+	    	  	var stopHeight = catcher.offset().top + catcher.height() - 200;
+	    	  	if ( stopHeight > sticky.offset().top) {
+					sticky.css('position','absolute');
+					sticky.css('top','0');
+					sticky.css('left','-200px');
+	    	 	}
+  			});
   		});
   	</script>
-<? endif; ?>
+<? endif; // closes the if(bonus()) from line ~300 ?>
 
 <? if(count($photos) > 1 && !bonus()): ?>
 	<!-- SwipeView. Only needed for slideshows. -->
