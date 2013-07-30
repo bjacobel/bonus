@@ -5,8 +5,8 @@
   	<? $this->load->view('template/bodyheader', $headerdata); ?>
 
   	<div id="content"> 
-    	<article id="mainstory" data-article-id="<?=$article->id?>">
-    		<header>
+		<article id="mainstory" data-article-id="<?=$article->id?>">
+			<header>
 				<hgroup class="articletitle-group">
 		  
 				  	<!-- NEXT / PREV -->
@@ -140,7 +140,7 @@
 				</div>
 	
 		    </header>                
-      
+  
 		    <!-- catcher is used to trigger sticky sidebar, currently disabled (see below) -->
 		    <div id="article-sidebar-catcher"></div>
 		    <!-- sidebar contains photos, videos, and other attachments -->
@@ -254,7 +254,7 @@
 			  		<? endif; ?>
 				</div>		
 		    </div>
-      
+  
 		    <div id="articlebodycontainer">			
 				<!-- placeholder for table of contents, to be injected by js -->
 				<div id="toc_container_catcher"></div>
@@ -938,14 +938,14 @@
 			    tocShowOnClick : false,
 			    tocTopLink   : ''
 	    	});
-    
+
 	    // Set up localScroll smooth scroller to scroll the whole document
 	    // when a table of contents link is clicked
 	    $('#toc_container').localScroll({
 	    	target:'body',
 	    	duration: '1000' //not duration timing is working
 	    });
-    
+
 	    // not actually sure i want this to happen...
 	    // should the url change as ppl navigate the article? i guess so, right?
 	    // add section anchor to url
@@ -963,7 +963,7 @@
 	    	var elemBottom = elemTop + $(elem).height();
 	    	return ((elemTop <= docViewTop));
 	    }
-    
+
 	    // set up the table of contents navigation stickiness
 	    var catcher = $('#toc_container_catcher');
 	    var sticky = $('#toc_container');
