@@ -38,6 +38,8 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 	
 	<!-- CSS -->
 	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css?v=6">
+	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/swipe.css?v=1">
+	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/swipeview.css?v=1">
 	
 	<!-- for mobile -->
 	<link rel="apple-touch-icon" href="<?=base_url()?>img/o-114.png"/>
@@ -57,9 +59,9 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 	<script type="text/javascript" src="http://use.typekit.com/rmt0nbm.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	
-	<!-- SwipeView -->
-	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/swipeview.css?v=1">
-	
+	<!-- Swipe.js -->
+	<script type="text/javascript" src="<?=base_url()?>js/swipe.js?v=1"></script>
+
 	<!-- for homepage -->
 	<? if($this->uri->segment(1) == "" || $this->uri->segment(1) == "browse"): ?>
 		<!-- rss -->

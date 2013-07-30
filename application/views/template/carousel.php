@@ -2,6 +2,7 @@
     OPTIONS:
     $bigphoto
     $author_format
+    $photos
  -->
 <? if($type==1): ?>
     <!-- in browse.php -->
@@ -31,6 +32,19 @@
         <? endforeach; ?>
       </ul>
     </figure>
+<? elseif($type=="new"): ?>
+    <div id="carousel" class="swipe">
+        <div class="swipe-wrap homepage">
+            <? foreach($photos as $key => $photo): ?>
+                <div style="background-image:url(<?= $photo ?>); height:100%; background-repeat:no-repeat; background-size:cover"></div>
+            <? endforeach; ?>
+        </div>
+    </div>
+    <div style='text-align:center;padding-top:20px;'>
+      <button onclick='carousel.prev()'>prev</button> 
+      <button onclick='carousel.next()'>next</button>
+    </div>
+    <script type="text/javascript">window.carousel = $('#carousel').Swipe().data('Swipe');</script>
 <? else: ?>
     <div><h1>Error</h1></div>
 <? endif; ?>

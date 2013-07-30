@@ -7,9 +7,12 @@
 <div id="content">
 	
 	<section id="abovethefold" class="">
-		
+
 		<!-- carousel -->
-		<? $carousel_options = array("type"=>1); ?>
+		<? $carousel_options = array(
+			"type"=>"new",
+			"photos"=>$popularphotos,
+		); ?>
 		<? $this->load->view('template/carousel', $carousel_options); ?>
 		
 		<!-- tweets -->
