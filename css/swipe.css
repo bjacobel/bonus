@@ -1,20 +1,74 @@
 /* "Required" styles for Swipe.js */
 .swipe {
-  overflow: hidden;
-  visibility: hidden;
-  position: relative;
+    overflow: hidden;
+    visibility: hidden;
+    position: relative;
 }
 .swipe-wrap {
-  overflow: hidden;
-  position: relative;
+    overflow: hidden;
+    position: relative;
 }
 .swipe-wrap > div {
-  float:left;
-  width:100%;
-  position: relative;
+    float:left;
+    width:100%;
+    position: relative;
 }
 /* end "required" styles */
 
+#carousel.homepage {
+    top:10px;
+    float: left;
+    width: 45%;
+    height: 445px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .swipe-wrap.homepage {
     height:100%;
+}
+
+.swipe-page {
+    height:100%;
+    background-repeat:no-repeat;
+    background-size:cover
+}
+
+.swipe-page-gradient.bottom {
+    top:40%;
+    height:40%;
+    position:relative;
+    background-image: url(images/fallback-gradient-bottom.png); 
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(rgba(0,0,0,0.7)));
+    background-image: -webkit-linear-gradient(top, transparent, rgba(0,0,0,0.7)); 
+    background-image:    -moz-linear-gradient(top, transparent, rgba(0,0,0,0.7));
+    background-image:     -ms-linear-gradient(top, transparent, rgba(0,0,0,0.7));
+    background-image:      -o-linear-gradient(top, transparent, rgba(0,0,0,0.7));
+    background-image:         linear-gradient(to bottom, transparent, rgba(0,0,0,0.7));
+}
+.swipe-page-gradient.top {
+    height:20%;
+    position:relative;
+    background-image: url(images/fallback-gradient-top.png); 
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0.7)), to(transparent));
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.4), transparent); 
+    background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.4), transparent);
+    background-image:     -ms-linear-gradient(top, rgba(0,0,0,0.4), transparent);
+    background-image:      -o-linear-gradient(top, rgba(0,0,0,0.4), transparent);
+    background-image:         linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+}
+
+/* iPad portrait */
+@media all and (max-width: 768px) {
+#carousel {
+    width: 50%;
+}
+
+/* for smartphones (read: iPhones) */
+@media all and (max-width: 480px) {
+#carousel {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 30px;
 }

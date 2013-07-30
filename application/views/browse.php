@@ -18,7 +18,7 @@
 		<!-- tweets -->
 		<div id="twitter-widget" class="hidetablet">
 			<a class="twitter-timeline" href="https://twitter.com/bowdoinorient" data-widget-id="265861494951002113">Tweets by @bowdoinorient</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			<script> //!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		</div>
 		
 		<!-- latest articles -->
@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', loaded, false);
 
 </script>
 
+<!-- Chartbeat -->
 <script type="text/javascript">
   var _sf_async_config = { uid: 45947, domain: 'bowdoinorient.com' };
   (function() {
@@ -185,6 +186,13 @@ document.addEventListener('DOMContentLoaded', loaded, false);
     window.onload = (typeof window.onload != 'function') ?
       loadChartbeat : function() { oldonload(); loadChartbeat(); };
   })();
+</script>
+
+<!-- FU Twitter. Last priority. -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		jQuery.getScript('http://widgets.twimg.com/j/2/widget.js');
+	});
 </script>
 
 </body>

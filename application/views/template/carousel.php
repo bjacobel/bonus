@@ -32,11 +32,17 @@
         <? endforeach; ?>
       </ul>
     </figure>
+
+
+    
 <? elseif($type=="new"): ?>
-    <div id="carousel" class="swipe">
+    <div id="carousel" class="swipe homepage">
         <div class="swipe-wrap homepage">
             <? foreach($photos as $key => $photo): ?>
-                <div style="background-image:url(<?= $photo ?>); height:100%; background-repeat:no-repeat; background-size:cover"></div>
+                <div class="swipe-page" style="background-image:url(<?= $photo ?>)">
+                    <div class="swipe-page-gradient top"></div>
+                    <div class="swipe-page-gradient bottom"></div>
+                </div>
             <? endforeach; ?>
         </div>
     </div>
