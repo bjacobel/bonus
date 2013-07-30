@@ -12,6 +12,7 @@
 		<? $carousel_options = array(
 			"type"=>"new",
 			"photos"=>$popularphotos,
+			"popular"=>$popular,
 		); ?>
 		<? $this->load->view('template/carousel', $carousel_options); ?>
 		
