@@ -26,7 +26,7 @@
 		</div>
 		
 		<? if(count($photos) > 1): ?>
-			<? $carousel_options = array("type"=>2); ?>
+			<? $carousel_options = array("type"=>2, "author_format"=>TRUE); ?>
 			<? $this->load->view('template/carousel', $carousel_options); ?>
 		<? endif; ?>
 		
