@@ -40,11 +40,14 @@
             <? endforeach; ?>
         </div>
     </div>
-    <div style='text-align:center;padding-top:20px;'>
-      <button onclick='carousel.prev()'>prev</button> 
-      <button onclick='carousel.next()'>next</button>
-    </div>
-    <script type="text/javascript">window.carousel = $('#carousel').Swipe().data('Swipe');</script>
+    <script type="text/javascript">
+        window.carousel = $('#carousel').Swipe({
+            "auto": 4500,
+            "continuous": true,
+            "disableScroll": true,
+            "stopPropagation": true,
+        });
+    </script>
 <? else: ?>
     <div><h1>Error</h1></div>
 <? endif; ?>
