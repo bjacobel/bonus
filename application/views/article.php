@@ -11,31 +11,31 @@
 
 				  	<!-- NEXT / PREV -->
 				  	<div class="article_header_nav hidetablet hidemobile">
-				    	<? if(!empty($series_previous)): ?>
-				    		<?$leftblock = array(
-				    		"blocks"=>$series_previous,
-				    		"leftmargin"=>TRUE,
-				    		"rightmargin"=>FALSE);
-				    		?>
+						<? if(!empty($series_previous)): ?>
+							<?$leftblock = array(
+							"blocks"=>$series_previous,
+							"leftmargin"=>TRUE,
+							"rightmargin"=>FALSE);
+							?>
 							<?$this->load->view('template/articleblock', $leftblock);?>
-				    		<script type="text/javascript">if(!isFullyVisible($('.leftmargin')))$(".leftmargin").hide();</script>
-				    	<? endif;?>
-				    	<? if(!empty($series_next)): ?>
+							<script type="text/javascript">if(!isFullyVisible($('.leftmargin')))$(".leftmargin").hide();</script>
+						<? endif;?>
+						<? if(!empty($series_next)): ?>
 							<?$rightblock = array(
 								"blocks"=>$series_next,
 								"rightmargin"=>TRUE,
 								"leftmargin"=>FALSE);
 							?>
 							<?$this->load->view('template/articleblock', $rightblock);?>
-				    		<script type="text/javascript">if(!isFullyVisible($('.rightmargin')))$(".rightmargin").hide();</script>
-				    	<? endif; ?>
+							<script type="text/javascript">if(!isFullyVisible($('.rightmargin')))$(".rightmargin").hide();</script>
+						<? endif; ?>
 				  	</div>
 
 				  	<? if($article->series || bonus()): ?>
 				  		<h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
-				    	<? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
-				    	<?=$series->name?>
-				    	<? if(!bonus()): ?></a><? endif; ?>
+						<? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
+						<?=$series->name?>
+						<? if(!bonus()): ?></a><? endif; ?>
 						</h3>
 				  	<? endif; ?>
 
@@ -62,22 +62,22 @@
 				  		<? endif; ?>
 				  		<? foreach($authors as $key => $author): ?>
 				  			<a href="<?=site_url()?>author/<?=$author->authorid?>">
-				    			<div id="author<?=$author->articleauthorid?>" class="authortile<? if(bonus()):?> bonus<? endif; ?> <?if($article->opinion == '1'):?>opinion<? endif; ?>">
+								<div id="author<?=$author->articleauthorid?>" class="authortile<? if(bonus()):?> bonus<? endif; ?> <?if($article->opinion == '1'):?>opinion<? endif; ?>">
 				      				<? if(bonus()): ?><div id="deleteAuthor<?=$author->articleauthorid?>" class="delete">&times;</div><? endif; ?>
 				      				<? if(!empty($author->photo) && $article->opinion): ?><img src="<?=base_url().'images/authors/'.$author->photo?>" class="authorpic"><? endif; ?>
 				      				<div class="authortext">
 										<div class="articleauthor"><?=$author->authorname?></div>
 										<div class="articleauthorjob"><?=$author->jobname?></div>
 				      				</div>
-				    			</div>
+								</div>
 				  			</a>
 				  		<? endforeach; ?>
 				  	<? endif; ?>
 
 				  	<? if(bonus()): ?>
 				  		<div class="authortile bonus <?if($article->opinion == '1'):?>opinion<? endif; ?>">
-				    		<div class="articleauthor" id="addauthor" contenteditable="true" title="Author"></div>
-				    		<div class="articleauthorjob" id="addauthorjob" contenteditable="true" title="Author job"></div>
+							<div class="articleauthor" id="addauthor" contenteditable="true" title="Author"></div>
+							<div class="articleauthorjob" id="addauthorjob" contenteditable="true" title="Author job"></div>
 						</div>
 					<? endif; ?>
 				</div>
@@ -216,29 +216,29 @@
 						<!-- image upload -->
 							<figure class="articlemedia mini">
 			  					<div id="dnd-holder" class="bonus-attachment">
-			    					<!-- imageupload input has opacity set to zero, width and height set to 100%, so you can click anywhere to upload -->
-			    					<input id="imageupload" class="imageupload" type=file accept="image/gif,image/jpeg,image/png">
-			    					<div id="dnd-instructions">
+									<!-- imageupload input has opacity set to zero, width and height set to 100%, so you can click anywhere to upload -->
+									<input id="imageupload" class="imageupload" type=file accept="image/gif,image/jpeg,image/png">
+									<div id="dnd-instructions">
 										<img src="<?=base_url()?>img/icon-uploadphoto.png" type="image/svg+xml" height="50" width="50" title=""></object>
 										<br/>Click or drag
 										<br/>JPG, PNG or GIF
 			      					</div>
-			    				</div>
-			    				<figcaption class="bonus">
+								</div>
+								<figcaption class="bonus">
 			      					<p id="photocreditbonus" class="photocredit" contenteditable="true" title="Photographer"></p>
 			      					<p id="photocaptionbonus" class="photocaption" contenteditable="true" title="Caption"></p>
-			    				</figcaption>
+								</figcaption>
 			  				</figure>
 
 			  				<!-- video attachment -->
 			  				<figure class="articlemedia mini">
-			    				<div id="video-attach" class="bonus-attachment">
+								<div id="video-attach" class="bonus-attachment">
 			      				<img src="<?=base_url()?>img/icon-video.png" width="45" title="Thomas Le Bas, from The Noun Project"></object>
 			      				<form>
 									<br/><input type="text" style="width:160px" name="video-url" placeholder="YouTube or Vimeo URL"></input>
 									<br/><button type="submit" id="attach-video">Attach</button>
 			      				</form>
-			    				</div>
+								</div>
 							</figure>
 
 			  		<? endif; ?>
@@ -331,93 +331,93 @@
 		    // #dry :(
 
 		    $('#articletitle').keydown(function() {
-		    	titleedited=true;
-		    	$('#articletitle').css("color", "darkred");
-		    	$('#title.charsremaining').html(200 - $('#articletitle').html().length);
-		    	if ($('#articletitle').html().length>200) {
-		    		$("button#savearticle").attr("disabled", "disabled");
-		    		$("#articletitle").addClass("toolongwarning");
-		    	} else if((200 - $('#articletitle').html().length) < 25) {
-		    		$("#articletitle").removeClass("toolongwarning");
-		    		$("button#savearticle").removeAttr("disabled");
-		    		$('#title.charsremaining').addClass("lowchars");
-		    	} else {
-		    		$('#title.charsremaining').removeClass("lowchars");
-		    	}
+				titleedited=true;
+				$('#articletitle').css("color", "darkred");
+				$('#title.charsremaining').html(200 - $('#articletitle').html().length);
+				if ($('#articletitle').html().length>200) {
+					$("button#savearticle").attr("disabled", "disabled");
+					$("#articletitle").addClass("toolongwarning");
+				} else if((200 - $('#articletitle').html().length) < 25) {
+					$("#articletitle").removeClass("toolongwarning");
+					$("button#savearticle").removeAttr("disabled");
+					$('#title.charsremaining').addClass("lowchars");
+				} else {
+					$('#title.charsremaining').removeClass("lowchars");
+				}
 		    });
 		    $('#articletitle').keyup(function() {
-		    	document.title = $('#articletitle').html() + " — The Bowdoin Orient";
+				document.title = $('#articletitle').html() + " — The Bowdoin Orient";
 		    });
 		    $("#articletitle").bind('paste', function() {
-		    	titleedited=true;
-		    	$('#articletitle').css("color", "darkred");
+				titleedited=true;
+				$('#articletitle').css("color", "darkred");
 		    });
 
 		    $('#articlesubtitle').keydown(function() {
-		    	subtitleedited=true;
-		    	$('#articlesubtitle').css("color", "darkred");
-		    	$('#subtitle.charsremaining').html(200 - $('#articlesubtitle').html().length);
-		    	if ($('#articlesubtitle').html().length>200) {
-		    		$("button#savearticle").attr("disabled", "disabled");
-		    		$("#articlesubtitle").addClass("toolongwarning");
-		    	} else if((200 - $('#articlesubtitle').html().length) < 25) {
-		    		$("#articlesubtitle").removeClass("toolongwarning");
-		    		$("button#savearticle").removeAttr("disabled");
-		    		$('#subtitle.charsremaining').addClass("lowchars");
-		    	} else {
-		    		$('#subtitle.charsremaining').removeClass("lowchars");
-		    	}
+				subtitleedited=true;
+				$('#articlesubtitle').css("color", "darkred");
+				$('#subtitle.charsremaining').html(200 - $('#articlesubtitle').html().length);
+				if ($('#articlesubtitle').html().length>200) {
+					$("button#savearticle").attr("disabled", "disabled");
+					$("#articlesubtitle").addClass("toolongwarning");
+				} else if((200 - $('#articlesubtitle').html().length) < 25) {
+					$("#articlesubtitle").removeClass("toolongwarning");
+					$("button#savearticle").removeAttr("disabled");
+					$('#subtitle.charsremaining').addClass("lowchars");
+				} else {
+					$('#subtitle.charsremaining').removeClass("lowchars");
+				}
 		    });
 		    $('#articlesubtitle').bind('paste', function() {
-		    	subtitleedited=true;
-		    	$('#articlesubtitle').css("color", "darkred");
+				subtitleedited=true;
+				$('#articlesubtitle').css("color", "darkred");
 		    });
 
 		    $('#articlebody').keydown(function() {
-		    	bodyedited=true;
-		    	window.onbeforeunload = "You have unsaved changes.";
-		    	window.onbeforeunload = function(e) {
+				bodyedited=true;
+				window.onbeforeunload = "You have unsaved changes.";
+				window.onbeforeunload = function(e) {
 					return "You have unsaved changes.";
-		    	};
-		    	$('#articlebody').css("color", "darkred");
+				};
+				$('#articlebody').css("color", "darkred");
 		    });
 		    $('#articlebody').bind('paste', function() {
-		    	bodyedited=true;
-		    	window.onbeforeunload = "You have unsaved changes.";
-		    	window.onbeforeunload = function(e) {
+				bodyedited=true;
+				window.onbeforeunload = "You have unsaved changes.";
+				window.onbeforeunload = function(e) {
 					return "You have unsaved changes.";
-		    	};
-		    	$('#articlebody').css("color", "darkred");
+				};
+				$('#articlebody').css("color", "darkred");
 		    });
 
 		    $('#photocreditbonus').keydown(function() {
-		    	photocreditedited=true;
-		    	$('#photocreditbonus').css("color", "darkred");
+				photocreditedited=true;
+				$('#photocreditbonus').css("color", "darkred");
 		    });
 		    $('#photocreditbonus').bind('paste', function() {
-		    	photocreditedited=true;
-		    	$('#photocreditbonus').css("color", "darkred");
+				photocreditedited=true;
+				$('#photocreditbonus').css("color", "darkred");
 		    });
 
 		    $('#photocaptionbonus').keydown(function() {
-		    	photocaptionedited=true;
-		    	$('#photocaptionbonus').css("color", "darkred");
+				photocaptionedited=true;
+				$('#photocaptionbonus').css("color", "darkred");
 		    });
 		    $('#photocaptionbonus').bind('paste', function() {
-		    	photocaptionedited=true;
-		    	$('#photocaptionbonus').css("color", "darkred");
+				photocaptionedited=true;
+				$('#photocaptionbonus').css("color", "darkred");
 		    });
 
 		    $("#publisharticle").click(function() {
-		    	if(confirm("Is this article ready for the world?")) {
+				if(confirm("Is this article ready for the world?")) {
 					window.publish = true;
 					window.published = true;
 					$("#savearticle").click();
-		    	}
+				}
 		    });
 
 		    $("#unpublish").click(function() {
-		    	if(confirm("Are you sure you want to unpublish this article? Unless you, like, JUST published it, that's probs not kosher.")) {
+				if(confirm("Are you sure you want to unpublish this article? Unless you, like, JUST published it, that's probs not kosher.")) {
 					window.unpublish = true;
 					window.published = false;
 					$("#savearticle").click();
@@ -426,11 +426,11 @@
 
 		    $("#savearticle").click(function() {
 
-		    	$("#savenotify").html("Saving...");
+				$("#savenotify").html("Saving...");
 
-	    		var statusMessage = '';
-	    		var refresh = false;
-	    		var calls = [];
+				var statusMessage = '';
+				var refresh = false;
+				var calls = [];
 
 	      		// if an image was added, save it.
 	      		// $('#dnd-holder').length != 0 && $('#dnd-holder').attr('class') == 'backgrounded'
@@ -443,13 +443,13 @@
 							  "&caption=" + urlencode($("#photocaptionbonus").html()),
 				   		success: function(result){
 				     		if(result=="Photo added.") {
-				    			refresh = true;
+								refresh = true;
 				     		}
-				    		statusMessage += result;
-		    				// set hasphoto to true; set photoadded to false? ugh.
+							statusMessage += result;
+							// set hasphoto to true; set photoadded to false? ugh.
 				   		},
 				   		error: function(XMLHttpRequest, textStatus, errorThrown){
-				    		$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+							$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
 						}
 					}));
 	      		}
@@ -466,14 +466,14 @@
 	      		if(photoEdits.length===0) {
 					// if array is empty, i.e. no attachments were found...
 				    var photoEditsJSON = false;
-	    		} else {
+				} else {
 					// else serialize array for ajaxing
 					var photoEditsJSON = JSON.stringify(photoEdits);
-	    		}
+				}
 
-	    		// save attachment credit/caption edits
-	    		var attachmentEdits = {};
-	    		$('.articlemedia.video-wrapper').each( function(index, attachment) {
+				// save attachment credit/caption edits
+				var attachmentEdits = {};
+				$('.articlemedia.video-wrapper').each( function(index, attachment) {
 					// gets attachment id from data-attachment-id attribute of figure
 					// note that this.data-attachment-id doesn't work, so i do this roundabout jquery select thing
 					var attachmentId = $("#"+attachment.id).data("attachment-id");
@@ -481,7 +481,7 @@
 					thisAttachmentEdits["credit"]  = $("#attachmentcredit"+attachmentId).html();
 					thisAttachmentEdits["caption"] = $("#attachmentcaption"+attachmentId).html();
 					attachmentEdits[attachmentId] = thisAttachmentEdits;
-	    		});
+				});
 	      		if(attachmentEdits.length===0) {
 					// if array is empty, i.e. no attachments were found...
 					var attachmentEditsJSON = false;
@@ -504,9 +504,9 @@
 					featured:		$('input[name=featured]').prop('checked'),
 					opinion:		$('input[name=opinion]').prop('checked')
 	      		};
-		    	if(photoEditsJSON)		{ ajaxrequest.photoEdits = 		urlencode(photoEditsJSON); }
-		    	if(attachmentEditsJSON)	{ ajaxrequest.attachmentEdits =	urlencode(attachmentEditsJSON); }
-		    	if(bodyedited) 			{ ajaxrequest.body = 			urlencode($("#articlebody").html()); }
+				if(photoEditsJSON)		{ ajaxrequest.photoEdits = 		urlencode(photoEditsJSON); }
+				if(attachmentEditsJSON)	{ ajaxrequest.attachmentEdits =	urlencode(attachmentEditsJSON); }
+				if(bodyedited) 			{ ajaxrequest.body = 			urlencode($("#articlebody").html()); }
 
 	      		// write title, subtitle, author, authorjob, bonus-meta stuff
 	      		// (regardless of whether they've been edited. sloppy.)
@@ -522,13 +522,13 @@
 		  				$("#savenotify").html(result);
 
 		  				if(window.published) {
-		    				$("#articletitle").removeClass("draft");
-		    				$("#publisharticle").hide();
-		    				$("#unpublish").show();
+							$("#articletitle").removeClass("draft");
+							$("#publisharticle").hide();
+							$("#unpublish").show();
 		  				} else {
 							$("#articletitle").addClass("draft");
-		    				$("#publisharticle").show();
-		    				$("#unpublish").hide();
+							$("#publisharticle").show();
+							$("#unpublish").hide();
 						}
 
 						titleedited=false;
@@ -553,10 +553,10 @@
 		  				window.location.reload();
 					}
 	      		});
-	    	});
+			});
 
 		    $("#deletearticle").click(function(event) {
-		    	event.preventDefault()
+				event.preventDefault()
 
 		      	if(confirm("Are you sure you want to delete this article? (If this article has already been published, it's probs not kosher to delete it.)")) {
 					$.ajax({
@@ -564,15 +564,15 @@
 			  			url: "<?=site_url()?>article/ajax_delete_article/<?=$article->id?>",
 			  			data: "remove=true",
 			  			success: function(result){
-			    			if(result=="Article deleted.") {
+							if(result=="Article deleted.") {
 			      				//return home
 								window.location = "<?=site_url()?>";
-			    			}
-			    			//show alert
+							}
+							//show alert
 							$("#savenotify").html(result);
 			  			},
 			  			error: function(XMLHttpRequest, textStatus, errorThrown){
-			    			$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+							$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
 			  			}
 					});
 		      	}
@@ -590,7 +590,7 @@
 					data: "remove=true",
 					success: function(result){
 			  			if(result=="Author removed.") {
-			    			$("#author"+articleAuthorId).hide("fast");
+							$("#author"+articleAuthorId).hide("fast");
 			  			}
 			  			//show alert
 						$("#savenotify").html(result);
@@ -612,7 +612,7 @@
 					data: "remove=true",
 					success: function(result){
 			  			if(result=="Photo deleted.") {
-			    			$("#photo"+photoId).hide("fast");
+							$("#photo"+photoId).hide("fast");
 			  			}
 			  			//show alert
 						$("#savenotify").html(result);
@@ -625,23 +625,23 @@
 
 		    $(".articlemedia .bigPhotoToggle").click(function(event) {
 
-		    	var photoId = $("#"+event.target.id).data("photo-id");
-		    	var toggle = $("#"+event.target.id).data("toggle");
+				var photoId = $("#"+event.target.id).data("photo-id");
+				var toggle = $("#"+event.target.id).data("toggle");
 
-		    	$.ajax({
-		    		type: "POST",
-		    		url: "<?=site_url()?>article/ajax_bigphoto/"+<?=$article->id?>,
-		    		data: "bigphoto="+toggle,
-		    		success: function(result){
-		    			if(result=="Bigphoto enabled.") {
-		    				$(".photo-wrapper").addClass("bigphoto");
-		    				$("#bigPhotoEnable"+photoId).hide();
-		    				$("#bigPhotoDisable"+photoId).show();
-		    			} else if(result=="Bigphoto disabled.") {
-		    				$(".photo-wrapper").removeClass("bigphoto");
-		    				$("#bigPhotoEnable"+photoId).show();
-		    				$("#bigPhotoDisable"+photoId).hide();
-		    			}
+				$.ajax({
+					type: "POST",
+					url: "<?=site_url()?>article/ajax_bigphoto/"+<?=$article->id?>,
+					data: "bigphoto="+toggle,
+					success: function(result){
+						if(result=="Bigphoto enabled.") {
+							$(".photo-wrapper").addClass("bigphoto");
+							$("#bigPhotoEnable"+photoId).hide();
+							$("#bigPhotoDisable"+photoId).show();
+						} else if(result=="Bigphoto disabled.") {
+							$(".photo-wrapper").removeClass("bigphoto");
+							$("#bigPhotoEnable"+photoId).show();
+							$("#bigPhotoDisable"+photoId).hide();
+						}
 						//show alert
 						$("#savenotify").html(result);
 					},
@@ -652,23 +652,23 @@
 			});
 
 		    $("#attach-video").click(function(event) {
-		    	event.preventDefault();
-		    	$.ajax({
-		    		type: "POST",
-		    		url: "<?=site_url()?>article/ajax_add_attachment/<?=$article->id?>",
-		    		data: {
-		    			type: 		"video",
-		    			content1: 	urlencode($('input[name=video-url]').val())
-		    		},
-		    		dataType: 'json',
-		    		success: function(result){
-		    			console.log(result);
-		    			if(result.success){
-		    				$("#savenotify").html(result.status);
+				event.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: "<?=site_url()?>article/ajax_add_attachment/<?=$article->id?>",
+					data: {
+						type: 		"video",
+						content1: 	urlencode($('input[name=video-url]').val())
+					},
+					dataType: 'json',
+					success: function(result){
+						console.log(result);
+						if(result.success){
+							$("#savenotify").html(result.status);
 
 						    //if it's a youtube video and there's an existing youtube video on the page...
 						    if(result.type == 'youtube' && $('.articlemedia.video-wrapper.youtube').length>0) {
-						    	console.log("Appending to YouTube playlist.");
+								console.log("Appending to YouTube playlist.");
 
 						      	//just add this new video to the playlist
 						      	$('.articlemedia.video-wrapper.youtube iframe').attr('src', $('.articlemedia.video-wrapper.youtube iframe').attr('src')+result.content1+',');
@@ -690,7 +690,7 @@
 
 		    $(".articlemedia .deleteAttachment").live("click", function(event) {
 
-		    	var attachmentId = event.target.id.replace("deleteAttachment","");
+				var attachmentId = event.target.id.replace("deleteAttachment","");
 
 		      	ajaxrequest = {
 					remove: true,
@@ -708,7 +708,7 @@
 			  			//show alert
 						$("#savenotify").html(result.status);
 			  			if(result.success) {
-			    			$("#attachment"+attachmentId).hide("fast");
+							$("#attachment"+attachmentId).hide("fast");
 			  			}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -727,8 +727,8 @@
 					data: "big="+toggle,
 					success: function(result){
 			  			if(result=="Big enabled.") {
-			    			$("#attachment"+attachmentId).addClass("bigphoto");
-			    			$("#bigEnable"+attachmentId).hide();
+							$("#attachment"+attachmentId).addClass("bigphoto");
+							$("#bigEnable"+attachmentId).hide();
 						    $("#bigDisable"+attachmentId).show();
 						} else if(result=="Big disabled.") {
 						    $("#attachment"+attachmentId).removeClass("bigphoto");
@@ -810,11 +810,11 @@
 		    // Customize editors for headers and tag list.
 		    // These editors don't need features like smileys, templates, iframes etc.
 		    if ( element.is( 'div' ) || element.getAttribute( 'id' ) == 'taglist' ) {
-		    	// Customize the editor configurations on "configLoaded" event,
-		    	// which is fired after the configuration file loading and
-		    	// execution. This makes it possible to change the
-		    	// configurations before the editor initialization takes place.
-		    	editor.on( 'configLoaded', function() {
+				// Customize the editor configurations on "configLoaded" event,
+				// which is fired after the configuration file loading and
+				// execution. This makes it possible to change the
+				// configurations before the editor initialization takes place.
+				editor.on( 'configLoaded', function() {
 
 			// Remove unnecessary plugins to make the editor simpler.
 				editor.config.removePlugins = 	'colorbutton,find,flash,font,' +
@@ -840,14 +840,14 @@
 		CKEDITOR.disableAutoInline = true;
 		var editor = CKEDITOR.inline( 'articlebody' );
 		editor.on('paste', function(evt) {
-	    	// Update the text
-	    	// evt.editor.setData(evt.editor.getData() + ' your additional comments.');
-	    	bodyedited=true;
-	    	window.onbeforeunload = "You have unsaved changes.";
-	    	window.onbeforeunload = function(e) {
-	    		return "You have unsaved changes.";
-	    	};
-	    	$('#articlebody').css("color", "darkred");
+			// Update the text
+			// evt.editor.setData(evt.editor.getData() + ' your additional comments.');
+			bodyedited=true;
+			window.onbeforeunload = "You have unsaved changes.";
+			window.onbeforeunload = function(e) {
+				return "You have unsaved changes.";
+			};
+			$('#articlebody').css("color", "darkred");
 		}, editor.element.$);
 
 	</script>
@@ -874,20 +874,20 @@
 
 		// drag-and-drop image
 		if(holder) {
-	    	holder.ondragover = function () { this.className = 'hover'; return false; };
-	    	holder.ondragend = function () { this.className = ''; return false; };
-	    	holder.ondrop = function (e) {
-	    		this.className = '';
-	    		e.preventDefault();
+			holder.ondragover = function () { this.className = 'hover'; return false; };
+			holder.ondragend = function () { this.className = ''; return false; };
+			holder.ondrop = function (e) {
+				this.className = '';
+				e.preventDefault();
 
 	      		var file = e.dataTransfer.files[0], reader = new FileReader();
 	      		reader.onload = function (event) {
 					imageLoad(event);
-	    		};
-	    		reader.readAsDataURL(file);
+				};
+				reader.readAsDataURL(file);
 
-	    		return false;
-	    	};
+				return false;
+			};
 		};
 
 		// for when a photo is added
@@ -922,49 +922,49 @@
 			    tocAutoClose : false,
 			    tocShowOnClick : false,
 			    tocTopLink   : ''
-	    	});
+			});
 
-	    	// Set up localScroll smooth scroller to scroll the whole document
-	    	// when a table of contents link is clicked
-	    	$('#toc_container').localScroll({
-	    		target:'body',
-	    		duration: '1000' //not duration timing is working
-	    	});
+			// Set up localScroll smooth scroller to scroll the whole document
+			// when a table of contents link is clicked
+			$('#toc_container').localScroll({
+				target:'body',
+				duration: '1000' //not duration timing is working
+			});
 
-	    	// not actually sure i want this to happen...
-	    	// should the url change as ppl navigate the article? i guess so, right?
-	    	// add section anchor to url
-	    	$("#toc_container a").click(function () {
-	    		location.hash = $(this).attr('href');
-	    	});
+			// not actually sure i want this to happen...
+			// should the url change as ppl navigate the article? i guess so, right?
+			// add section anchor to url
+			$("#toc_container a").click(function () {
+				location.hash = $(this).attr('href');
+			});
 
-	    	// thanks hartbro!
-	    	// http://blog.hartleybrody.com/creating-sticky-sidebar-widgets-that-scrolls-with-you/
-	    	// function used to detect whether you've scrolled to an element
-	    	function isScrolledTo(elem) {
-	    		var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
-	    		var docViewBottom = docViewTop + $(window).height();
-	    		var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
-	    		var elemBottom = elemTop + $(elem).height();
-	    		return ((elemTop <= docViewTop));
-	    	}
+			// thanks hartbro!
+			// http://blog.hartleybrody.com/creating-sticky-sidebar-widgets-that-scrolls-with-you/
+			// function used to detect whether you've scrolled to an element
+			function isScrolledTo(elem) {
+				var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
+				var docViewBottom = docViewTop + $(window).height();
+				var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
+				var elemBottom = elemTop + $(elem).height();
+				return ((elemTop <= docViewTop));
+			}
 
-	    	// set up the table of contents navigation stickiness
-	    	var catcher = $('#toc_container_catcher');
-	    	var sticky = $('#toc_container');
-	    	$(window).scroll(function() {
-	    		if(isScrolledTo(sticky)) {
+			// set up the table of contents navigation stickiness
+			var catcher = $('#toc_container_catcher');
+			var sticky = $('#toc_container');
+			$(window).scroll(function() {
+				if(isScrolledTo(sticky)) {
 					sticky.css('position','fixed');
 					sticky.css('top','100px');
 					var bodyLeftOffset = $("#articlebodycontainer").offset().left - 200;
 					sticky.css('left',bodyLeftOffset+'px');
-	    	  	}
-	    	  	var stopHeight = catcher.offset().top + catcher.height() - 200;
-	    	  	if ( stopHeight > sticky.offset().top) {
+			  	}
+			  	var stopHeight = catcher.offset().top + catcher.height() - 200;
+			  	if ( stopHeight > sticky.offset().top) {
 					sticky.css('position','absolute');
 					sticky.css('top','0');
 					sticky.css('left','-200px');
-	    	 	}
+			 	}
   			});
   		});
   	</script>

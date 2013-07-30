@@ -34,14 +34,16 @@
     </figure>
 
 
-    
+
 <? elseif($type=="new"): ?>
     <div id="carousel" class="swipe homepage">
         <div class="swipe-wrap homepage">
-            <? foreach($photos as $key => $photo): ?>
-                <div class="swipe-page" style="background-image:url(<?= $photo ?>)">
-                    <div class="swipe-page-gradient top"></div>
-                    <div class="swipe-page-gradient bottom"></div>
+            <? foreach($popular as $article): ?>
+                <div class="swipe-page" style="background-image:url(<?= "http://bowdoinorient.com/"."images/".$article->date."/".$article->filename_large?>)">
+                    <a class="swipe-page-link" href="<?= base_url()."article/".$article->id ?>">
+                        <div class="swipe-page-gradient top"></div>
+                        <div class="swipe-page-gradient bottom"></div>
+                    </a>
                 </div>
             <? endforeach; ?>
         </div>

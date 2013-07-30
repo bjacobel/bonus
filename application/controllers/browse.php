@@ -82,7 +82,7 @@ class Browse extends CI_Controller {
 			}
 
 			function photo_slice($n){
-			    return 'http://bowdoinorient.com/'.'images/'.$n->date.'/'.$n->filename_large;
+			    return base_url().'images/'.$n->date.'/'.$n->filename_large;
 			}
 
 			$popularphotos = array_map("photo_slice", $popular);
