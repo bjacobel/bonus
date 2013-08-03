@@ -25,7 +25,7 @@
 					<div class="street-address">6200 College Station</div>
 					<div class="locality">Brunswick</span>, <span class="region">Maine</span> <span class="postal-code">04011</div>
 				</div>
-				<div class="staff"><span class="position">Business Managers:</span> <br>Madison Whitley &amp; Maya Lloyd</div>
+				<div class="staff"><span class="position">Business Managers:</span> <br>Hy Khong &amp; Maya Lloyd</div>
 			</div>
 		</div>
 		
@@ -47,7 +47,9 @@
 					<li><strong>Non-camera-ready Ads:</strong> Our staff can design and typeset an ad for you. We charge an additional 10% of the cost of the first ad for this service.</li>
 					<li><strong>Payment:</strong> Invoices and one tear sheet will be sent out after the publication of each issue (unless the advertiser requests additional sheets or a whole issue).</li>
 				</ul>
-				
+			
+			<h3 style="clear:none;">Local Advertisers</h3>
+
 			<table>
 				<thead>
 					<tr>
@@ -58,32 +60,32 @@
 				<tbody>
 					<tr>
 						<td>Per Column Inch</td>
-						<td>$9.25 per vertical inch</td>
+						<td>$9.75 per vertical inch</td>
 					</tr>
 					<tr>
 						<td>Full Page Ad <br>
 						10.25 x 15 in.</td>
-						<td>$565.00</td>
+						<td>$585.00</td>
 					</tr>
 					<tr>
 						<td>Half Page Ad Horizontal <br>
 						10.25 x 7.5 in.</td>
-						<td>$295.00</td>
+						<td>$310.00</td>
 					</tr>
 					<tr>
 						<td>Half Page Ad Vertical (small) <br>
 						3.94 x 15.0 in.</td>
-						<td>$240.00</td>
+						<td>$260.00</td>
 					</tr>
 					<tr>
 						<td>Half Page Ad Vertical (large) <br>
 						6.04 x 15.0 in.</td>
-						<td>$355.00</td>
+						<td>$370.00</td>
 					</tr>
 					<tr>
 						<td>Quarter Page Ad <br>
 						6.04 x 6.0 in.</td>
-						<td>$166.50</td>
+						<td>$175.00</td>
 					</tr>
 					<tr>
 						<td>Classified Ads and Inserts</td>
@@ -91,10 +93,27 @@
 					</tr>
 					<tr>
 						<td>Business Cards</td>
-						<td>Can be run as ads at a flat charge of $20.00.</td>
+						<td>Can be run as ads at a flat charge of $25.00.</td>
 					
 				</tr></tbody>
 			</table>
+
+			<p>For further information involving local ads, please contact our business manager. <br>
+				<strong>Hy Khong</strong> <br>
+				<em>Bowdoin Orient Business Manager</em> <br>
+				Phone: (207) 725-3053<br>
+				Email: <a href="mailto: orientads@gmail.com">orientads@gmail.com</a>
+			</p>
+
+			<h3 style="clear:none;">National/Regional Advertisers</h3>
+
+			<p>For further information involving local ads, please contact our MediaMate representative. <br>
+				<strong>Allison Barnard</strong> <br>
+				<em>MediaMate, LLC.</em> <br>
+				<em>Account Manager</em> <br>
+				Phone: (1-800) 897-7711 ext 121<br>
+				Email: <a href="mailto: abarnard@mymediamate.com">abarnard@mymediamate.com</a>
+			</p>
 			
 			<h3>Production Schedule <em>(2013–2014)</em></h3>
 				<p>Dates in gray are non-publication dates.</p>
@@ -286,30 +305,9 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
-				
-				
-				<h3>Contacts</h3>
-							
-				<p>For further information involving local ads, please contact our business team. <br>
-				<strong>Madison Whitley</strong> <br>
-				<em>Bowdoin Orient Business Team</em> <br>
-				Phone: (207) 725-3053<br>
-				Email: <a href="mailto: orientads@bowdoin.edu">orientads@bowdoin.edu</a>
-				</p>
-	
-				<p>For further information involving national ads, please contact our representative. <br>
-				<strong>Alisha Gianakakis</strong> <br>
-				<em>Account Manager</em> <br>
-				Toll-Free Phone: 1-888-897-7711 x 121 <br>
-				Fax: 978-231-0300<br>
-				Email: <a href="mailto:agianakakis@mymediamate.com">agianakakis@mymediamate.com</a> 
-				</p>
-	
+				</div>	
 		</div>
-			  
 	</article>
-
 </div>
 
 <? $this->load->view('template/bodyfooter', $footerdata); ?>
