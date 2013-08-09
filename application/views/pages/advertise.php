@@ -107,7 +107,7 @@
 
 			<h3 style="clear:none;">National/Regional Advertisers</h3>
 
-			<p>For further information involving local ads, please contact our MediaMate representative. <br>
+			<p>For further information involving national or regional ads, please contact our MediaMate representative. <br>
 				<strong>Allison Barnard</strong> <br>
 				<em>MediaMate, LLC.</em> <br>
 				<em>Account Manager</em> <br>
