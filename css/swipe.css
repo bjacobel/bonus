@@ -41,30 +41,62 @@
     display:block;
 }
 
-.swipe-page-gradient.bottom {
-    top:40%;
-    height:40%;
-    position:relative;
-    background-image: url(images/fallback-gradient-bottom.png); 
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(rgba(0,0,0,0.7)));
-    background-image: -webkit-linear-gradient(top, transparent, rgba(0,0,0,0.7)); 
-    background-image:    -moz-linear-gradient(top, transparent, rgba(0,0,0,0.7));
-    background-image:     -ms-linear-gradient(top, transparent, rgba(0,0,0,0.7));
-    background-image:      -o-linear-gradient(top, transparent, rgba(0,0,0,0.7));
-    background-image:         linear-gradient(to bottom, transparent, rgba(0,0,0,0.7));
-}
 .swipe-page-gradient.top {
-    height:20%;
+    height:25%;
     position:relative;
     background-image: url(images/fallback-gradient-top.png); 
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0.7)), to(transparent));
-    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.4), transparent); 
-    background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.4), transparent);
-    background-image:     -ms-linear-gradient(top, rgba(0,0,0,0.4), transparent);
-    background-image:      -o-linear-gradient(top, rgba(0,0,0,0.4), transparent);
-    background-image:         linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0.6)), to(transparent));
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.6), transparent); 
+    background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.6), transparent);
+    background-image:     -ms-linear-gradient(top, rgba(0,0,0,0.6), transparent);
+    background-image:      -o-linear-gradient(top, rgba(0,0,0,0.6), transparent);
+    background-image:         linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
 }
 
+.swipe-text {
+    text-decoration:none;
+    color:white;
+    position:absolute;
+    text-shadow: 
+        1px 0px 8px black,
+        -1px 0px 8px black,
+        0px 1px 8px black,
+        0px -1px 8px black;
+    left:15px;
+    top:-20px;
+    font-family: schoolbook-web-condensed,Georgia;
+    font-weight: normal;
+    font-size: 24pt;
+    margin-right:10px;
+    -webkit-transition: text-shadow 0.15s linear;  /* Chrome 1-25, Safari 3.2+ */
+       -moz-transition: text-shadow 0.15s linear;  /* Firefox 4-15 */
+         -o-transition: text-shadow 0.15s linear;  /* Opera 10.50–12.00 */
+            transition: text-shadow 0.15s linear;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}  
+
+.swipe-page-link:hover > .swipe-page-gradient > .swipe-text {
+    text-shadow: 
+        1px 0px 12px black,
+        -1px 0px 12px black,
+        0px 1px 12px black,
+        0px -1px 12px black;
+}
+
+.chevron {
+    position:absolute;
+    top:50%;
+    height:35px;
+    width:35px;
+    color:white;
+}
+
+.chevron.next {
+    right:5px;
+}
+
+.chevron.prev {
+    left:15px;
+}
 /* iPad portrait */
 @media all and (max-width: 768px) {
 #carousel {

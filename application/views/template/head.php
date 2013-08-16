@@ -58,6 +58,9 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 	<!-- TypeKit -->
 	<script type="text/javascript" src="http://use.typekit.com/rmt0nbm.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<!-- Font Awesome (icons) -->
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	
 	<!-- Swipe.js -->
 	<script type="text/javascript" src="<?=base_url()?>js/swipe.js?v=1"></script>

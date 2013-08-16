@@ -41,8 +41,13 @@
             <? foreach($popular as $article): ?>
                 <div class="swipe-page" style="background-image:url(<?= "http://bowdoinorient.com/"."images/".$article->date."/".$article->filename_large?>)">
                     <a class="swipe-page-link" href="<?= base_url()."article/".$article->id ?>">
-                        <div class="swipe-page-gradient top"></div>
-                        <div class="swipe-page-gradient bottom"></div>
+                        <div class="swipe-page-gradient top">
+                            <? if(isset($article->title)): ?>
+                                <h3 class="swipe-text"><?= $article->title ?></h3>
+                            <? endif; ?>
+                        </div>
+                        <div class="chevron next"><i class="icon-chevron-right icon-2x"></i></div>
+                        <div class="chevron prev"><i class="icon-chevron-left icon-2x"></i></div>
                     </a>
                 </div>
             <? endforeach; ?>
