@@ -97,6 +97,7 @@
 .chevron.prev {
     left:15px;
 }
+
 /* iPad portrait */
 @media all and (max-width: 768px) {
 #carousel {
