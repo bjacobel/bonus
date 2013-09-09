@@ -33,6 +33,51 @@
     </ul>
     </nav>  
 
+    <h3>Add PDF Issue</h3>
+    
+    <script>
+    function validateIssueForm()
+    {
+        var scribd_id_value=document.forms["create_issue"]["id"].value;
+        var volume_value=document.forms["create_issue"]["volume"].value;
+        var number_value=document.forms["create_issue"]["number"].value;
+        if (!/^\d+$/i.test(volume_value))
+        {
+            alert("Volume must be a number.");
+            return false;
+        }
+        if (!(number_value>=0 && number_value <=24))
+        {
+            alert("Issue number must be between 0 and 24.");
+            return false;
+        }
+        if (!/^\d{9}$/i.test(scribd_id_value))
+        {
+            alert("Scribd IDs are nine-digit numbers found in the URLs of Scribd pages.");
+            return false;
+        }
+        return confirm('Are you sure you want to create a new issue and Scribd preview?');
+    }
+    </script>
+    <? 
+        $attributes = array(
+            'name' => 'create_issue',
+            'class' => 'create_issue', 
+            'id' => 'create_issue',
+            'onsubmit'  => "return validateIssueForm()"
+            );
+        $hidden = array(
+            'form_name' => 'create_issue',
+            );
+        echo form_open('bonus/issues',$attributes,$hidden);
+    ?>
+    Volume: <input type="text" name="volume"><br/>
+    Number: <input type="text" name="number"><br/>
+    Publish date: <input type="datetime" name="publish_date" value="<?=date("Y-m-d",time())?>"><br/>
+    Scribd ID: <input type="textarea" name="id"/><br/>
+    <?= form_submit('submit',"Add issue") ?>
+    <?= form_close() ?>
+
     <h3>Existing PDF issues</h3>
     
     <? if(!empty($issues)): ?>

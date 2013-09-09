@@ -100,6 +100,21 @@ class Bonus extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in'))
 		{
+			
+			if (!empty($_POST))
+			{
+				$insertdata = array(
+					'volume' 		=> $this->input->post("volume"),
+					'issue_number' 		=> $this->input->post("number"),
+					'issue_date' 		=> $this->input->post("publish_date"),
+					'scribd'		=> $this->input->post("id"),
+					'ready'			=> "1",
+				);
+				$this->tools_model->add_issue($insertdata);
+			}
+
+			$this->load->helper(array('form'));
+
 			$data->quote = $this->attachments_model->get_random_quote(false);
 			$data->issues = $this->tools_model->get_issues();
 

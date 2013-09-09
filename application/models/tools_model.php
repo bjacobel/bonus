@@ -35,6 +35,11 @@ class Tools_model extends CI_Model {
         $query = $this->db->get('issue');
         return $query->result();
     }
+
+    function add_issue($data)
+    {
+        return $this->db->insert('issue', $data); 
+    }
     
     function add_alert($data)
     {
