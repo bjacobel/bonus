@@ -27,6 +27,14 @@ class Tools_model extends CI_Model {
 		$query = $this->db->get('alerts');
 		return $query->result();
     }
+
+    function get_issues()
+    {
+        $this->db->order_by('issue_date', 'desc');
+        $this->db->where('scribd !=', 'NULL');
+        $query = $this->db->get('issue');
+        return $query->result();
+    }
     
     function add_alert($data)
     {

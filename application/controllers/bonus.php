@@ -95,6 +95,40 @@ class Bonus extends CI_Controller {
 		}
 	}
 	
+
+	function issues()
+	{
+		if($this->session->userdata('logged_in'))
+		{
+			$data->quote = $this->attachments_model->get_random_quote(false);
+			$data->issues = $this->tools_model->get_issues();
+
+			foreach ($data->issues as $issue) {
+				$scribd_thumb_url = false;
+				if($issue->scribd) {
+					$ch = curl_init();	
+					curl_setopt($ch, CURLOPT_URL, "http://api.scribd.com/api?method=thumbnail.get&api_key=34m5pzwzt3fqi0fod70cc&doc_id=".$issue->scribd);
+					curl_setopt($ch, CURLOPT_HEADER, 0);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					$scribd_thumb_response = curl_exec($ch);
+					curl_close($ch);
+
+					if(!empty($scribd_thumb_response)){
+						$scribd_thumb = new SimpleXMLElement($scribd_thumb_response);
+						$issue->preview = $scribd_thumb->thumbnail_url;
+					}
+				}
+			}
+
+			$this->load->view('bonus/issues', $data);
+		}
+		else
+		{
+			//If no session, redirect to login page
+			redirect('bonus/login', 'refresh');
+		}
+	}
+
 	function deletealert($id)
 	{
 		if($this->session->userdata('logged_in'))

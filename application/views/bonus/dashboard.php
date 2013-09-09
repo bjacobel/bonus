@@ -29,6 +29,7 @@
 	<li><?=anchor('bonus/dashboard','Dashboard')?></li>
 	<li><?=anchor('bonus/authors','Authors')?></li>
 	<li><?=anchor('bonus/alerts','Alerts')?></li>
+	<li><?=anchor('bonus/issues','Issues')?></li>
 	</ul>
 	</nav>	
 		
