@@ -249,6 +249,17 @@
 	      </form>
 	    </div>
 	  </figure>
+
+	  <!-- HTML inliner -->
+	  <figure class="articlemedia mini">
+	    <div id="html-attach" class="bonus-attachment">
+	      <img src="<?=base_url()?>img/icon-code.png" width="45" title=""></object>
+	      <form>
+		<br/><input type="text" style="width:160px" name="html-code" placeholder="Raw HTML code"></input>
+		<br/><button type="submit" id="insert-code">Insert</button>
+	      </form>
+	    </div>
+	  </figure>
 	  
 	  <? endif; ?>
 	</div>		
