@@ -74,7 +74,7 @@
             transition: text-shadow 0.15s linear;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
 }  
 
-.swipe-page-link:hover > .swipe-page-gradient > .swipe-text {
+.swipe-page-link:hover > .swipe-page-gradient > .swipe-text { /* so ghetto */
     text-shadow: 
         1px 0px 12px black,
         -1px 0px 12px black,
@@ -84,18 +84,45 @@
 
 .chevron {
     position:absolute;
-    top:50%;
-    height:35px;
-    width:35px;
+    top:0;
+    height:100%;
+    width:25px;
     color:white;
+    text-shadow:         
+        1px 0px 3px black,
+        -1px 0px 3px black,
+        0px 1px 3px black,
+        0px -1px 3px black;
+    -webkit-transition: text-shadow 0.15s linear;  /* Chrome 1-25, Safari 3.2+ */
+       -moz-transition: text-shadow 0.15s linear;  /* Firefox 4-15 */
+         -o-transition: text-shadow 0.15s linear;  /* Opera 10.50–12.00 */
+            transition: text-shadow 0.15s linear;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+.chevron:hover {
+    text-shadow:         
+        1px 0px 9px black,
+        -1px 0px 9px black,
+        0px 1px 9px black,
+        0px -1px 9px black;
+}
+
+.chevron i {
+    position:absolute;
+    margin:0 auto;
+    top:45%;
 }
 
 .chevron.next {
-    right:5px;
+    position:absolute;
+    right:0;
+    padding-right:15px;
 }
 
 .chevron.prev {
-    left:15px;
+    position:absolute;
+    left:0;
+    padding-left:15px;
 }
 
 /* iPad portrait */

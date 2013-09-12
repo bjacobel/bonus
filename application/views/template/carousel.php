@@ -63,6 +63,17 @@
         });
         $("#carousel").mouseenter(function(){window.carousel.pause();});
         $("#carousel").mouseleave(function(){window.carousel.resume();});
+        $(".chevron.next").click(function(e){e.preventDefault(); window.carousel.next();});
+        $(".chevron.prev").click(function(e){e.preventDefault(); window.carousel.prev();});
+        $(document).keydown(function(e){
+            if (e.keyCode == 37) {
+                window.carousel.prev();
+                return false;
+            } else if (e.keyCode == 39) {
+                window.carousel.next();
+                return false;
+            }
+        });
     </script>
 <? else: ?>
     <div><h1>Error</h1></div>
