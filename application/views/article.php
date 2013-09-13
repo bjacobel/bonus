@@ -307,800 +307,800 @@
 
 <!-- INDENTATION REFACTORED TO HERE -->
 
-  <? $this->load->view('template/bodyfooter', $footerdata); ?>
+<? $this->load->view('template/bodyfooter', $footerdata); ?>
 
-  <? $this->load->view('bonus/bonusbar', TRUE); ?>
+<? $this->load->view('bonus/bonusbar', TRUE); ?>
 
-  <? if(bonus()): ?>
+<? if(bonus()): ?>
 
-  <script>
+<script>
 
-  var titleedited=false;
-  var subtitleedited=false;
-  var bodyedited=false;
-  var photoadded=false;
-  var hasphoto=false;
-  var photocreditedited=false;
-  var photocaptionedited=false;
+	var titleedited=false;
+	var subtitleedited=false;
+	var bodyedited=false;
+	var photoadded=false;
+	var hasphoto=false;
+	var photocreditedited=false;
+	var photocaptionedited=false;
 
-  $(document).ready(function()
-  {
-    // SET TOOLTIPS
-    $("#series, #articletitle, #articlesubtitle, #addauthor, #addauthorjob, #photocreditbonus, #photocaptionbonus, #articlebody").each(function() {
-      if($("#"+$(this).attr("id")).html().trim() == "" || $("#"+$(this).attr("id")).html().trim() == "<br>" || $("#"+$(this).attr("id")).html().trim() == "<p></p>") {
-	$("#"+$(this).attr("id")).addClass("tooltip");
-      }
-      $("#"+$(this).attr("id")).focus(function() {
-	$(this).removeClass("tooltip");
-      });
-      $("#"+$(this).attr("id")).blur(function() {
-	if($(this).html().trim() == "" || $(this).html().trim() == "<br>" || $(this).html().trim() == "<p></p>") {
-	  $(this).addClass("tooltip");
-	}
-      });
-    });
+	$(document).ready(function() {
+	    // SET TOOLTIPS
+	    $("#series, #articletitle, #articlesubtitle, #addauthor, #addauthorjob, #photocreditbonus, #photocaptionbonus, #articlebody").each(function() {
+		    if($("#"+$(this).attr("id")).html().trim() == "" || $("#"+$(this).attr("id")).html().trim() == "<br>" || $("#"+$(this).attr("id")).html().trim() == "<p></p>") {
+				$("#"+$(this).attr("id")).addClass("tooltip");
+		    }
+		    $("#"+$(this).attr("id")).focus(function() {
+				$(this).removeClass("tooltip");
+		    });
+		    $("#"+$(this).attr("id")).blur(function() {
+				if($(this).html().trim() == "" || $(this).html().trim() == "<br>" || $(this).html().trim() == "<p></p>") {
+					$(this).addClass("tooltip");
+				}
+		    });
+	    });
     
-    // SET PUBLISHED
-    window.published = <?= $article->published ? 'true' : 'false' ?>;
+	    // SET PUBLISHED
+	    window.published = <?= $article->published ? 'true' : 'false' ?>;
     
-    // DETECT CHANGES AND SUCH
-    // surely there's a better way to handle this
-    // if only i really knew javascript
-    // #dry :(
+	    // DETECT CHANGES AND SUCH
+	    // surely there's a better way to handle this
+	    // if only i really knew javascript
+	    // #dry :(
 
-    $('#articletitle').keydown(function() {
-    	titleedited=true;
-    	$('#articletitle').css("color", "darkred");
-    	$('#title.charsremaining').html(200 - $('#articletitle').html().length);
-    	if ($('#articletitle').html().length>200) {
-    		$("button#savearticle").attr("disabled", "disabled");
-    		$("#articletitle").addClass("toolongwarning");
-    	} else if((200 - $('#articletitle').html().length) < 25) {
-    		$("#articletitle").removeClass("toolongwarning");
-    		$("button#savearticle").removeAttr("disabled");
-    		$('#title.charsremaining').addClass("lowchars");
-    	} else {
-    		$('#title.charsremaining').removeClass("lowchars");
-    	}
-    });
-    $('#articletitle').keyup(function() {
-    	document.title = $('#articletitle').html() + " — The Bowdoin Orient";
-    });
-    $("#articletitle").bind('paste', function() {
-    	titleedited=true;
-    	$('#articletitle').css("color", "darkred");
-    });
+    	// toph this is an unbelievable clusterfuck
+    	// love, brian
+
+	    $('#articletitle').keydown(function() {
+	    	titleedited=true;
+	    	$('#articletitle').css("color", "darkred");
+	    	$('#title.charsremaining').html(200 - $('#articletitle').html().length);
+	    	if ($('#articletitle').html().length>200) {
+	    		$("button#savearticle").attr("disabled", "disabled");
+	    		$("#articletitle").addClass("toolongwarning");
+	    	} else if((200 - $('#articletitle').html().length) < 25) {
+	    		$("#articletitle").removeClass("toolongwarning");
+	    		$("button#savearticle").removeAttr("disabled");
+	    		$('#title.charsremaining').addClass("lowchars");
+	    	} else {
+	    		$('#title.charsremaining').removeClass("lowchars");
+	    	}
+	    });
+
+	    $('#articletitle').keyup(function() {
+	    	document.title = $('#articletitle').html() + " — The Bowdoin Orient";
+	    });
+
+	    $("#articletitle").bind('paste', function() {
+	    	titleedited=true;
+	    	$('#articletitle').css("color", "darkred");
+	    });
     
-    $('#articlesubtitle').keydown(function() {
-    	subtitleedited=true;
-    	$('#articlesubtitle').css("color", "darkred");
-    	$('#subtitle.charsremaining').html(200 - $('#articlesubtitle').html().length);
-    	if ($('#articlesubtitle').html().length>200) {
-    		$("button#savearticle").attr("disabled", "disabled");
-    		$("#articlesubtitle").addClass("toolongwarning");
-    	} else if((200 - $('#articlesubtitle').html().length) < 25) {
-    		$("#articlesubtitle").removeClass("toolongwarning");
-    		$("button#savearticle").removeAttr("disabled");
-    		$('#subtitle.charsremaining').addClass("lowchars");
-    	} else {
-    		$('#subtitle.charsremaining').removeClass("lowchars");
-    	}
-    });
-    $('#articlesubtitle').bind('paste', function() {
-    	subtitleedited=true;
-    	$('#articlesubtitle').css("color", "darkred");
-    });
+	    $('#articlesubtitle').keydown(function() {
+	    	subtitleedited=true;
+	    	$('#articlesubtitle').css("color", "darkred");
+	    	$('#subtitle.charsremaining').html(200 - $('#articlesubtitle').html().length);
+	    	if ($('#articlesubtitle').html().length>200) {
+	    		$("button#savearticle").attr("disabled", "disabled");
+	    		$("#articlesubtitle").addClass("toolongwarning");
+	    	} else if((200 - $('#articlesubtitle').html().length) < 25) {
+	    		$("#articlesubtitle").removeClass("toolongwarning");
+	    		$("button#savearticle").removeAttr("disabled");
+	    		$('#subtitle.charsremaining').addClass("lowchars");
+	    	} else {
+	    		$('#subtitle.charsremaining').removeClass("lowchars");
+	    	}
+	    });
+
+	    $('#articlesubtitle').bind('paste', function() {
+	    	subtitleedited=true;
+	    	$('#articlesubtitle').css("color", "darkred");
+	    });
     
-    $('#articlebody').keydown(function() {
-    	bodyedited=true;
-    	window.onbeforeunload = "You have unsaved changes.";
-    	window.onbeforeunload = function(e) {
-			return "You have unsaved changes.";
-    	};
-    	$('#articlebody').css("color", "darkred");
-    });
-    $('#articlebody').bind('paste', function() {
-    	bodyedited=true;
-    	window.onbeforeunload = "You have unsaved changes.";
-    	window.onbeforeunload = function(e) {
-			return "You have unsaved changes.";
-    	};
-    	$('#articlebody').css("color", "darkred");
-    });
+	    $('#articlebody').keydown(function() {
+	    	bodyedited=true;
+	    	window.onbeforeunload = "You have unsaved changes.";
+	    	window.onbeforeunload = function(e) {
+				return "You have unsaved changes.";
+	    	};
+	    	$('#articlebody').css("color", "darkred");
+	    });
+
+	    $('#articlebody').bind('paste', function() {
+	    	bodyedited=true;
+	    	window.onbeforeunload = "You have unsaved changes.";
+	    	window.onbeforeunload = function(e) {
+				return "You have unsaved changes.";
+	    	};
+	    	$('#articlebody').css("color", "darkred");
+	    });
     
-    $('#photocreditbonus').keydown(function() {
-    	photocreditedited=true;
-    	$('#photocreditbonus').css("color", "darkred");
-    });
-    $('#photocreditbonus').bind('paste', function() {
-    	photocreditedited=true;
-    	$('#photocreditbonus').css("color", "darkred");
-    });
+	    $('#photocreditbonus').keydown(function() {
+	    	photocreditedited=true;
+	    	$('#photocreditbonus').css("color", "darkred");
+	    });
+
+	    $('#photocreditbonus').bind('paste', function() {
+	    	photocreditedited=true;
+	    	$('#photocreditbonus').css("color", "darkred");
+	    });
+	    
+	    $('#photocaptionbonus').keydown(function() {
+	    	photocaptionedited=true;
+	    	$('#photocaptionbonus').css("color", "darkred");
+	    });
+	    
+	    $('#photocaptionbonus').bind('paste', function() {
+	    	photocaptionedited=true;
+	    	$('#photocaptionbonus').css("color", "darkred");
+	    });
     
-    $('#photocaptionbonus').keydown(function() {
-    	photocaptionedited=true;
-    	$('#photocaptionbonus').css("color", "darkred");
-    });
-    $('#photocaptionbonus').bind('paste', function() {
-    	photocaptionedited=true;
-    	$('#photocaptionbonus').css("color", "darkred");
-    });
+	    $("#publisharticle").click(function() {
+		    if(confirm("Is this article ready for the world?")) {
+				window.publish = true;
+				window.published = true;
+				$("#savearticle").click();
+		    }
+	    });
     
-    $("#publisharticle").click(function() {
-      if(confirm("Is this article ready for the world?")) {
-	window.publish = true;
-	window.published = true;
-	$("#savearticle").click();
-      }
-    });
+	    $("#unpublish").click(function() {
+	    	if(confirm("Are you sure you want to unpublish this article? Unless you, like, JUST published it, that's probs not kosher.")) {
+				window.unpublish = true;
+				window.published = false;
+				$("#savearticle").click();
+		    }
+	    });
     
-    $("#unpublish").click(function() {
-      if(confirm("Are you sure you want to unpublish this article? Unless you, like, JUST published it, that's probs not kosher.")) {
-	window.unpublish = true;
-	window.published = false;
-	$("#savearticle").click();
-      }
-    });
-    
-    $("#savearticle").click(function() {
+	    $("#savearticle").click(function() {
+		    $("#savenotify").html("Saving...");
+		    var statusMessage = '';
+		    var refresh = false;
+    		var calls = [];
       
-      $("#savenotify").html("Saving...");
+		    // if an image was added, save it.
+		    // $('#dnd-holder').length != 0 && $('#dnd-holder').attr('class') == 'backgrounded'
+		    if(photoadded) {
+				calls.push($.ajax({
+					type: "POST",
+					url: "<?=site_url()?>article/ajax_add_photo/<?=$article->date?>/<?=$article->id?>",
+					data: 
+						"img=" + $('#dnd-holder').css('background-image') + 
+				        "&credit=" + urlencode($("#photocreditbonus").html()) +
+                        "&caption=" + urlencode($("#photocaptionbonus").html()),
+				    success: function(result){
+					    if(result=="Photo added.") {
+					    	refresh = true;
+					    }
+					    statusMessage += result;
+					    // set hasphoto to true; set photoadded to false? ugh.
+				    },
+				    error: function(XMLHttpRequest, textStatus, errorThrown){
+					    $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+					}
+				}));
+		    }
       
-      var statusMessage = '';
-      var refresh = false;
-      var calls = [];
-      
-      // if an image was added, save it.
-      // $('#dnd-holder').length != 0 && $('#dnd-holder').attr('class') == 'backgrounded'
-      if(photoadded) {
-	calls.push($.ajax({
-	  type: "POST",
-	  url: "<?=site_url()?>article/ajax_add_photo/<?=$article->date?>/<?=$article->id?>",
-	  data: 
-			  "img=" + $('#dnd-holder').css('background-image') + 
-						        "&credit=" + urlencode($("#photocreditbonus").html()) +
-						                                                           "&caption=" + urlencode($("#photocaptionbonus").html()),
-			   success: function(result){
-			     if(result=="Photo added.") {
-			       refresh = true;
-			     }
-			     statusMessage += result;
-	    // set hasphoto to true; set photoadded to false? ugh.
-			   },
-			   error: function(XMLHttpRequest, textStatus, errorThrown){
-			     $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-			   }
-	}));
-      }
-      
-      // save photo credit/caption edits 
-      var photoEdits = {};
-      $('.articlemedia.photo-wrapper').each( function(index, photo) {
-	var photoId = $("#"+photo.id).data("photo-id");
-	var thisPhotoEdits = {};
-	thisPhotoEdits["credit"] = $("#photocredit"+photoId).html();
-	thisPhotoEdits["caption"] = $("#photocaption"+photoId).html(); 
-	photoEdits[photoId] = thisPhotoEdits;
-      });
-      if(photoEdits.length===0) {
-	// if array is empty, i.e. no attachments were found...
-			     var photoEditsJSON = false;
-      }
-      else {
-	// else serialize array for ajaxing
+		    // save photo credit/caption edits 
+		    var photoEdits = {};
+
+		    $('.articlemedia.photo-wrapper').each( function(index, photo) {
+				var photoId = $("#"+photo.id).data("photo-id");
+				var thisPhotoEdits = {};
+				thisPhotoEdits["credit"] = $("#photocredit"+photoId).html();
+				thisPhotoEdits["caption"] = $("#photocaption"+photoId).html(); 
+				photoEdits[photoId] = thisPhotoEdits;
+		    });
+
+		    if(photoEdits.length===0) {
+				// if array is empty, i.e. no attachments were found...
+			    var photoEditsJSON = false;
+		    } else {
+				// else serialize array for ajaxing
 				var photoEditsJSON = JSON.stringify(photoEdits);
-      }
+		    }
       
-      // save attachment credit/caption edits
-      var attachmentEdits = {};
-      $('.articlemedia.video-wrapper').each( function(index, attachment) {
-	// gets attachment id from data-attachment-id attribute of figure
+		    // save attachment credit/caption edits
+		    var attachmentEdits = {};
+
+		    $('.articlemedia.video-wrapper').each( function(index, attachment) {
+				// gets attachment id from data-attachment-id attribute of figure
 				// note that this.data-attachment-id doesn't work, so i do this roundabout jquery select thing
 				var attachmentId = $("#"+attachment.id).data("attachment-id");
-	var thisAttachmentEdits = {};
-	thisAttachmentEdits["credit"]  = $("#attachmentcredit"+attachmentId).html();
-	thisAttachmentEdits["caption"] = $("#attachmentcaption"+attachmentId).html(); 
-	attachmentEdits[attachmentId] = thisAttachmentEdits;
-      });
-      if(attachmentEdits.length===0) {
-	// if array is empty, i.e. no attachments were found...
-				  var attachmentEditsJSON = false;
-      }
-      else {
-	// else serialize array for ajaxing
+				var thisAttachmentEdits = {};
+				thisAttachmentEdits["credit"]  = $("#attachmentcredit"+attachmentId).html();
+				thisAttachmentEdits["caption"] = $("#attachmentcaption"+attachmentId).html(); 
+				attachmentEdits[attachmentId] = thisAttachmentEdits;
+		    });
+	    
+		    if(attachmentEdits.length===0) {
+				// if array is empty, i.e. no attachments were found...
+				var attachmentEditsJSON = false;
+		    } else {
+				// else serialize array for ajaxing
 				var attachmentEditsJSON = JSON.stringify(attachmentEdits);
-      }
+		    }
       
-      var ajaxrequest = {
-	title: 			urlencode($("#articletitle").html()),
-			 subtitle:		urlencode($("#articlesubtitle").html()),
-			 series:			urlencode($("#series").html()),
-			 author:			urlencode($("#addauthor").html()),
-			 authorjob:		urlencode($("#addauthorjob").html()),
-			 volume:			urlencode($('input[name=volume]').val()),
-			 issue_number:	urlencode($('input[name=issue_number]').val()),
-			 section_id:		urlencode($('input[name=section_id]').val()),
-			 priority:		urlencode($('input[name=priority]').val()),
-			 published:		window.published,
-			 featured:		$('input[name=featured]').prop('checked'),
-			 opinion:		$('input[name=opinion]').prop('checked')
-      };
-      if(photoEditsJSON)		{ ajaxrequest.photoEdits = 		urlencode(photoEditsJSON); }
-      if(attachmentEditsJSON)	{ ajaxrequest.attachmentEdits =	urlencode(attachmentEditsJSON); }
-      if(bodyedited) 			{ ajaxrequest.body = 			urlencode($("#articlebody").html()); }
+		    var ajaxrequest = {
+				title: 			urlencode($("#articletitle").html()),
+				subtitle:		urlencode($("#articlesubtitle").html()),
+				series:			urlencode($("#series").html()),
+				author:			urlencode($("#addauthor").html()),
+				authorjob:		urlencode($("#addauthorjob").html()),
+				volume:			urlencode($('input[name=volume]').val()),
+				issue_number:	urlencode($('input[name=issue_number]').val()),
+				section_id:		urlencode($('input[name=section_id]').val()),
+				priority:		urlencode($('input[name=priority]').val()),
+				published:		window.published,
+				featured:		$('input[name=featured]').prop('checked'),
+				opinion:		$('input[name=opinion]').prop('checked')
+		    };
+
+		    if(photoEditsJSON)		{ ajaxrequest.photoEdits = 		urlencode(photoEditsJSON); }
+		    if(attachmentEditsJSON)	{ ajaxrequest.attachmentEdits =	urlencode(attachmentEditsJSON); }
+		    if(bodyedited) 			{ ajaxrequest.body = 			urlencode($("#articlebody").html()); }
       
-      // write title, subtitle, author, authorjob, bonus-meta stuff
-      // (regardless of whether they've been edited. sloppy.)
-      // and body, only if it's been edited
-      calls.push($.ajax({
-	type: "POST",
-	url: "<?=site_url()?>article/edit/<?=$article->id?>",
-	data: ajaxrequest,
-	success: function(result){
-	  if(result=="Refreshing...") { refresh = true; }
-	  
-	  statusMessage += result;
-	  
-	  $("#savenotify").html(result);
-	  
-	  if(window.published)
-	  {
-	    $("#articletitle").removeClass("draft");
-	    $("#publisharticle").hide();
-	    $("#unpublish").show();
-	  }
-	  else
-					{
-					  $("#articletitle").addClass("draft");
-	    $("#publisharticle").show();
-	    $("#unpublish").hide();
+		    // write title, subtitle, author, authorjob, bonus-meta stuff
+		    // (regardless of whether they've been edited. sloppy.)
+		    // and body, only if it's been edited
+		    calls.push($.ajax({
+				type: "POST",
+				url: "<?=site_url()?>article/edit/<?=$article->id?>",
+				data: ajaxrequest,
+				success: function(result){
+					if(result=="Refreshing...") { refresh = true; }
+					statusMessage += result;
+					$("#savenotify").html(result);
+					if(window.published) {
+					    $("#articletitle").removeClass("draft");
+					    $("#publisharticle").hide();
+					    $("#unpublish").show();
+					} else {
+						$("#articletitle").addClass("draft");
+					    $("#publisharticle").show();
+					    $("#unpublish").hide();
 					}
 				        
 					titleedited=false;
-	  subtitleedited=false;
-	  bodyedited=false;
-	  photocreditedited=false;
-	  photocaptionedited=false;
-	  window.onbeforeunload = null; // remove message blocking navigation away from page
-	  $('#articletitle, #articlesubtitle, #articlebody, #photocreditbonus, #photocaptionbonus').css("color", "inherit");
-	},
-	error: function(XMLHttpRequest, textStatus, errorThrown){
-	  $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-	}
-      }));
+					subtitleedited=false;
+					bodyedited=false;
+					photocreditedited=false;
+					photocaptionedited=false;
+					window.onbeforeunload = null; // remove message blocking navigation away from page
+					$('#articletitle, #articlesubtitle, #articlebody, #photocreditbonus, #photocaptionbonus').css("color", "inherit");
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+				}
+		    }));
       
-      $.when.apply($, calls).then(function() {
-	$("#savenotify").html(statusMessage);
-	if(window.publish) {
-	  window.location = "<?=site_url()?>"; 
-	}
-	if(refresh) { 
-	  window.location.reload(); 
-	}
-      });
-      
-    } );
+		    $.when.apply($, calls).then(function() {
+				$("#savenotify").html(statusMessage);
+				if(window.publish) {
+					window.location = "<?=site_url()?>"; 
+				}
+				if(refresh) { 
+					window.location.reload(); 
+				}
+		    });  
+	    });
     
-    $("#deletearticle").click(function(event) {
-      event.preventDefault()
+
+
+	    $("#deletearticle").click(function(event) {
+		    event.preventDefault()
       
-      if(confirm("Are you sure you want to delete this article? (If this article has already been published, it's probs not kosher to delete it.)")) {
-	$.ajax({
-	  type: "POST",
-	  url: "<?=site_url()?>article/ajax_delete_article/<?=$article->id?>",
-	  data: "remove=true",
-	  success: function(result){
-	    if(result=="Article deleted.") {
-	      //return home
+		    if(confirm("Are you sure you want to delete this article? (If this article has already been published, it's probs not kosher to delete it.)")) {
+				$.ajax({
+					type: "POST",
+					url: "<?=site_url()?>article/ajax_delete_article/<?=$article->id?>",
+					data: "remove=true",
+					success: function(result){
+					    if(result=="Article deleted.") {
+						    //return home
 							window.location = "<?=site_url()?>";
+				    }
+				    //show alert
+					$("#savenotify").html(result);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+				    $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+				}
+			});
 	    }
-	    //show alert
-						$("#savenotify").html(result);
-	  },
-	  error: function(XMLHttpRequest, textStatus, errorThrown){
-	    $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-	  }
-	});
-      }
-      
-    } );
+    });
     
+
+
     $(".authortile .delete").click(function(event) {
+	    event.preventDefault();
+	    var articleAuthorId = event.target.id.replace("deleteAuthor","");
       
-      event.preventDefault();
-      var articleAuthorId = event.target.id.replace("deleteAuthor","");
-      
-      $.ajax({
-	type: "POST",
-	url: "<?=site_url()?>article/ajax_remove_article_author/"+articleAuthorId,
-	data: "remove=true",
-	success: function(result){
-	  if(result=="Author removed.") {
-	    $("#author"+articleAuthorId).hide("fast");
-	  }
-	  //show alert
-					$("#savenotify").html(result);
-	},
-	error: function(XMLHttpRequest, textStatus, errorThrown){
-	  $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-	}
-      });
-      
+	    $.ajax({
+			type: "POST",
+			url: "<?=site_url()?>article/ajax_remove_article_author/"+articleAuthorId,
+			data: "remove=true",
+			success: function(result){
+				if(result=="Author removed.") {
+				    $("#author"+articleAuthorId).hide("fast");
+				}
+				//show alert
+				$("#savenotify").html(result);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+			  $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+			}
+	    });
     });
     
+
+
     $(".articlemedia .deletePhoto").click(function(event) {
+	    var photoId = event.target.id.replace("deletePhoto","");
       
-      var photoId = event.target.id.replace("deletePhoto","");
-      
-      $.ajax({
-	type: "POST",
-	url: "<?=site_url()?>article/ajax_delete_photo/"+photoId,
-	data: "remove=true",
-	success: function(result){
-	  if(result=="Photo deleted.") {
-	    $("#photo"+photoId).hide("fast");
-	  }
-	  //show alert
-					$("#savenotify").html(result);
-	},
-	error: function(XMLHttpRequest, textStatus, errorThrown){
-	  $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-	}
-      });
-      
+	    $.ajax({
+			type: "POST",
+			url: "<?=site_url()?>article/ajax_delete_photo/"+photoId,
+			data: "remove=true",
+			success: function(result){
+				if(result=="Photo deleted.") {
+				    $("#photo"+photoId).hide("fast");
+				}
+
+				//show alert
+				$("#savenotify").html(result);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+			}
+	    });
     });
     
+
+
     $(".articlemedia .bigPhotoToggle").click(function(event) {
+	    var photoId = $("#"+event.target.id).data("photo-id");
+	    var toggle = $("#"+event.target.id).data("toggle");
       
-      var photoId = $("#"+event.target.id).data("photo-id");
-      var toggle = $("#"+event.target.id).data("toggle");
-      
-      $.ajax({
-	type: "POST",
-	url: "<?=site_url()?>article/ajax_bigphoto/"+<?=$article->id?>,
-	data: "bigphoto="+toggle,
-	success: function(result){
-	  if(result=="Bigphoto enabled.") {
-	    $(".photo-wrapper").addClass("bigphoto");
-	    $("#bigPhotoEnable"+photoId).hide();
-	    $("#bigPhotoDisable"+photoId).show();
-	  }
-	  else if(result=="Bigphoto disabled.") {
-	    $(".photo-wrapper").removeClass("bigphoto");
-	    $("#bigPhotoEnable"+photoId).show();
-	    $("#bigPhotoDisable"+photoId).hide();
-	  }
-	  //show alert
-					$("#savenotify").html(result);
-	},
-	error: function(XMLHttpRequest, textStatus, errorThrown){
-	  $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-	}
-      });
-      
+	    $.ajax({
+			type: "POST",
+			url: "<?=site_url()?>article/ajax_bigphoto/"+<?=$article->id?>,
+			data: "bigphoto="+toggle,
+			success: function(result){
+				if(result=="Bigphoto enabled.") {
+				    $(".photo-wrapper").addClass("bigphoto");
+				    $("#bigPhotoEnable"+photoId).hide();
+				    $("#bigPhotoDisable"+photoId).show();
+				} else if(result=="Bigphoto disabled.") {
+				    $(".photo-wrapper").removeClass("bigphoto");
+				    $("#bigPhotoEnable"+photoId).show();
+				    $("#bigPhotoDisable"+photoId).hide();
+				}
+			
+				//show alert
+				$("#savenotify").html(result);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+			}
+	    });
     });
     
+
+
     $("#attach-video").click(function(event) {
-      event.preventDefault();
-      $.ajax({
-	type: "POST",
-	url: "<?=site_url()?>article/ajax_add_attachment/<?=$article->id?>",
-	data: {
-	  type: 		"video",
-	  content1: 	urlencode($('input[name=video-url]').val())
-	},
-	dataType: 'json',
-	success: function(result){
-	  console.log(result);
-	  if(result.success)
-	  {
-	    $("#savenotify").html(result.status);
+	    event.preventDefault();
+	    $.ajax({
+			type: "POST",
+			url: "<?=site_url()?>article/ajax_add_attachment/<?=$article->id?>",
+			data: {
+				type: 		"video",
+				content1: 	urlencode($('input[name=video-url]').val())
+			},
+			dataType: 'json',
+			success: function(result){
+				console.log(result);
+				if(result.success) {
+				    $("#savenotify").html(result.status);
 	    
-	    //if it's a youtube video and there's an existing youtube video on the page...
-				  if(result.type == 'youtube' && $('.articlemedia.video-wrapper.youtube').length>0) {
-				    console.log("Appending to YouTube playlist.");
-	      //just add this new video to the playlist
-							$('.articlemedia.video-wrapper.youtube iframe').attr('src', $('.articlemedia.video-wrapper.youtube iframe').attr('src')+result.content1+',');
-	      $('.articlemedia.video-wrapper.youtube iframe').addClass('playlist');
-				  }
-				  else {
-				    $("#article-attachments").append(result.view);
-				  }
-				  // clear the video URL input from the attachment form
-						$('input[name=video-url]').val('');
-	  }
-	  else
-					{
-					  $("#savenotify").html(result.status);
+				    //if it's a youtube video and there's an existing youtube video on the page...
+					if(result.type == 'youtube' && $('.articlemedia.video-wrapper.youtube').length>0) {
+					    console.log("Appending to YouTube playlist.");
+					    
+					    //just add this new video to the playlist
+						$('.articlemedia.video-wrapper.youtube iframe').attr('src', $('.articlemedia.video-wrapper.youtube iframe').attr('src')+result.content1+',');
+					    $('.articlemedia.video-wrapper.youtube iframe').addClass('playlist');
+					} else {
+						$("#article-attachments").append(result.view);
 					}
-	},
-	error: function(XMLHttpRequest, textStatus, errorThrown){
-	  $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-	}
-      });
+				
+					// clear the video URL input from the attachment form
+					$('input[name=video-url]').val('');
+				} else {
+					$("#savenotify").html(result.status);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+			}
+	    });
     });
+
+
     
     $(".articlemedia .deleteAttachment").live("click", function(event) {
+    	var attachmentId = event.target.id.replace("deleteAttachment","");
       
-      var attachmentId = event.target.id.replace("deleteAttachment","");
+    	ajaxrequest = {
+			remove: true,
+			article_id: $("#mainstory").data('article-id')
+	    };
+
+	    if($("#attachment"+attachmentId).data('playlist').length > 0) {
+	    	ajaxrequest.playlist = true;
+	    }
       
-      ajaxrequest = {
-	remove: true,
-	article_id: $("#mainstory").data('article-id')
-      };
-      if($("#attachment"+attachmentId).data('playlist').length > 0) ajaxrequest.playlist = true;
-      
-      $.ajax({
-	type: "POST",
-	url: "<?=site_url()?>article/ajax_delete_attachment/"+attachmentId,
-	data: ajaxrequest,
-	dataType: 'json',
-	success: function(result){
-	  //show alert
-					$("#savenotify").html(result.status);
-	  if(result.success) {
-	    $("#attachment"+attachmentId).hide("fast");
-	  }
-	},
-	error: function(XMLHttpRequest, textStatus, errorThrown){
-	  $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
-	}
-      });
-      
+	    $.ajax({
+			type: "POST",
+			url: "<?=site_url()?>article/ajax_delete_attachment/"+attachmentId,
+			data: ajaxrequest,
+			dataType: 'json',
+			success: function(result){
+				//show alert
+				$("#savenotify").html(result.status);
+				if(result.success) {
+				    $("#attachment"+attachmentId).hide("fast");
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+			}
+	    });
     });
+
     
     $(".articlemedia .bigAttachmentToggle").live("click", function(event) {
+	    var attachmentId = $("#"+event.target.id).data("attachment-id");
+	    var toggle = $("#"+event.target.id).data("toggle");
       
-      var attachmentId = $("#"+event.target.id).data("attachment-id");
-      var toggle = $("#"+event.target.id).data("toggle");
-      
-      $.ajax({
-	type: "POST",
-	url: "<?=site_url()?>article/ajax_attachment_big/"+attachmentId,
-	data: "big="+toggle,
-	success: function(result){
-	  if(result=="Big enabled.") {
-	    $("#attachment"+attachmentId).addClass("bigphoto");
-	    $("#bigEnable"+attachmentId).hide();
-	    $("#bigDisable"+attachmentId).show();
-	  }
-	  else if(result=="Big disabled.") {
-	    $("#attachment"+attachmentId).removeClass("bigphoto");
-	    $("#bigEnable"+attachmentId).show();
-	    $("#bigDisable"+attachmentId).hide();
-	  }
-	  //show alert
-					$("#savenotify").html(result);
-	}
-      });
-      
-    });
-    
-  });
-
-  // ugh, i forget what this is even for.
-  // i think to help autocomplete work on contenteditable?
-  (function ($) {
-    var original = $.fn.val;
-    $.fn.val = function() {
-      if ($(this).is('*[contenteditable=true]')) {
-	return $.fn.html.apply(this, arguments);
-      };
-      return original.apply(this, arguments);
-    };
-  })(jQuery);
-
-  $(function() {
-    $( "#addauthor" ).autocomplete({
-      source: "<?=site_url()?>article/ajax_suggest/author/name"
-    });
-  });
-
-  $(function() {
-    $( "#addauthorjob" ).autocomplete({
-      source: "<?=site_url()?>article/ajax_suggest/job/name"
-    });
-  });
-
-
-  $(function() {
-    $( "#photocreditbonus" ).autocomplete({
-      source: "<?=site_url()?>article/ajax_suggest/author/name"
-    });
-  });
-
-  <? if(!empty($photos)): ?>
-  <? foreach($photos as $photo): ?>
-  $(function() {
-    $( "#photocredit<?=$photo->photo_id?>" ).autocomplete({
-      source: "<?=site_url()?>article/ajax_suggest/author/name"
-    });
-  });	
-  <? endforeach; ?>
-  <? endif; ?>
-  
-  <? if(!empty($attachments)): ?>
-  <? foreach($attachments as $attachment): ?>
-  $(function() {
-    $( "#attachmentcredit<?=$attachment->id?>" ).autocomplete({
-      source: "<?=site_url()?>article/ajax_suggest/author/name"
-    });
-  });	
-  <? endforeach; ?>
-  <? endif; ?>
-  
-  $(function() {
-    $( "#series" ).autocomplete({
-      source: "<?=site_url()?>article/ajax_suggest/series/name"
-    });
-  });
-
-  </script>
-
-  <!-- CK Editor -->
-  <script>
-
-  CKEDITOR.on( 'instanceCreated', function( event ) {
-    var editor = event.editor,
-	element = editor.element;
-
-    // Customize editors for headers and tag list.
-    // These editors don't need features like smileys, templates, iframes etc.
-    if ( element.is( 'div' ) || element.getAttribute( 'id' ) == 'taglist' ) {
-      // Customize the editor configurations on "configLoaded" event,
-      // which is fired after the configuration file loading and
-      // execution. This makes it possible to change the
-      // configurations before the editor initialization takes place.
-      editor.on( 'configLoaded', function() {
-
-	// Remove unnecessary plugins to make the editor simpler.
-					  editor.config.removePlugins = 'colorbutton,find,flash,font,' +
-							                'forms,iframe,image,newpage,scayt,' +
-							                'smiley,specialchar,stylescombo,templates,wsc,contextmenu,liststyle,tabletools';
-
-	// Rearrange the layout of the toolbar.
-						                        editor.config.toolbarGroups = [
-							                  { name: 'editing',		groups: [ 'basicstyles', 'links' ], items: ['Format', 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight'] },
-							                                               { name: 'undo' },
-							                                               { name: 'clipboard',	groups: [ 'clipboard' ], items: ['RemoveFormat'] },
-							                                               { name: 'showblocks', items: ['ShowBlocks']}
-						                                                      ];
-      });
-    }
-  });
-
-  
-  // We need to turn off the automatic editor creation first.
-  CKEDITOR.disableAutoInline = true;
-  var editor = CKEDITOR.inline( 'articlebody' );
-  
-  editor.on('paste', function(evt) {
-    // Update the text
-    // evt.editor.setData(evt.editor.getData() + ' your additional comments.');
-    bodyedited=true;
-    window.onbeforeunload = "You have unsaved changes.";
-    window.onbeforeunload = function(e) {
-      return "You have unsaved changes.";
-    };
-    $('#articlebody').css("color", "darkred");
-
-  }, editor.element.$);
-  
-  </script>
-
-  <!-- image upload, drag-and-drop or file upload input -->
-  <!-- from @rem's http://html5demos.com/file-api-simple -->
-  <!--  and @rem's http://html5demos.com/file-api -->
-  <script>
-  var upload = document.getElementById('imageupload'),
-      holder = document.getElementById('dnd-holder');
-
-  upload.onchange = function (e) {
-    e.preventDefault();
-
-    var file = upload.files[0],
-	reader = new FileReader();
-    reader.onload = function (event) {
-      imageLoad(event);
-    };
-    reader.readAsDataURL(file);
-
-    return false;
-  };
-  
-  // drag-and-drop image
-  if(holder) {
-    holder.ondragover = function () { this.className = 'hover'; return false; };
-    holder.ondragend = function () { this.className = ''; return false; };
-    holder.ondrop = function (e) {
-      this.className = '';
-      e.preventDefault();
-      
-      var file = e.dataTransfer.files[0],
-	  reader = new FileReader();
-      reader.onload = function (event) {
-	imageLoad(event);
-      };
-      reader.readAsDataURL(file);
-      
-      return false;
-    };
-  };
-  
-  // for when a photo is added
-  function imageLoad(event) {
-    photoadded=true;
-    window.onbeforeunload = "You have unsaved changes.";
-    window.onbeforeunload = function(e) {
-      return "You have unsaved changes.";
-    };
-    holder.style.background = 'url(' + event.target.result + ')';
-    holder.style.borderColor = 'darkred';
-    holder.className += "backgrounded";
-    $('#dnd-instructions').remove();
-    $('#imageupload').remove();
-    $('figcaption.bonus').show();
-    $('figure').removeClass('mini');
-  }
-  </script>
-  
-  <? endif; ?>
-
-  <? if(!bonus()): // doesn't work with ckeditor, i think bc of the injection of IDs ?>
-  <!-- Table of Contents -->
-  <script>
-  $(document).ready(function(){
-    // make the table of contents
-    $('#articlebody').jqTOC({
-      tocWidth: 100,
-      tocTitle: 'Content',
-      tocStart: 1,
-      tocEnd  : 4,
-      tocContainer : 'toc_container',
-      tocAutoClose : false,
-      tocShowOnClick : false,
-      tocTopLink   : ''
-    });
-    
-    // Set up localScroll smooth scroller to scroll the whole document
-    // when a table of contents link is clicked
-    $('#toc_container').localScroll({
-      target:'body',
-      duration: '1000' //not duration timing is working
-    });
-    
-    // not actually sure i want this to happen...
-    // should the url change as ppl navigate the article? i guess so, right?
-    // add section anchor to url
-    $("#toc_container a").click(function () {
-      location.hash = $(this).attr('href');
-    });
-
-    // thanks hartbro! 
-    // http://blog.hartleybrody.com/creating-sticky-sidebar-widgets-that-scrolls-with-you/
-    // function used to detect whether you've scrolled to an element
-    function isScrolledTo(elem) {
-      var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
-      var docViewBottom = docViewTop + $(window).height();
-      var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
-      var elemBottom = elemTop + $(elem).height();
-      return ((elemTop <= docViewTop));
-    }
-    
-    // set up the table of contents navigation stickiness
-    var catcher = $('#toc_container_catcher');
-    var sticky = $('#toc_container');
-    $(window).scroll(function() {
-      if(isScrolledTo(sticky)) {
-	sticky.css('position','fixed');
-	sticky.css('top','100px');
-	var bodyLeftOffset = $("#articlebodycontainer").offset().left - 200;
-	sticky.css('left',bodyLeftOffset+'px');
-      }
-      var stopHeight = catcher.offset().top + catcher.height() - 200;
-      if ( stopHeight > sticky.offset().top) {
-	sticky.css('position','absolute');
-	sticky.css('top','0');
-	sticky.css('left','-200px');
-      }
-      
-      // #todo: highlight active TOC section
-      // a la bootstrap scrollspy
-    });
-    
-    // make article attachments fixed and mini after you scroll past,
-    // settling them in the sidebar.
-    // not sure we want to do this, so it's disabled for now.
-    /*
-    var catcher2 = $('#article-sidebar-catcher');
-    var sticky2 = $('#article-sidebar');
-    $(window).scroll(function() {
-    if(isScrolledTo(sticky2)) {
-    $('#article-sidebar figure').addClass('mini');
-    $('#article-sidebar').css('opacity','.3');
-    sticky2.css('position','fixed');
-    sticky2.css('top','60px');
-    var bodyLeftOffset = $("#articlebodycontainer").offset().left + $("#articlebodycontainer").width()-225;
-    sticky2.css('left',bodyLeftOffset+'px');
-  }
-    var stopHeight = catcher2.offset().top;
-    if (catcher2.offset().top > sticky.offset().top-200) {
-    $('#article-sidebar figure').removeClass('mini');
-    $('#article-sidebar').css('opacity','1');
-    sticky2.css('position','inherit');
-    sticky2.css('top','auto');
-    sticky2.css('left','auto');
-    //sticky2.css('top','0');
-    //sticky2.css('left','-200px');
-  }
-  }); 
-    */
-  });
-  </script>
-  <? endif; ?>
-
-  <? if(count($photos) > 1 && !bonus()): ?>
-  <!-- SwipeView. Only needed for slideshows. -->
-  <script type="text/javascript" src="<?= base_url() ?>js/swipeview-mwidmann.js"></script>
-  <script type="text/javascript">
-  var	carousel,
-  el,
-  i,
-  page,
-  hasInteracted = false,
-  dots = document.querySelectorAll('#swipeview_nav li'),
-		slides = [
-		  <? foreach($photos as $key => $photo): ?>
-				<? if($key > 0): ?>,<? endif; ?>
-				'<div class="swipeview-image" style="background:url(<?= base_url() ?>images/<?= $article->date ?>/<?= $photo->filename_large ?>)"></div>'
-					+'<figcaption>'
-					+ '<p class="photocredit"><? if(!empty($photo->photographer_id)): ?><?= anchor('author/'.$photo->photographer_id, addslashes(trim(str_replace(array("\r\n", "\n", "\r"),"<br/>",$photo->photographer_name)))); ?><? else: ?><?= addslashes(trim(str_replace(array("\r\n", "\n", "\r"),"<br/>",$photo->credit))); ?><? endif; ?></p>'
-					+ '<p class="photocaption"><?= addslashes(trim(str_replace(array("\r\n", "\n", "\r"),"<br/>",$photo->caption))); ?></p>'
-					+'</figcaption>'
-			<? endforeach; ?>
-		         ];
-	
-	carousel = new SwipeView('#swipeview_wrapper', {
-	  numberOfPages: slides.length,
-	  hastyPageFlip: true
-	});
-	  
-	  // Load initial data
-	  for (i=0; i<3; i++) {
-	  page = i==0 ? slides.length-1 : i-1;
-	  
-	  el = document.createElement('span');
-  el.innerHTML = slides[page];
-  carousel.masterPages[i].appendChild(el)
-	}
-  
-  carousel.onFlip(function () {
-  var el,
-  upcoming,
-  i;
-  
-  for (i=0; i<3; i++) {
-  upcoming = carousel.masterPages[i].dataset.upcomingPageIndex;
-  
-  if (upcoming != carousel.masterPages[i].dataset.pageIndex) {
-  el = carousel.masterPages[i].querySelector('span');
-  el.innerHTML = slides[upcoming];
+	    $.ajax({
+			type: "POST",
+			url: "<?=site_url()?>article/ajax_attachment_big/"+attachmentId,
+			data: "big="+toggle,
+			success: function(result){
+				if(result=="Big enabled.") {
+				    $("#attachment"+attachmentId).addClass("bigphoto");
+				    $("#bigEnable"+attachmentId).hide();
+				    $("#bigDisable"+attachmentId).show();
+				} else if(result=="Big disabled.") {
+				    $("#attachment"+attachmentId).removeClass("bigphoto");
+				    $("#bigEnable"+attachmentId).show();
+				    $("#bigDisable"+attachmentId).hide();
+				}
+				//show alert
+				$("#savenotify").html(result);
 			}
-		}
-  
-  document.querySelector('#swipeview_nav .selected').className = '';
-  dots[carousel.pageIndex].className = 'selected';
+	    });
+    });
+});
+
+	// ugh, i forget what this is even for.
+	// i think to help autocomplete work on contenteditable?
+	(function ($) {
+	    var original = $.fn.val;
+	    $.fn.val = function() {
+		    if ($(this).is('*[contenteditable=true]')) {
+				return $.fn.html.apply(this, arguments);
+		    };
+		    return original.apply(this, arguments);
+	    };
+	})(jQuery);
+
+	$(function() {
+	    $( "#addauthor" ).autocomplete({
+		    source: "<?=site_url()?>article/ajax_suggest/author/name"
+	    });
 	});
+
+	$(function() {
+	    $( "#addauthorjob" ).autocomplete({
+		    source: "<?=site_url()?>article/ajax_suggest/job/name"
+	    });
+	});
+
+
+	$(function() {
+	    $( "#photocreditbonus" ).autocomplete({
+		    source: "<?=site_url()?>article/ajax_suggest/author/name"
+	    });
+	});
+
+	<? if(!empty($photos)): ?>
+		<? foreach($photos as $photo): ?>
+			$(function() {
+			    $( "#photocredit<?=$photo->photo_id?>" ).autocomplete({
+				    source: "<?=site_url()?>article/ajax_suggest/author/name"
+				});
+			});
+		<? endforeach; ?>
+	<? endif; ?>
   
+	<? if(!empty($attachments)): ?>
+		<? foreach($attachments as $attachment): ?>
+			$(function() {
+			    $( "#attachmentcredit<?=$attachment->id?>" ).autocomplete({
+			      source: "<?=site_url()?>article/ajax_suggest/author/name"
+			    });
+			});
+		<? endforeach; ?>
+	<? endif; ?>
   
-  // timer for carousel autoplay
-  function loaded() {
-  var interval = setInterval(function () { 
-  if(!hasInteracted) carousel.next(); 
-			}, 5000); 
+	$(function() {
+	    $( "#series" ).autocomplete({
+		    source: "<?=site_url()?>article/ajax_suggest/series/name"
+	    });
+	});
+
+</script>
+
+<!-- CK Editor -->
+<script>
+
+	CKEDITOR.on( 'instanceCreated', function( event ) {
+	    var editor = event.editor,
+		element = editor.element;
+
+	    // Customize editors for headers and tag list.
+	    // These editors don't need features like smileys, templates, iframes etc.
+	    if ( element.is( 'div' ) || element.getAttribute( 'id' ) == 'taglist' ) {
+		    // Customize the editor configurations on "configLoaded" event,
+		    // which is fired after the configuration file loading and
+		    // execution. This makes it possible to change the
+		    // configurations before the editor initialization takes place.
+		    editor.on( 'configLoaded', function() {
+
+				// Remove unnecessary plugins to make the editor simpler.
+				editor.config.removePlugins = 'colorbutton,find,flash,font,forms,iframe,image,newpage,scayt,smiley,specialchar,stylescombo,templates,wsc,contextmenu,liststyle,tabletools';
+
+				// Rearrange the layout of the toolbar.
+                editor.config.toolbarGroups = [
+                	{ name: 'editing', groups: [ 'basicstyles', 'links' ], items: ['Format', 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight'] },
+                    { name: 'undo' },
+                    { name: 'clipboard', groups: [ 'clipboard' ], items: ['RemoveFormat'] },
+                    { name: 'showblocks', items: ['ShowBlocks']}
+                ];
+		    });
+	    }
+	});
+
   
-	}
-  document.addEventListener('DOMContentLoaded', loaded, false);
+	// We need to turn off the automatic editor creation first.
+	CKEDITOR.disableAutoInline = true;
+	var editor = CKEDITOR.inline( 'articlebody' );
+  
+		editor.on('paste', function(evt) {
+			// Update the text
+			// evt.editor.setData(evt.editor.getData() + ' your additional comments.');
+			bodyedited=true;
+			window.onbeforeunload = "You have unsaved changes.";
+			
+			window.onbeforeunload = function(e) {
+			  return "You have unsaved changes.";
+			};
+			
+			$('#articlebody').css("color", "darkred");
+
+		}, editor.element.$);
+  
+		</script>
+
+		<!-- image upload, drag-and-drop or file upload input -->
+		<!-- from @rem's http://html5demos.com/file-api-simple -->
+		<!--  and @rem's http://html5demos.com/file-api -->
+		<script>
+			var upload = document.getElementById('imageupload'),
+		    holder = document.getElementById('dnd-holder');
+
+			upload.onchange = function (e) {
+			    e.preventDefault();
+
+			    var file = upload.files[0],
+				reader = new FileReader();
+			    reader.onload = function (event) {
+				    imageLoad(event);
+			    };
+			    
+			    reader.readAsDataURL(file);
+
+			    return false;
+			};
+  
+			// drag-and-drop image
+			if(holder) {
+			    holder.ondragover = function () { this.className = 'hover'; return false; };
+			    holder.ondragend = function () { this.className = ''; return false; };
+			    holder.ondrop = function (e) {
+				    this.className = '';
+				    e.preventDefault();
+      
+			    var file = e.dataTransfer.files[0],
+				reader = new FileReader();
+			    
+			    reader.onload = function (event) {
+					imageLoad(event);
+			    };
+			    
+			    reader.readAsDataURL(file);
+      
+			    return false;
+		    };
+				};
+  
+				// for when a photo is added
+				function imageLoad(event) {
+				    photoadded=true;
+				    window.onbeforeunload = "You have unsaved changes.";
+				    window.onbeforeunload = function(e) {
+					    return "You have unsaved changes.";
+				    };
+				    holder.style.background = 'url(' + event.target.result + ')';
+				    holder.style.borderColor = 'darkred';
+				    holder.className += "backgrounded";
+				    $('#dnd-instructions').remove();
+				    $('#imageupload').remove();
+				    $('figcaption.bonus').show();
+				    $('figure').removeClass('mini');
+				}
+			</script>
+  
+		<? endif; ?>
+
+		<? if(!bonus()): // doesn't work with ckeditor, i think bc of the injection of IDs ?>
+			<!-- Table of Contents -->
+			<script>
+				$(document).ready(function(){
+				    // make the table of contents
+				    $('#articlebody').jqTOC({
+					    tocWidth: 100,
+					    tocTitle: 'Content',
+					    tocStart: 1,
+					    tocEnd  : 4,
+					    tocContainer : 'toc_container',
+					    tocAutoClose : false,
+					    tocShowOnClick : false,
+					    tocTopLink   : ''
+				    });
+    
+				    // Set up localScroll smooth scroller to scroll the whole document
+				    // when a table of contents link is clicked
+				    $('#toc_container').localScroll({
+					    target:'body',
+					    duration: '1000' //not duration timing is working
+				    });
+    
+				    // not actually sure i want this to happen...
+				    // should the url change as ppl navigate the article? i guess so, right?
+				    // add section anchor to url
+				    $("#toc_container a").click(function () {
+					    location.hash = $(this).attr('href');
+				    });
+
+				    // thanks hartbro! 
+				    // http://blog.hartleybrody.com/creating-sticky-sidebar-widgets-that-scrolls-with-you/
+				    // function used to detect whether you've scrolled to an element
+				    function isScrolledTo(elem) {
+					    var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
+					    var docViewBottom = docViewTop + $(window).height();
+					    var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
+					    var elemBottom = elemTop + $(elem).height();
+					    return ((elemTop <= docViewTop));
+				    }
+    
+				    // set up the table of contents navigation stickiness
+				    var catcher = $('#toc_container_catcher');
+				    var sticky = $('#toc_container');
+
+				    $(window).scroll(function() {
+					    if(isScrolledTo(sticky)) {
+							sticky.css('position','fixed');
+							sticky.css('top','100px');
+							var bodyLeftOffset = $("#articlebodycontainer").offset().left - 200;
+							sticky.css('left',bodyLeftOffset+'px');
+					    }
+					    
+					    var stopHeight = catcher.offset().top + catcher.height() - 200;
+					    
+					    if ( stopHeight > sticky.offset().top) {
+							sticky.css('position','absolute');
+							sticky.css('top','0');
+							sticky.css('left','-200px');
+					    }
+      
+					    // #todo: highlight active TOC section
+					    // a la bootstrap scrollspy
+				    });
+    
+						// make article attachments fixed and mini after you scroll past,
+						// settling them in the sidebar.
+						// not sure we want to do this, so it's disabled for now.
+						/*
+						var catcher2 = $('#article-sidebar-catcher');
+						var sticky2 = $('#article-sidebar');
+						$(window).scroll(function() {
+						if(isScrolledTo(sticky2)) {
+						$('#article-sidebar figure').addClass('mini');
+						$('#article-sidebar').css('opacity','.3');
+						sticky2.css('position','fixed');
+						sticky2.css('top','60px');
+						var bodyLeftOffset = $("#articlebodycontainer").offset().left + $("#articlebodycontainer").width()-225;
+						sticky2.css('left',bodyLeftOffset+'px');
+					}
+						var stopHeight = catcher2.offset().top;
+						if (catcher2.offset().top > sticky.offset().top-200) {
+						$('#article-sidebar figure').removeClass('mini');
+						$('#article-sidebar').css('opacity','1');
+						sticky2.css('position','inherit');
+						sticky2.css('top','auto');
+						sticky2.css('left','auto');
+						//sticky2.css('top','0');
+						//sticky2.css('left','-200px');
+					}
+					}); */
+				});
+			</script>
+		<? endif; ?>
+
+		<? if(count($photos) > 1 && !bonus()): ?>
+			<!-- SwipeView. Only needed for slideshows. -->
+			<script type="text/javascript" src="<?= base_url() ?>js/swipeview-mwidmann.js"></script>
+			<script type="text/javascript">
+				var	carousel,
+				el,
+				i,
+				page,
+				hasInteracted = false,
+				dots = document.querySelectorAll('#swipeview_nav li'),
+				
+				slides = [
+					<? foreach($photos as $key => $photo): ?>
+						<? if($key > 0): ?>,<? endif; ?>
+						'<div class="swipeview-image" style="background:url(<?= base_url() ?>images/<?= $article->date ?>/<?= $photo->filename_large ?>)"></div>'
+							+'<figcaption>'
+							+ '<p class="photocredit"><? if(!empty($photo->photographer_id)): ?><?= anchor('author/'.$photo->photographer_id, addslashes(trim(str_replace(array("\r\n", "\n", "\r"),"<br/>",$photo->photographer_name)))); ?><? else: ?><?= addslashes(trim(str_replace(array("\r\n", "\n", "\r"),"<br/>",$photo->credit))); ?><? endif; ?></p>'
+							+ '<p class="photocaption"><?= addslashes(trim(str_replace(array("\r\n", "\n", "\r"),"<br/>",$photo->caption))); ?></p>'
+							+'</figcaption>'
+					<? endforeach; ?>
+		        ];
+	
+				carousel = new SwipeView('#swipeview_wrapper', {
+				numberOfPages: slides.length,
+				hastyPageFlip: true
+			});
+	  
+			// Load initial data
+			for (i=0; i<3; i++) {
+				page = i==0 ? slides.length-1 : i-1;
+	  
+				el = document.createElement('span');
+				el.innerHTML = slides[page];
+				carousel.masterPages[i].appendChild(el)
+			}
+  
+			carousel.onFlip(function () {
+				var el,
+				upcoming,
+				i;
+  
+				for (i=0; i<3; i++) {
+					upcoming = carousel.masterPages[i].dataset.upcomingPageIndex;
+  
+					if (upcoming != carousel.masterPages[i].dataset.pageIndex) {
+						el = carousel.masterPages[i].querySelector('span');
+						el.innerHTML = slides[upcoming];
+					}
+				}
+  
+				document.querySelector('#swipeview_nav .selected').className = '';
+				dots[carousel.pageIndex].className = 'selected';
+			});
   
   </script>
   <? endif; ?>
