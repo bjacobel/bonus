@@ -31,9 +31,24 @@ class Tools_model extends CI_Model {
     function get_issues()
     {
         $this->db->order_by('issue_date', 'desc');
-        $this->db->where('scribd !=', 'NULL');
         $query = $this->db->get('issue');
         return $query->result();
+    }
+
+    function get_issue($volume, $number)
+    {
+        $this->db->where('volume', $volume);
+        $this->db->where('issue_number', $number);
+        $query = $this->db->get('issue');
+        return $query->result();
+    }
+
+    function add_scribd($volume, $number, $scribd)
+    {
+        $updatedata = array('scribd' => $scribd);
+        $this->db->where('volume', $volume);
+        $this->db->where('issue_number', $number);
+        $this->db->update('issue', $updatedata);
     }
 
     function add_issue($data)

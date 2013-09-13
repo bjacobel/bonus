@@ -110,7 +110,14 @@ class Bonus extends CI_Controller {
 					'scribd'		=> $this->input->post("id"),
 					'ready'			=> "1",
 				);
-				$this->tools_model->add_issue($insertdata);
+
+				$issue_exists = $this->tools_model->get_issue($insertdata['volume'], $insertdata['issue_number']);
+
+				if (!$issue_exists){
+					$this->tools_model->add_issue($insertdata);
+				} else {
+					$this->tools_model->add_scribd($insertdata['volume'], $insertdata['issue_number'], $insertdata['scribd']);
+				}
 			}
 
 			$this->load->helper(array('form'));

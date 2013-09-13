@@ -29,11 +29,11 @@
     <li><?=anchor('bonus/dashboard','Dashboard')?></li>
     <li><?=anchor('bonus/authors','Authors')?></li>
     <li><?=anchor('bonus/alerts','Alerts')?></li>
-    <li><?=anchor('bonus/issues','Issues')?></li>
+    <li><?=anchor('bonus/issues','PDFs')?></li>
     </ul>
     </nav>  
 
-    <h3>Add PDF Issue</h3>
+    <h3>Add/Modify Issue</h3>
     
     <script>
     function validateIssueForm()
@@ -56,7 +56,7 @@
             alert("Scribd IDs are nine-digit numbers found in the URLs of Scribd pages.");
             return false;
         }
-        return confirm('Are you sure you want to create a new issue and Scribd preview?');
+        return confirm('This will add a Scribd preview to an existing issue, and/or create a new issue if no matching one is found. Continue?');
     }
     </script>
     <? 
@@ -78,7 +78,7 @@
     <?= form_submit('submit',"Add issue") ?>
     <?= form_close() ?>
 
-    <h3>Existing PDF issues</h3>
+    <h3>Existing Issues</h3>
     
     <? if(!empty($issues)): ?>
     <table>
@@ -94,8 +94,12 @@
         <td><?=$issue->volume; ?></td>
         <td><?=$issue->issue_number; ?></td>
         <td><?=$issue->issue_date; ?></td>
-        <td><a href="http://scribd.com/doc/<?=$issue->scribd?>">http://scribd.com/doc/<?=$issue->scribd;?></a></td>
-        <td><img src="<?=$issue->preview?>" class="issue_thumb"></td>
+        <? if(isset($issue->scribd)): ?>
+            <td><a href="http://scribd.com/doc/<?=$issue->scribd?>">http://scribd.com/doc/<?=$issue->scribd;?></a></td>
+        <? else: ?>
+            <td>None</td>
+        <? endif; ?>
+        <td><? if(isset($issue->preview)): ?><img src="<?=$issue->preview?>" class="issue_thumb"><? endif; ?></td>
     <tr>
     <? endforeach; ?>
     </table>
