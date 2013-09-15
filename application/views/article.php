@@ -679,7 +679,28 @@
 			    });
 		    });
 	    
-
+		    $("#insert-code").click(function(event) {
+		    	event.preventDefault();
+		    	$.ajax({
+		    		type: "POST",
+		    		url: "<?=site_url()?>article/ajax_add_attachment/<?=$article->id?>",
+		    		data: {
+		    			type: "html",
+		    			content1: urlencode($("input[name=html-code]").val())
+		    		},
+		    		dataType: 'json',
+		    		success: function(result){
+		    			console.log(result);
+					    $("#savenotify").html(result.status);
+		    			if(result.success) {
+						    $("#article-attachments").append(result.view);
+						}
+		    		},
+		    		error: function(XMLHttpRequest, textStatus, errorThrown){
+		    			$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
+		    		}
+		    	});
+		    });
 
 		    $("#attach-video").click(function(event) {
 			    event.preventDefault();
@@ -693,9 +714,8 @@
 					dataType: 'json',
 					success: function(result){
 						console.log(result);
+						$("#savenotify").html(result.status);
 						if(result.success) {
-						    $("#savenotify").html(result.status);
-			    
 						    //if it's a youtube video and there's an existing youtube video on the page...
 							if(result.type == 'youtube' && $('.articlemedia.video-wrapper.youtube').length>0) {
 							    console.log("Appending to YouTube playlist.");
@@ -709,9 +729,7 @@
 						
 							// clear the video URL input from the attachment form
 							$('input[name=video-url]').val('');
-						} else {
-							$("#savenotify").html(result.status);
-						}
+						} 
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){
 						$("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);

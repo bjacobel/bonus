@@ -420,14 +420,14 @@ class Article extends CI_Controller {
 				$response['success'] = false;
 				exit(json_encode($response));
 			}
-			// #todo: youtube playlists
 			// #todo: twitter widgets
 			// #todo: soundcloud
 			// #todo: flickr slideshows
 			// #todo: raw html
 			// #todo: rich text sidebars
-		}
-		else {
+		} else if ($type == 'html') {
+
+		} else {
 			$response['status'] = "Error: unsupported attachment type, ".$type;
 			$response['success'] = false;
 			exit(json_encode($response));
@@ -449,7 +449,7 @@ class Article extends CI_Controller {
 				'type' =>			$type,
 				'content1' =>		$attachment->content1,
 				'content2' =>		$attachment->content2,
-				'view' =>			$this->load->view('template/attachment-video', $attachment, true),
+				'view' =>			$this->load->view('template/attachment-'.$type, $attachment, true),
 				'success' =>		true,
 				'status' =>			"Attachment added."
 			);
