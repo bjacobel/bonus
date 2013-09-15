@@ -747,7 +747,7 @@
 					article_id: $("#mainstory").data('article-id')
 			    };
 
-			    if($("#attachment"+attachmentId).data('playlist').length > 0) {
+			    if($("#attachment"+attachmentId).data('playlist') && $("#attachment"+attachmentId).data('playlist').length > 0) {
 			    	ajaxrequest.playlist = true;
 			    }
 		      
