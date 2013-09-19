@@ -14,7 +14,20 @@
 | path to your installation.
 |
 */
+
+// Setting the production base url off of $_SERVER scares me a little, so it's bo.com UNLESS
+// it picks up that it's running off a dev computer or from d0g
+
 $config['base_url'] = 'http://bowdoinorient.com/';
+
+// If we're running off a development mac
+if ($_SERVER['SERVER_NAME']=='bowdoinorient.dev') {
+    $config['base_url'] = 'http://bowdoinorient.dev/';
+}
+// if we're running off Brian's development server
+elseif ($_SERVER['SERVER_NAME']=='orient.bjacobel.com') {
+    $config['base_url'] = 'http://orient.bjacobel.com/';
+}
 
 /*
 |--------------------------------------------------------------------------

@@ -64,5 +64,16 @@ $db['medved']['swap_pre'] = '';
 $db['medved']['autoinit'] = TRUE;
 $db['medved']['stricton'] = FALSE;
 
+// If we're running off a development mac
+if ($_SERVER['SERVER_NAME']=='bowdoinorient.dev') {
+    $db['medved']['username'] = 'root';
+    $db['medved']['password'] = '';
+}
+// if we're running off Brian's development server
+elseif ($_SERVER['SERVER_NAME']=='orient.bjacobel.com') {
+    $db['medved']['username'] = 'root';
+    $db['medved']['password'] = 'beejd0g04011';
+}
+
 /* End of file database.php */
 /* Location: ./application/config/database.php */
