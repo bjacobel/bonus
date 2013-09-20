@@ -25,8 +25,8 @@ if ($_SERVER['SERVER_NAME']=='bowdoinorient.dev') {
     $config['base_url'] = 'http://bowdoinorient.dev/';
 }
 // if we're running off Brian's development server
-elseif ($_SERVER['SERVER_NAME']=='orient.bjacobel.com') {
-    $config['base_url'] = 'http://orient.bjacobel.com/';
+elseif ($_SERVER['SERVER_NAME']=='bowdoinorient.bjacobel.com') {
+    $config['base_url'] = 'http://bowdoinorient.bjacobel.com/';
 }
 
 /*

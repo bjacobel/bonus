@@ -70,7 +70,7 @@ if ($_SERVER['SERVER_NAME']=='bowdoinorient.dev') {
     $db['medved']['password'] = '';
 }
 // if we're running off Brian's development server
-elseif ($_SERVER['SERVER_NAME']=='orient.bjacobel.com') {
+elseif ($_SERVER['SERVER_NAME']=='bowdoinorient.bjacobel.com') {
     $db['medved']['username'] = 'root';
     $db['medved']['password'] = 'beejd0g04011';
 }
