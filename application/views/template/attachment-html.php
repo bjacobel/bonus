@@ -8,19 +8,29 @@
 
     <? $width = ($big ? '890' : '500'); ?>
 
-    <div width="<?=$width?>" class="html-content">
+    <div style="max-width:<?=$width?>; overflow:hidden" class="html-content">
     	<?= $content1 ?>
     </div>
 
     <script>
-        // make the embed element smaller if it's width-constrained
-        if (parseFloat($(".html-content").children()[0].width) > <?=$width?>) {
-            zoom = parseFloat(<?= $width ?>) / parseFloat($(".html-content").children()[0].width);
-            $(".html-content").css("zoom", zoom);
-        } else { // float the non-size-constrained embed element in the middle
-            margin = (<?= $width ?> - parseFloat($(".html-content").children()[0].width))/2;
-            $($(".html-content").children()[0]).css("margin-left", margin);
-        }
+        $wrapper = $(".html-content");
+        $iframe = $(".html-content iframe");
+
+        $iframe.load(function(){
+            if($wrapper.width() < $iframe.width()){
+                shrinkratio = $wrapper.width() / $iframe.width();
+
+                // the hackiest hack
+                $iframe.css("-moz-transform", "scale("+shrinkratio+")");
+                $iframe.css("-moz-transform-origin", "0 0");
+                $iframe.css("-o-transform", "scale("+shrinkratio+")");
+                $iframe.css("-o-transform-origin", "0 0");
+                $iframe.css("-webkit-transform", "scale("+shrinkratio+")");
+                $iframe.css("-webkit-transform-origin", "0 0");
+            }
+        });
+
+
     </script>
 
     <figcaption>
