@@ -10,6 +10,18 @@
 				
 		<? if(!empty($author->photo)): ?>
 			<figure class="authorpic"><img src="<?=base_url().'images/authors/'.$author->photo?>"></figure>
+		<? elseif(bonus()): ?>
+			<figure class="authorpic">
+				<div id="dnd-holder" class="bonus-attachment">
+					<!-- imageupload input has opacity set to zero, width and height set to 100%, so you can click anywhere to upload -->
+					<input id="imageupload" class="imageupload" type=file accept="image/gif,image/jpeg,image/png">
+					<div id="dnd-instructions">
+						<img src="<?=base_url()?>img/icon-uploadphoto.png" type="image/svg+xml" height="50" width="50" title=""></object>
+						<br/>Click or drag
+						<br/>JPG, PNG or GIF
+					</div>
+				</div>
+			</figure>
 		<? endif; ?>
 				
 		<div class="authorstats">
