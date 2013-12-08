@@ -88,7 +88,11 @@ class Article extends CI_Controller {
 			$data->page_type = 'article';
 			if($photos) $data->page_image = base_url().'images/'.$article->date.'/'.$photos[0]->filename_large;
 			
-			$this->load->view('article', $data);
+			
+			if($article->longform)
+				$this->load->view('feature', $data);
+			else
+				$this->load->view('article', $data);
 		}
 	}
 	
