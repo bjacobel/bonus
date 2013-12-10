@@ -10,6 +10,7 @@ The recommended development environment is OSX 10.8 or 10.9. To get started:
 * Install Git from Homebrew: `brew install git`
 * Install MySQL from Homebrew: `brew install mysql` (MariaDB is also supported.)
 * Check your PHP version with `php --version`. If it's less than 5.3, install PHP from Homebrew with `brew install php54`.
+* Install the `sass` rubygem with `gem install sass`. 
 * `cd` to the directory you want the BONUS folder to live in. The setup scripts are written assuming you will use `~/code/`, but this is easy to change.)
 * [Fork this repository.](https://github.com/BowdoinOrient/bonus/fork)
 * Clone your fork: `git clone https://github.com/your_user_name/bonus.git`
@@ -23,7 +24,12 @@ The recommended development environment is OSX 10.8 or 10.9. To get started:
 * Email [@bjacobel](mailto:bjacobel@gmail.com) so he can give you some other [useful pointers](http://xkcd.com/138/)
 * Make sure Apache is running: `sudo apachectl -k restart`
 * Visit [bowdoinorient.dev](http://bowdoinorient.dev)
-* Start writing code 
+* Start writing code
+
+##Gotchas
+- **BONUS now uses Sass** for its stylesheets. If you don't know SASS, you can still write CSS (the language is backwards-compatible), but it is **VERY IMPORTANT** that you write it in the `*.scss` files in the `scss/` directory, **not** in the `css` directory. After you make a change, run `sass scss/* css/` from the BONUS root directory, and your Sass changes will be compiled to vanilla CSS and placed in the correct folder. Or, run `sass --watch scss:css` in a terminal while you edit Sass files and they will be compiled automatically.
+
+
 
 ##Contributing
 The Orient welcomes bug reports and pull requests. If submitting a bug, please do so [through GitHub](https://github.com/BowdoinOrient/bonus/issues/new). Include your platform (OS and browser major version) and active extensions if you believe they may be involved. If submitting a pull request, please allow some time for an Orient developer to test and provide feedback on your work.
