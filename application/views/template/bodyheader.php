@@ -22,7 +22,7 @@ $(function() {
 });
 </script>
 
-<?if(!chromeless()):?>
+<?if(!chromeless() && $viewtype != "feature"):?>
 	<header id="mainhead">
 		<div id="head-content">
 			<h1 id="wordmark"><a href="<?=site_url()?>"><span class="super">The</span> Bowdoin Orient</a></h1>
@@ -90,17 +90,17 @@ $(function() {
 		<button id="tipsubmit">Submit</button> <button id="cancel">Cancel</button> <span id="tipnotice"></span>
 	</div>
 
-<? endif; ?> 
+    <? if(isset($alerts)): ?>
+        <div id="alertbar">
+            <? foreach($alerts as $alert): ?>
+                <div class="alert<?if($alert->urgent == '1'):?> urgent<?endif;?>">
+                    &#9758; <?=$alert->message ?>
+                </div>
+            <? endforeach; ?>
+        </div>
+    <? endif; ?>
 
-<? if(isset($alerts)): ?>
-	<div id="alertbar">
-		<? foreach($alerts as $alert): ?>
-			<div class="alert<?if($alert->urgent == '1'):?> urgent<?endif;?>">
-				&#9758; <?=$alert->message ?>
-			</div>
-		<? endforeach; ?>
-	</div>
-<? endif; ?>
+<? endif; ?> 
 
 <!--[if lt IE 9]>
 	<div id="alertbar">

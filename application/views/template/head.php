@@ -37,7 +37,7 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 	<meta property="twitter:image" 			content="<?=$page_image?>" />
 	
 	<!-- CSS -->
-	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css">view
+	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css">
 	<?if($viewtype=="feature"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/feature.css"><?endif;?>
 	<?if($viewtype=="article"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/article.css"><?endif;?>
 	
@@ -61,7 +61,7 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 	
 	<!-- SwipeView -->
 	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/swipeview.css?v=1">
-	
+
 	<!-- for homepage -->
 	<? if($this->uri->segment(1) == "" || $this->uri->segment(1) == "browse"): ?>
 		<!-- rss -->

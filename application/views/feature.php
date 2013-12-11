@@ -3,140 +3,72 @@ $headdata->viewtype = "feature";
 $this->load->view('template/head', $headdata); ?>
 
 <body>
+    <? $headerdata->viewtype = "feature";
+    $this->load->view('template/bodyheader', $headerdata); ?>
 
-    <? $this->load->view('template/bodyheader', $headerdata); ?>
+    <div id="container">
 
-    <div id="content">
+        <div id="titlepage">
+
+        </div>
+        <!-- mildly hackish -->
+        <script type="text/javascript">$("#titlepage").height($(window).height());</script>
         
         <article id="mainstory" data-article-id="<?=$article->id?>">
           
             <header>
-            <hgroup class="articletitle-group">
-          
-                <!-- NEXT / PREV -->
-                <div class="article_header_nav hidetablet hidemobile">
-                    <? if(!empty($series_previous)): ?>
-                        <?$leftblock = array(
-                            "blocks"=>$series_previous,
-                            "leftmargin"=>TRUE,
-                            "rightmargin"=>FALSE);?>
-                        <?$this->load->view('template/articleblock', $leftblock);?>
-                        <script type="text/javascript">if(!isFullyVisible($('.leftmargin')))$(".leftmargin").hide();</script>
-                    <? endif;?>
-                    <? if(!empty($series_next)): ?>
-                        <?$rightblock = array(
-                            "blocks"=>$series_next,
-                            "rightmargin"=>TRUE,
-                            "leftmargin"=>FALSE);?>
-                        <?$this->load->view('template/articleblock', $rightblock);?>
-                        <script type="text/javascript">if(!isFullyVisible($('.rightmargin')))$(".rightmargin").hide();</script>
-                    <? endif; ?>
-                </div>
-          
-                <? if($article->series || bonus()): ?>
-                    <h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
-                <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
-                <?=$series->name?>
-                <? if(!bonus()): ?></a><? endif; ?>
-                    </h3>
-                <? endif; ?>
+                <hgroup class="articletitle-group">
               
-                <h2 id="articletitle" class="articletitle <?= ($article->published ? '' : 'draft'); ?>"<?if(bonus()):?> contenteditable="true" title="Title"<?endif;?>><?=$article->title?></h2>
-                <? if(bonus()): ?><div id="title" class="charsremaining"></div><? endif; ?>
-                <h3 id="articlesubtitle" class="articlesubtitle"<?if(bonus()):?> contenteditable="true" title="Subtitle"<?endif;?>><? if(isset($article->subtitle)): ?><?=$article->subtitle?><? endif; ?></h3>
-                <? if(bonus()): ?><div id="subtitle" class="charsremaining"></div><? endif; ?>
-
-            </hgroup>
-
-        <div id="authorblock">
-            <? if(bonus() && $series->name != "Editorial"): ?>
-                <div class="opinion-notice"><input type="checkbox" name="opinion" value="opinion" <? if($article->opinion): ?>checked="checked"<? endif; ?> /> Does this piece represent the opinion of the author?</div>
-            <? endif; ?>
-            <? if($series->name == "Editorial"): ?>
-                <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
-                <div class="opinion-notice">This piece represents the opinion of <span style="font-style:normal;">The Bowdoin Orient</span> editorial board.</div>
-            <? endif; ?>
-            <? if($authors): ?>
-                <? if($article->opinion == '1' && !bonus()): ?>
-                    <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
-                    <div class="opinion-notice">This piece represents the opinion of the author<?if(count($authors)>1):?>s<?endif;?>:</div>
-                <? endif; ?>
-                <? foreach($authors as $key => $author): ?>
-                    <a href="<?=site_url()?>author/<?=$author->authorid?>">
-                        <div id="author<?=$author->articleauthorid?>" class="authortile<? if(bonus()):?> bonus<? endif; ?> <?if($article->opinion == '1'):?>opinion<? endif; ?>">
-                            <? if(bonus()): ?><div id="deleteAuthor<?=$author->articleauthorid?>" class="delete">&times;</div><? endif; ?>
-                            <? if(!empty($author->photo) && $article->opinion): ?><img src="<?=base_url().'images/authors/'.$author->photo?>" class="authorpic"><? endif; ?>
-                            <div class="authortext">
-                                <div class="articleauthor"><?=$author->authorname?></div>
-                                <div class="articleauthorjob"><?=$author->jobname?></div>
-                            </div>
-                        </div>
-                    </a>
-                <? endforeach; ?>
-            <? endif; ?>
-            <? if(bonus()): ?>
-                <div class="authortile bonus <?if($article->opinion == '1'):?>opinion<? endif; ?>">
-                    <div class="articleauthor" id="addauthor" contenteditable="true" title="Author"></div>
-                    <div class="articleauthorjob" id="addauthorjob" contenteditable="true" title="Author job"></div>
-                </div>
-            <? endif; ?>
-        </div>
-        
-        <p class="articledate"><time pubdate datetime="<?=$article->date?>"><?=date("F j, Y",strtotime($article->date))?></time></p>
-        
-            <div class="toolbox">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?= current_url() ?>" data-via="bowdoinorient" data-lang="en">Tweet</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                <br/>
-
-                <div class="fb-like" data-href="<?= current_url() ?>" data-send="false" data-layout="button_count" data-width="115" data-show-faces="false" data-action="recommend"></div>
-                <br/>
-
-                <!-- load in the export subtoolbox-->
-                <div id="addtoreader">
-                    <span style="vertical-align:top;">Read Later:</span>
-                    <img class="readericon" id="readability" src="<?=base_url()?>/img/readability.png"/>
-                    <img class="readericon" id="instapaper" src="<?=base_url()?>/img/instapaper.png"/>
-                    <img class="readericon" id="pocket" src="<?=base_url()?>/img/pocket1.png"/>
-                    <img class="readericon" id="kindle" src="<?=base_url()?>/img/kindle.png"/>
-                    <script type="text/javascript">
-                        $('.readericon').click(function(){
-                            var clickedid = $(this).attr("id");
-                            switch(clickedid){
-                                case "readability": //READABILITY WORKS
-                                    $('#addtoreader').fadeOut("fast", function(){
-                                        $('#addtoreader').replaceWith('<div id="readability" class="rdbWrapper readerEmbed" data-show-read-now="0" data-show-read-later="1" data-show-send-to-kindle="0" data-show-print="0" data-show-email="0" data-orientation="0" data-version="1" data-bg-color="#ffffff"></div><script type="text/javascript">(function() {var s = document.getElementsByTagName("script")[0],rdb = document.createElement("script"); rdb.type = "text/javascript"; rdb.async = true; rdb.src = document.location.protocol + "//www.readability.com/embed.js"; s.parentNode.insertBefore(rdb, s); })();</scr'+'ipt>').hide();
-                                        $('#addtoreader').fadeIn("fast");
-                                    });
-                                    break;
-                                case "instapaper": //INSTAPAPER WORKS
-                                    $('#addtoreader').fadeOut("fast", function(){
-                                        $('#addtoreader').replaceWith('<div id="instapaper" class="readerEmbed"><div style="display:inline-block;padding:3px;cursor:pointer;font-size:11px;font-family:Tahoma;white-space:nowrap;line-height:1;border-radius:3px;border:#ccc thin solid;color:black;background:transparent url('+'https://d1xnn692s7u6t6.cloudfront.net/button-gradient.png'+') repeat-x;background-size:contain;"><img style="vertical-align:middle;margin:0;padding:0;border:none;height:15px;" src="<?=base_url()?>/img/instapaper.png"/><a href="javascript:function iprl5(){var d=document,z=d.createElement('+"'"+'scr'+"'"+'+'+"'"+'ipt'+"'"+'),b=d.body,l=d.location;try{if(!b)throw(0);d.title='+"'"+'(Saving...) '+"'"+'+d.title;z.setAttribute('+"'"+'src'+"'"+',l.protocol+'+"'"+'//www.instapaper.com/j/3Kf0O6XBwYB0?u='+"'"+'+encodeURIComponent(l.href)+'+"'"+'&t='+"'"+'+(new Date().getTime()));b.appendChild(z);}catch(e){alert('+"'"+'Please wait until the page has loaded.'+"'"+');}}iprl5();void(0)" class="bookmarklet" onclick="return explain_bookmarklet();" title="Read Later" style="color:black;text-decoration:none;vertical-align:middle;margin-left:6px">Add to Instapaper</a></div></div>').hide();
-                                        $('#addtoreader').fadeIn("fast");
-                                    });
-                                    break;
-                                case "pocket": //POCKET IS WORKING
-                                    $('#addtoreader').fadeOut("fast", function(){
-                                        $('#addtoreader').replaceWith('<div id="pocket" class="readerEmbed"> <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</scr'+'ipt>').hide();
-                                        $('#addtoreader').fadeIn("fast");
-                                    });
-                                    break;
-                                case "kindle": //KINDLE IS WORKING (AFAICT)
-                                    $('#addtoreader').fadeOut("fast", function(){
-                                        $('#addtoreader').replaceWith('<div id="kindle" class="readerEmbed"><div class="kindleWidget" style="display:inline-block;padding:3px;cursor:pointer;font-size:11px;font-family:Tahoma;white-space:nowrap;line-height:1;border-radius:3px;border:#ccc thin solid;color:black;background:transparent url('+'https://d1xnn692s7u6t6.cloudfront.net/button-gradient.png'+') repeat-x;background-size:contain;"><img style="vertical-align:middle;margin:0;padding:0;border:none;" src="https://d1xnn692s7u6t6.cloudfront.net/white-15.png"/><span style="vertical-align:middle;margin-left:3px;">Send to Kindle</span></div></div><script type="text/javascript" src="https://d1xnn692s7u6t6.cloudfront.net/widget.js"></scr'+'ipt><script type="text/javascript">(function k(){window.$SendToKindle&&window.$SendToKindle.Widget?$SendToKindle.Widget.init({"content":"#articlebody","title":".articletitle","author":".articleauthor","published":".articledate"}):setTimeout(k,500);})();</scr'+'ipt>').hide();
-                                        $('#addtoreader').fadeIn("fast");
-                                    });
-                                    break;
-                                default: ;
-                            }
-                        });
-                    </script>
-                </div>
-
-                    <? if(bonus()): // only show views to logged-in staff, mostly bc display is too ugly to be public ?>
-                        Views: <?=$article->views?> (<?=$article->views_bowdoin?>)<br/>
+                    <? if($article->series || bonus()): ?>
+                        <h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
+                    <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
+                    <?=$series->name?>
+                    <? if(!bonus()): ?></a><? endif; ?>
+                        </h3>
                     <? endif; ?>
-                </div>  
+                  
+                    <h2 id="articletitle" class="articletitle <?= ($article->published ? '' : 'draft'); ?>"<?if(bonus()):?> contenteditable="true" title="Title"<?endif;?>><?=$article->title?></h2>
+                    <? if(bonus()): ?><div id="title" class="charsremaining"></div><? endif; ?>
+                    <h3 id="articlesubtitle" class="articlesubtitle"<?if(bonus()):?> contenteditable="true" title="Subtitle"<?endif;?>><? if(isset($article->subtitle)): ?><?=$article->subtitle?><? endif; ?></h3>
+                    <? if(bonus()): ?><div id="subtitle" class="charsremaining"></div><? endif; ?>
+
+                </hgroup>
+
+                <div id="authorblock">
+                    <? if(bonus() && $series->name != "Editorial"): ?>
+                        <div class="opinion-notice"><input type="checkbox" name="opinion" value="opinion" <? if($article->opinion): ?>checked="checked"<? endif; ?> /> Does this piece represent the opinion of the author?</div>
+                    <? endif; ?>
+                    <? if($series->name == "Editorial"): ?>
+                        <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
+                        <div class="opinion-notice">This piece represents the opinion of <span style="font-style:normal;">The Bowdoin Orient</span> editorial board.</div>
+                    <? endif; ?>
+                    <? if($authors): ?>
+                        <? if($article->opinion == '1' && !bonus()): ?>
+                            <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
+                            <div class="opinion-notice">This piece represents the opinion of the author<?if(count($authors)>1):?>s<?endif;?>:</div>
+                        <? endif; ?>
+                        <? foreach($authors as $key => $author): ?>
+                            <a href="<?=site_url()?>author/<?=$author->authorid?>">
+                                <div id="author<?=$author->articleauthorid?>" class="authortile<? if(bonus()):?> bonus<? endif; ?> <?if($article->opinion == '1'):?>opinion<? endif; ?>">
+                                    <? if(bonus()): ?><div id="deleteAuthor<?=$author->articleauthorid?>" class="delete">&times;</div><? endif; ?>
+                                    <? if(!empty($author->photo) && $article->opinion): ?><img src="<?=base_url().'images/authors/'.$author->photo?>" class="authorpic"><? endif; ?>
+                                    <div class="authortext">
+                                        <div class="articleauthor"><?=$author->authorname?></div>
+                                        <div class="articleauthorjob"><?=$author->jobname?></div>
+                                    </div>
+                                </div>
+                            </a>
+                        <? endforeach; ?>
+                    <? endif; ?>
+                    <? if(bonus()): ?>
+                        <div class="authortile bonus <?if($article->opinion == '1'):?>opinion<? endif; ?>">
+                            <div class="articleauthor" id="addauthor" contenteditable="true" title="Author"></div>
+                            <div class="articleauthorjob" id="addauthorjob" contenteditable="true" title="Author job"></div>
+                        </div>
+                    <? endif; ?>
+                </div>
+        
+                <p class="articledate"><time pubdate datetime="<?=$article->date?>"><?=date("F j, Y",strtotime($article->date))?></time></p> 
             </header>                
           
             <!-- catcher is used to trigger sticky sidebar, currently disabled (see below) -->
@@ -1123,6 +1055,4 @@ $this->load->view('template/head', $headdata); ?>
   </script>
   <? endif; ?>
 </body>
-
-
 </html>
