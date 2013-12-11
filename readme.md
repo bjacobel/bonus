@@ -27,7 +27,7 @@ The recommended development environment is OSX 10.8 or 10.9. To get started:
 * Start writing code
 
 ##Gotchas
-- **BONUS now uses Sass** for its stylesheets. If you don't know SASS, you can still write CSS (the language is backwards-compatible), but it is **VERY IMPORTANT** that you write it in the `*.scss` files in the `scss/` directory, **not** in the `css` directory. After you make a change, run `sass scss/* css/` from the BONUS root directory, and your Sass changes will be compiled to vanilla CSS and placed in the correct folder. Or, run `sass --watch scss:css` in a terminal while you edit Sass files and they will be compiled automatically.
+- **BONUS now uses Sass** for its stylesheets. If you don't know SASS, you can still write CSS (the language is backwards-compatible), but it is **VERY IMPORTANT** that you write it in the `*.scss` files in the `scss/` directory, **not** in the `css` directory. After you make a change, run `sass --update scss:css` from the BONUS root directory, and your Sass changes will be compiled to vanilla CSS and placed in the correct folder. Or, run `sass` with `--while` rather than `--update` in a terminal while you edit Sass files and they will be compiled automatically.
 
 
 

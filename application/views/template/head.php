@@ -37,7 +37,9 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 	<meta property="twitter:image" 			content="<?=$page_image?>" />
 	
 	<!-- CSS -->
-	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css?v=1386702520">
+	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css">view
+	<?if($viewtype=="feature"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/feature.css"><?endif;?>
+	<?if($viewtype=="article"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/article.css"><?endif;?>
 	
 	<!-- for mobile -->
 	<link rel="apple-touch-icon" href="<?=base_url()?>img/o-114.png"/>

@@ -1,4 +1,6 @@
-<? $this->load->view('template/head'); ?>
+<?$headdata = new stdClass();
+$headdata->viewtype = "article";
+$this->load->view('template/head', $headdata); ?>
 
 <body>
 
