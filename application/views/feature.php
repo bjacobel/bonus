@@ -9,67 +9,56 @@ $this->load->view('template/head', $headdata); ?>
     <div id="container">
 
         <div id="titlepage">
+            <div id="header-bg">
+                <header>
+                    <hgroup class="articletitle-group">
+                  
+                        <? if($article->series || bonus()): ?>
+                            <h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
+                        <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
+                        <?=$series->name?>
+                        <? if(!bonus()): ?></a><? endif; ?>
+                            </h3>
+                        <? endif; ?>
+                      
+                        <h2 id="articletitle" class="articletitle <?= ($article->published ? '' : 'draft'); ?>"<?if(bonus()):?> contenteditable="true" title="Title"<?endif;?>><?=$article->title?></h2>
+                        <? if(bonus()): ?><div id="title" class="charsremaining"></div><? endif; ?>
+                        <h3 id="articlesubtitle" class="articlesubtitle"<?if(bonus()):?> contenteditable="true" title="Subtitle"<?endif;?>><? if(isset($article->subtitle)): ?><?=$article->subtitle?><? endif; ?></h3>
+                        <? if(bonus()): ?><div id="subtitle" class="charsremaining"></div><? endif; ?>
 
+                    </hgroup>
+
+                    <div id="authorblock">
+                        <? if($authors): ?>
+                            <? foreach($authors as $key => $author): ?>
+                                <a href="<?=site_url()?>author/<?=$author->authorid?>">
+                                    <div id="author<?=$author->articleauthorid?>" class="authortile<? if(bonus()):?> bonus<? endif; ?> <?if($article->opinion == '1'):?>opinion<? endif; ?>">
+                                        <? if(bonus()): ?><div id="deleteAuthor<?=$author->articleauthorid?>" class="delete">&times;</div><? endif; ?>
+                                        <? if(!empty($author->photo) && $article->opinion): ?><img src="<?=base_url().'images/authors/'.$author->photo?>" class="authorpic"><? endif; ?>
+                                        <div class="authortext">
+                                            <div class="articleauthor"><?=$author->authorname?></div>
+                                            <div class="articleauthorjob"><?=$author->jobname?></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            <? endforeach; ?>
+                        <? endif; ?>
+                        <? if(bonus()): ?>
+                            <div class="authortile bonus <?if($article->opinion == '1'):?>opinion<? endif; ?>">
+                                <div class="articleauthor" id="addauthor" contenteditable="true" title="Author"></div>
+                                <div class="articleauthorjob" id="addauthorjob" contenteditable="true" title="Author job"></div>
+                            </div>
+                        <? endif; ?>
+                    </div>
+            
+                    <p class="articledate"><time pubdate datetime="<?=$article->date?>"><?=date("F j, Y",strtotime($article->date))?></time></p> 
+                </header>
+            </div>
         </div>
         <!-- mildly hackish -->
         <script type="text/javascript">$("#titlepage").height($(window).height());</script>
         
-        <article id="mainstory" data-article-id="<?=$article->id?>">
-          
-            <header>
-                <hgroup class="articletitle-group">
-              
-                    <? if($article->series || bonus()): ?>
-                        <h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
-                    <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
-                    <?=$series->name?>
-                    <? if(!bonus()): ?></a><? endif; ?>
-                        </h3>
-                    <? endif; ?>
-                  
-                    <h2 id="articletitle" class="articletitle <?= ($article->published ? '' : 'draft'); ?>"<?if(bonus()):?> contenteditable="true" title="Title"<?endif;?>><?=$article->title?></h2>
-                    <? if(bonus()): ?><div id="title" class="charsremaining"></div><? endif; ?>
-                    <h3 id="articlesubtitle" class="articlesubtitle"<?if(bonus()):?> contenteditable="true" title="Subtitle"<?endif;?>><? if(isset($article->subtitle)): ?><?=$article->subtitle?><? endif; ?></h3>
-                    <? if(bonus()): ?><div id="subtitle" class="charsremaining"></div><? endif; ?>
-
-                </hgroup>
-
-                <div id="authorblock">
-                    <? if(bonus() && $series->name != "Editorial"): ?>
-                        <div class="opinion-notice"><input type="checkbox" name="opinion" value="opinion" <? if($article->opinion): ?>checked="checked"<? endif; ?> /> Does this piece represent the opinion of the author?</div>
-                    <? endif; ?>
-                    <? if($series->name == "Editorial"): ?>
-                        <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
-                        <div class="opinion-notice">This piece represents the opinion of <span style="font-style:normal;">The Bowdoin Orient</span> editorial board.</div>
-                    <? endif; ?>
-                    <? if($authors): ?>
-                        <? if($article->opinion == '1' && !bonus()): ?>
-                            <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
-                            <div class="opinion-notice">This piece represents the opinion of the author<?if(count($authors)>1):?>s<?endif;?>:</div>
-                        <? endif; ?>
-                        <? foreach($authors as $key => $author): ?>
-                            <a href="<?=site_url()?>author/<?=$author->authorid?>">
-                                <div id="author<?=$author->articleauthorid?>" class="authortile<? if(bonus()):?> bonus<? endif; ?> <?if($article->opinion == '1'):?>opinion<? endif; ?>">
-                                    <? if(bonus()): ?><div id="deleteAuthor<?=$author->articleauthorid?>" class="delete">&times;</div><? endif; ?>
-                                    <? if(!empty($author->photo) && $article->opinion): ?><img src="<?=base_url().'images/authors/'.$author->photo?>" class="authorpic"><? endif; ?>
-                                    <div class="authortext">
-                                        <div class="articleauthor"><?=$author->authorname?></div>
-                                        <div class="articleauthorjob"><?=$author->jobname?></div>
-                                    </div>
-                                </div>
-                            </a>
-                        <? endforeach; ?>
-                    <? endif; ?>
-                    <? if(bonus()): ?>
-                        <div class="authortile bonus <?if($article->opinion == '1'):?>opinion<? endif; ?>">
-                            <div class="articleauthor" id="addauthor" contenteditable="true" title="Author"></div>
-                            <div class="articleauthorjob" id="addauthorjob" contenteditable="true" title="Author job"></div>
-                        </div>
-                    <? endif; ?>
-                </div>
-        
-                <p class="articledate"><time pubdate datetime="<?=$article->date?>"><?=date("F j, Y",strtotime($article->date))?></time></p> 
-            </header>                
+        <article id="mainstory" data-article-id="<?=$article->id?>">                
           
             <!-- catcher is used to trigger sticky sidebar, currently disabled (see below) -->
             <div id="article-sidebar-catcher"></div>
@@ -198,8 +187,8 @@ $this->load->view('template/head', $headdata); ?>
             <div id="articlebodycontainer">
         
             <!-- placeholder for table of contents, to be injected by js -->
-            <div id="toc_container_catcher"></div>
-            <div id="toc_container"></div>      
+            <!-- <div id="toc_container_catcher"></div> -->
+            <!-- <div id="toc_container"></div>       -->
         
             <div id="articlebody" class="articlebody"<?if(bonus()):?> contenteditable="true" title="Article body"<?endif;?>>
                 <? if(!empty($body)): ?>

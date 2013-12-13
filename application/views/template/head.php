@@ -38,8 +38,8 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 	
 	<!-- CSS -->
 	<link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css">
-	<?if($viewtype=="feature"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/feature.css"><?endif;?>
-	<?if($viewtype=="article"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/article.css"><?endif;?>
+	<?if(isset($viewtype) && $viewtype=="feature"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/feature.css"><?endif;?>
+	<?if(isset($viewtype) && $viewtype=="article"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/article.css"><?endif;?>
 	
 	<!-- for mobile -->
 	<link rel="apple-touch-icon" href="<?=base_url()?>img/o-114.png"/>

@@ -22,7 +22,7 @@ $(function() {
 });
 </script>
 
-<?if(!chromeless() && $viewtype != "feature"):?>
+<?if(!chromeless() && (!isset($viewtype) || $viewtype != "feature")):?>
 	<header id="mainhead">
 		<div id="head-content">
 			<h1 id="wordmark"><a href="<?=site_url()?>"><span class="super">The</span> Bowdoin Orient</a></h1>
