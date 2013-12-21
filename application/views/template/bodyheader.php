@@ -22,7 +22,7 @@ $(function() {
 });
 </script>
 
-<?if(!chromeless() && (!isset($viewtype) || $viewtype != "feature")):?>
+<?if(!chromeless()):?>
 	<header id="mainhead">
 		<div id="head-content">
 			<h1 id="wordmark"><a href="<?=site_url()?>"><span class="super">The</span> Bowdoin Orient</a></h1>
@@ -59,47 +59,47 @@ $(function() {
 			</nav>
 		</div>
 	</header>
+    <? if  (!isset($viewtype) || $viewtype != "feature"): ?>
+    	<div id="subnavbar">
+    		<?if(isset($date)):?>
+    			<span id="lastupdated"><?=date("F j, Y",strtotime($date))?></span>
+    			<div id="datepicker"></div> &middot; 
+    		<?endif;?>
+    		<span class="hidemobile">
+    		<?if(isset($volume) && isset($issue_number)):?>
+    			<? if(!empty($previssue)):?><a href="<?=site_url()?>browse/<?=$previssue->issue_date?>" class="issue-nav-arrow">&#x25C4;</a> <?endif;?>
+    			<? if(isset($issue) && !empty($issue->scribd)): ?><a href="http://www.scribd.com/doc/<?=$issue->scribd?>" class="scribd-link" target="new"><? endif; ?>Vol. <?=$volume?>, No. <?=$issue_number?><? if(isset($issue) && !empty($issue->scribd)): ?></a><? endif; ?> 
+    			<? if(!empty($nextissue)):?><a href="<?=site_url()?>browse/<?=$nextissue->issue_date?>" class="issue-nav-arrow">&#x25BA;</a> <?endif;?>&middot;
+    		<?endif;?>
+    		</span>
+    		<a href="<?=base_url()?>random">Random <img src="<?=base_url()?>img/icon-shuffle.svg" type="image/svg+xml" class="" height="15" width="15" style="margin-bottom: -3px;" title="Dmitry Baranovskiy, from The Noun Project"></a>
+    		<span class="onlymobile">&middot; <?=anchor('search', 'Search'); ?></span>
+    		<span id="pages" class="hidemobile">
+    			<?=anchor('about', 'About'); ?> &middot; 
+    			<?=anchor('subscribe', 'Subscribe'); ?> &middot; 
+    			<?=anchor('advertise', 'Advertise'); ?> &middot; 
+    			<?=anchor('contact', 'Contact'); ?> &middot; 
+    			<span id="submittip">Submit a tip</span>
+    		</span>
+    	</div>
 
-	<div id="subnavbar">
-		<?if(isset($date)):?>
-			<span id="lastupdated"><?=date("F j, Y",strtotime($date))?></span>
-			<div id="datepicker"></div> &middot; 
-		<?endif;?>
-		<span class="hidemobile">
-		<?if(isset($volume) && isset($issue_number)):?>
-			<? if(!empty($previssue)):?><a href="<?=site_url()?>browse/<?=$previssue->issue_date?>" class="issue-nav-arrow">&#x25C4;</a> <?endif;?>
-			<? if(isset($issue) && !empty($issue->scribd)): ?><a href="http://www.scribd.com/doc/<?=$issue->scribd?>" class="scribd-link" target="new"><? endif; ?>Vol. <?=$volume?>, No. <?=$issue_number?><? if(isset($issue) && !empty($issue->scribd)): ?></a><? endif; ?> 
-			<? if(!empty($nextissue)):?><a href="<?=site_url()?>browse/<?=$nextissue->issue_date?>" class="issue-nav-arrow">&#x25BA;</a> <?endif;?>&middot;
-		<?endif;?>
-		</span>
-		<a href="<?=base_url()?>random">Random <img src="<?=base_url()?>img/icon-shuffle.svg" type="image/svg+xml" class="" height="15" width="15" style="margin-bottom: -3px;" title="Dmitry Baranovskiy, from The Noun Project"></a>
-		<span class="onlymobile">&middot; <?=anchor('search', 'Search'); ?></span>
-		<span id="pages" class="hidemobile">
-			<?=anchor('about', 'About'); ?> &middot; 
-			<?=anchor('subscribe', 'Subscribe'); ?> &middot; 
-			<?=anchor('advertise', 'Advertise'); ?> &middot; 
-			<?=anchor('contact', 'Contact'); ?> &middot; 
-			<span id="submittip">Submit a tip</span>
-		</span>
-	</div>
+    	<div id="submittipform">
+    		<span class="closebutton">&times;</span>
+    		<!--<span id="tipprompt" style="font-weight: bold;">Submit an anonymous tip.</span>-->Submissions are anonymous. Leave contact information if willing, or email <a href="mailto:orient@bowdoin.edu">orient@bowdoin.edu</a>.<br/>
+    		<textarea name="tip"></textarea>
+    		<button id="tipsubmit">Submit</button> <button id="cancel">Cancel</button> <span id="tipnotice"></span>
+    	</div>
 
-	<div id="submittipform">
-		<span class="closebutton">&times;</span>
-		<!--<span id="tipprompt" style="font-weight: bold;">Submit an anonymous tip.</span>-->Submissions are anonymous. Leave contact information if willing, or email <a href="mailto:orient@bowdoin.edu">orient@bowdoin.edu</a>.<br/>
-		<textarea name="tip"></textarea>
-		<button id="tipsubmit">Submit</button> <button id="cancel">Cancel</button> <span id="tipnotice"></span>
-	</div>
-
-    <? if(isset($alerts)): ?>
-        <div id="alertbar">
-            <? foreach($alerts as $alert): ?>
-                <div class="alert<?if($alert->urgent == '1'):?> urgent<?endif;?>">
-                    &#9758; <?=$alert->message ?>
-                </div>
-            <? endforeach; ?>
-        </div>
+        <? if(isset($alerts)): ?>
+            <div id="alertbar">
+                <? foreach($alerts as $alert): ?>
+                    <div class="alert<?if($alert->urgent == '1'):?> urgent<?endif;?>">
+                        &#9758; <?=$alert->message ?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+        <? endif; ?>
     <? endif; ?>
-
 <? endif; ?> 
 
 <!--[if lt IE 9]>
