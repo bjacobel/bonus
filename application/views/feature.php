@@ -8,7 +8,7 @@ $this->load->view('template/head', $headdata); ?>
 
     <div id="container">
 
-        <div id="titlepage">
+        <div id="titlepage" style="background-image:url('<?=base_url().'images/'.$article->date.'/'.$featuremedia->coverphoto->filename_large?>')">
             <div id="header-bg">
                 <header>
                     <hgroup class="articletitle-group">
@@ -58,131 +58,7 @@ $this->load->view('template/head', $headdata); ?>
         <!-- mildly hackish -->
         <script type="text/javascript">$("#titlepage").height($(window).height());</script>
         
-        <article id="mainstory" data-article-id="<?=$article->id?>">                
-          
-            <!-- catcher is used to trigger sticky sidebar, currently disabled (see below) -->
-            <div id="article-sidebar-catcher"></div>
-            <!-- sidebar contains photos, videos, and other attachments -->
-            <div id="article-sidebar">
-                <div id="article-attachments">
-                    <? if($photos): ?>
-                        <? if(count($photos) == 1 || bonus()): ?>
-                            <? foreach($photos as $key => $photo): ?>
-                                <? $photo_view_data = array('article' => $article, 'photo' => $photo); ?>
-                                <? $this->load->view('template/attachment-photo', $photo_view_data); ?>
-                            <? endforeach; ?>
-                        <? else: ?>
-                            <figure class="articlemedia <?= ($article->bigphoto ? 'bigphoto' : '') ?>">
-                                <div id="swipeview_wrapper"></div>
-                                <div id="swipeview_relative_nav">
-                                    <span id="prev" onclick="carousel.prev();hasInteracted=true">&laquo;</span>
-                                    <span id="next" onclick="carousel.next();hasInteracted=true">&raquo;</span>
-                                </div>
-                                <ul id="swipeview_nav">
-                                    <? foreach($photos as $key => $photo): ?>
-                                        <li <? if($key==0): ?>class="selected"<? endif; ?> onclick="carousel.goToPage(<?=$key; ?>);hasInteracted=true"></li>
-                                    <? endforeach; ?>
-                                </ul>
-                            </figure>
-                        <? endif; ?>
-                    <? endif; ?>
-                    <? if($attachments): //looks through the attachments and sees what's there ?>
-                        <? 
-                            $hasYoutube = false;
-                            $youtubePlaylist = array();
-        
-                            $hasVimeo = false;
-                            $vimeos = array();
-        
-                            $hasHTML = false;
-                            $HTMLs = array();
-          
-                            // looks through each attachment
-                            foreach($attachments as $key => $attachment) {
-                                // spots youtube. holds onto the first, sticks the rest in a playlist
-                                if($attachment->type == 'youtube') {
-                                    if(!$hasYoutube) {
-                                        // hold onto the attachment
-                                        $youtube = $attachment;
-                                        $hasYoutube = true;
-                                    } else {
-                                        // if it's not first youtube video, push to playlist
-                                        $youtubePlaylist[] = $attachment->content1;
-                                    }
-                                }
-                                    
-                                // spots and handles vimeos
-                                if($attachment->type == 'vimeo') {
-                                    $hasVimeo = true;
-                                    $vimeos[] = $attachment;
-                                }
-                                    
-                                // spots and handles raw html
-                                // note that there's currently no way to create an html attachment in bonus
-                                // but you can do it straight through the database if you want
-                                if($attachment->type == 'html') {
-                                    $hasHTML = true;
-                                    $HTMLs[] = $attachment;
-                                }
-                            }
-                                
-                            // if there's at least one youtube video, load the first and put the rest in the playlist
-                            if($hasYoutube) { 
-                                // serializes the playlist (so you have comma-separated IDs: 124234,43t346,3i4ngiu...)
-                                $youtube->playlist = join($youtubePlaylist,',');
-                                // load the actual embedded player
-                                $this->load->view('template/attachment-video', $youtube); 
-                            }
-                            if($hasVimeo) { foreach($vimeos as $vimeo) { $this->load->view('template/attachment-video', $vimeo); } }
-                            if($hasHTML) { foreach($HTMLs as $html) { $this->load->view('template/attachment-html', $html); } }
-                        ?>
-                    <? endif; ?>
-                </div>
-                <div id="bonus-attachments">
-                    <? if(bonus()): ?>
-                        <!-- image upload -->
-                        <figure class="articlemedia mini">
-                            <div id="dnd-holder" class="bonus-attachment">
-                                <!-- imageupload input has opacity set to zero, width and height set to 100%, so you can click anywhere to upload -->
-                                <input id="imageupload" class="imageupload" type=file accept="image/gif,image/jpeg,image/png">
-                                <div id="dnd-instructions">
-                                    <img src="<?=base_url()?>img/icon-uploadphoto.png" type="image/svg+xml" height="50" width="50" title=""></object>
-                                    <br/>Click or drag
-                                    <br/>JPG, PNG or GIF
-                                </div>
-                            </div>
-                            <figcaption class="bonus">
-                                <p id="photocreditbonus" class="photocredit" contenteditable="true" title="Photographer"></p>
-                                <p id="photocaptionbonus" class="photocaption" contenteditable="true" title="Caption"></p>
-                                <p class="hide-photo">Use photo as homepage thumbnail only:  <input class="hide-photo" type="checkbox"></p>
-                            </figcaption>
-                        </figure>
-          
-                        <!-- video attachment -->
-                        <figure class="articlemedia mini">
-                            <div id="video-attach" class="bonus-attachment">
-                                <img src="<?=base_url()?>img/icon-video.png" width="45" title="Thomas Le Bas, from The Noun Project"></object>
-                                <form>
-                                    <br/><input type="text" style="width:160px" name="video-url" placeholder="YouTube or Vimeo URL"></input>
-                                    <br/><button type="submit" id="attach-video">Attach</button>
-                                </form>
-                            </div>
-                        </figure>
-
-                        <!-- HTML inliner -->
-                        <figure class="articlemedia mini">
-                            <div id="html-attach" class="bonus-attachment">
-                                <img src="<?=base_url()?>img/icon-code.png" width="45" title=""></object>
-                                <form>
-                                    <br/><input type="text" style="width:160px" name="html-code" placeholder="Raw HTML code"></input>
-                                    <br/><button type="submit" id="insert-code">Insert</button>
-                                </form>
-                            </div>
-                        </figure>
-          
-                    <? endif; ?>
-                </div>      
-            </div>
+        <article id="mainstory" data-article-id="<?=$article->id?>">
           
             <div id="articlebodycontainer">
         

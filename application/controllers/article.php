@@ -81,6 +81,11 @@ class Article extends CI_Controller {
 			$data->authors = $authors;
 			$data->photos = $photos;
 			$data->attachments = $attachments;
+
+            if ($article->longform) {
+	            $data->featuremedia = new stdClass();
+	            $data->featuremedia->coverphoto = $this->attachments_model->get_coverphoto($id);
+            }
 			
 			// meta
 			$data->page_title = $article->title." — The Bowdoin Orient";

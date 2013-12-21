@@ -69,11 +69,10 @@ class Attachments_model extends CI_Model {
     	}
 	}
     
-    function get_feature_photos($article_date, $section_id)
+    function get_coverphoto($article_id)
     {
     	$this->db->select("
     		photo.id as photo_id, 
-    		photo.filename_small, 
     		photo.filename_large, 
     		photo.credit, 
     		photo.caption, 
@@ -81,21 +80,22 @@ class Attachments_model extends CI_Model {
     		author.name as photographer_name");
     	$this->db->join("author", "author.id = photo.photographer_id", 'left');
     	$this->db->from("photo");
-    	$this->db->where("article_date", $article_date);
-    	$this->db->where("feature", "1");
-    	$this->db->where("feature_section", $section_id);
-    	$this->db->where("active", "1");
-    	$this->db->order_by("priority", "asc");
+    	$this->db->where("photo.article_id", $article_id);
+    	$this->db->where("photo.coverphoto", "1");
+    	$this->db->where("photo.active", "1");
+    	$this->db->order_by("photo.priority", "asc");
     	$query = $this->db->get();
     	if($query->num_rows() > 0)
     	{
-    		return $query->result();
+    		return $query->result()[0];
     	}
     	else
     	{
     		return FALSE;
     	}
     }
+
+
     
     function add_photo($filename_small, $filename_large, $filename_original, $credit, $caption, $article_id, $priority='1', $hidephoto)
     {

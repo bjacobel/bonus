@@ -1,10 +1,18 @@
+// go go gadget sass
+@mixin vendor-prefix($name, $argument) {
+    -webkit-#{$name}: #{$argument};
+        -ms-#{$name}: #{$argument};
+       -moz-#{$name}: #{$argument};
+         -o-#{$name}: #{$argument};
+            #{$name}: #{$argument};
+}
+
 #container {
     width:100%;
     height:100%;
 
     #titlepage {
         width:100%;
-        background-image:url('http://farm8.staticflickr.com/7256/7775809018_0c6075b2a0_o.jpg');
         background-size:cover;
         background-repeat:no-repeat;
         background-attachment:fixed;
@@ -41,7 +49,7 @@
                 }
 
                 .authortile:hover {
-                    text-shadow:0px 3px 3px rgba(0,0,250,.9);
+                    text-shadow:0px 1px 1px rgba(0,0,255,.9);
                 }
 
                 .authortile .authortext {
@@ -95,9 +103,19 @@
     }
 
     #mainstory {
-        max-width:960px;
-        margin-left:auto;
-        margin-right:auto;
+        max-width:900px;
+        margin:50px auto;
+
+        .articlebody h3, figure#contents h3 {
+            font-size: 18pt;
+            font-variant: small-caps;
+            margin: 0.7em 0;
+            clear: left;
+        }
+
+        .articlebody p {
+            font-size:14pt;
+        }
     }
 
     .blockquote {
