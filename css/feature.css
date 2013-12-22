@@ -47,7 +47,6 @@
           position: absolute;
           left: -9px;
           top: -7px;
-          background: white;
           display: none; }
         #container #titlepage #header-bg header .authortile:hover .delete, #container #titlepage #header-bg header .authortile .delete:hover {
           display: inherit; }
@@ -64,9 +63,10 @@
           font-family: myriad-pro,helvetica,arial; }
   #container #mainstory {
     max-width: 900px;
-    margin: 50px auto; }
+    margin: 75px auto 25px auto;
+    padding: 0 20px; }
     #container #mainstory .articlebody h3, #container #mainstory figure#contents h3 {
-      font-size: 18pt;
+      font-size: 19pt;
       font-variant: small-caps;
       margin: 0.7em 0;
       clear: left; }
