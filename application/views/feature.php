@@ -15,9 +15,9 @@ $this->load->view('template/head', $headdata); ?>
                   
                         <? if($article->series || bonus()): ?>
                             <h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
-                        <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
-                        <?=$series->name?>
-                        <? if(!bonus()): ?></a><? endif; ?>
+                            <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
+                            <?=$series->name?>
+                            <? if(!bonus()): ?></a><? endif; ?>
                             </h3>
                         <? endif; ?>
                       
@@ -83,8 +83,8 @@ $this->load->view('template/head', $headdata); ?>
                         var disqus_title = '<?=addslashes($article->title)?>';
 
                         //disqus_identifier isn't necessary, because it can use the URL. it's preferable, though, because of different URL schemes.
-                       //problem is, we used a different scheme (date&section&priority, e.g. 2012-05-04&2&1) on the old site.
-                       //on newer articles (>7308), we just use the new unique article id.
+                        //problem is, we used a different scheme (date&section&priority, e.g. 2012-05-04&2&1) on the old site.
+                        //on newer articles (>7308), we just use the new unique article id.
                         <? if($article->id <= 7308): ?>
                             var disqus_identifier = '<?=$article->date."?".$article->section_id."?".$article->priority?>';
                         <? else: ?>

@@ -14,7 +14,6 @@ The recommended development environment is OSX 10.8 or 10.9. To get started:
 * `cd` to the directory you want the BONUS folder to live in. The setup scripts are written assuming you will use `~/code/`, but this is easy to change.)
 * [Fork this repository.](https://github.com/BowdoinOrient/bonus/fork)
 * Clone your fork: `git clone https://github.com/your_user_name/bonus.git`
-	* Use the ssh protocol/url to clone if you have already added your pubkey to GitHub. If not, don't worry about it.
 * `cd bonus && ./setup.sh`
 * Choose whether or not to overwrite your httpd/php confs. If you don't, be aware you may need to manually enable PHP short tags, zlib output compression, etc. The only reason to not do this is if you have another PHP project already running locally on your computer.
 * Provide your password for some `sudo`ing behind-the-scenes.
@@ -27,12 +26,12 @@ The recommended development environment is OSX 10.8 or 10.9. To get started:
 * Start writing code
 
 ##Gotchas
-- **BONUS now uses Sass** for its stylesheets. If you don't know SASS, you can still write CSS (the language is backwards-compatible), but it is **VERY IMPORTANT** that you write it in the `*.scss` files in the `scss/` directory, **not** in the `css` directory. After you make a change, run `sass --update scss:css` from the BONUS root directory, and your Sass changes will be compiled to vanilla CSS and placed in the correct folder. Or, run `sass` with `--while` rather than `--update` in a terminal while you edit Sass files and they will be compiled automatically.
+- **BONUS now uses Sass** for its stylesheets. If you don't know SASS, you can still write CSS (the language is backwards-compatible), but it is **VERY IMPORTANT** that you write it in the `*.scss` files in the `scss/` directory, **not** in the `css` directory. After you make a change, run `sass --update scss:css` from the BONUS root directory, and your Sass changes will be compiled to vanilla CSS and placed in the correct folder. Or, run `sass` with `--watch` rather than `--update` in a terminal while you edit Sass files and they will be compiled automatically.
 
 
 
 ##Contributing
-The Orient welcomes bug reports and pull requests. If submitting a bug, please do so [through GitHub](https://github.com/BowdoinOrient/bonus/issues/new). Include your platform (OS and browser major version) and active extensions if you believe they may be involved. If submitting a pull request, please allow some time for an Orient developer to test and provide feedback on your work.
+The Orient welcomes bug reports and pull requests. If submitting a bug, please do so [through GitHub](https://github.com/BowdoinOrient/bonus/issues/new). Include your platform (OS and browser major version) and active extensions if you believe they may be involved. Please note that we will not address bugs replicable solely in IE <= 8. If submitting a pull request, please allow some time for an Orient developer to test and provide feedback on your work.
 
 ## License
 BONUS is licensed under the terms of the [GNU Public License, v3](https://github.com/BowdoinOrient/bonus/blob/master/LICENSE.md). Fork us.

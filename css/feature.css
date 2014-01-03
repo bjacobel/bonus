@@ -72,3 +72,6 @@
       clear: left; }
     #container #mainstory .articlebody p {
       font-size: 14pt; }
+
+.draggable {
+  pointer: hand; }
