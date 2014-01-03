@@ -82,18 +82,26 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 		<!-- rss -->
 		<link rel="alternate" type="application/rss+xml" title="<?=$series->name?> - The Bowdoin Orient" href="<?=base_url()?>rss/series/<?=$series->id?>" />
 	<? endif; ?>
-	
-	<!-- for articles -->
-	<? if($this->uri->segment(1) == "article"): ?>
-	
-		<!-- for table of contents -->
-		<script type="text/javascript" src="<?=base_url()?>js/jquery.jqTOC.js"></script>
-	
+
+	<!-- articles and features both set this data prop -->
+	<? if(isset($viewtype)): ?>
+
+		<!-- for articles -->
+		<? if($viewtype == "article"): ?>
+			<!-- table of contents -->
+			<script type="text/javascript" src="<?=base_url()?>js/jquery.jqTOC.js"></script>
+		<? endif; ?>
+
+		<!-- for features -->
+		<? if(isset($viewtype) && $viewtype == "feature"): ?>
+
+		<? endif; ?>
+
 		<? if(bonus()): ?>	
 			<!-- CK Editor -->
 			<script type="text/javascript" src="<?=base_url()?>js/ckeditor/ckeditor.js"></script>
 		<? endif; ?>
-	
+
 	<? endif; ?>
 	
 	<!-- Google Analytics -->

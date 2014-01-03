@@ -62,7 +62,11 @@ $this->load->view('template/head', $headdata); ?>
         <article id="mainstory" data-article-id="<?=$article->id?>">
 
             <div class="sidebar-shim"></div>
-            <div class="sidebar" id="toc-bar"></div>
+            <div class="sidebar" id="nav-bar"></div>
+            
+            <!-- make the nav bar a window's height tall -->
+            <script type="text/javascript">$("#nav-bar").height($(window).height()-125-$("#mainhead").height());</script>
+            
             <? if(bonus()): ?>
                 <div class="sidebar" id="bonus-bar">       
                 </div>
@@ -70,8 +74,9 @@ $this->load->view('template/head', $headdata); ?>
 
             <!-- pin the sidebars to their respective sides -->
             <script>
-                $offset = $("#mainstory").width() + 0.5 * ($("#container").width() - $("#mainstory").width());
-                $(".sidebar#bonus-bar").css("left", $offset - 0.5 * $(".sidebar#bonus-bar").width());
+                $offset = ($("#container").width() - $("#mainstory").width()) / -2;
+                $(".sidebar#bonus-bar").css("right", $offset+$(".sidebar#bonus-bar").width()/2);
+                $(".sidebar#nav-bar").css("left", $offset+$(".sidebar#nav-bar").width()/2);
             </script>
 
             <div id="articlebodycontainer">
@@ -119,6 +124,56 @@ $this->load->view('template/head', $headdata); ?>
     <? $this->load->view('template/bodyfooter', $footerdata); ?>
 
     <? $this->load->view('bonus/bonusbar', TRUE); ?>
+
+    <script>
+        function isScrolledTo(elem) {
+            var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
+            var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
+            
+            var docViewBottom = docViewTop + $(window).height();
+            var elemBottom = elemTop + $(elem).height();
+            
+            return ((elemTop <= docViewTop));
+        }
+
+        // set up the bonusbar and navbar stickiness
+        var catcher = $('.sidebar-shim');
+        var sticky = $('.sidebar');
+
+        $(window).scroll(function() {
+            if(isScrolledTo(sticky)) {
+                sticky.css('position','fixed');
+                sticky.css('top','100px');
+
+                $("#bonus-bar").css("right", 0);
+                $("#bonus-bar").css("left", "");
+
+                $("#nav-bar").css("left", 0);
+                $("#nav-bar").css("right", "");
+            }
+            
+            if (catcher.offset().top > sticky.offset().top) {
+                // stick to the top, stop scrolling
+                sticky.css('position','absolute');
+                sticky.css('top','0');
+
+                $offset = ($("#container").width() - $("#mainstory").width()) / -2;
+                $(".sidebar#bonus-bar").css("right", $offset+$(".sidebar#bonus-bar").width()/2);
+                $(".sidebar#nav-bar").css("left", $offset+$(".sidebar#nav-bar").width()/2);
+            }
+        });
+
+        // populate the navbar with dots and shit
+        $h3s = $("h3").length;
+
+
+        // Set up localScroll smooth scroller to scroll the whole document
+        // when a table of contents link is clicked
+        $('#toc-bar').localScroll({
+            target:'body',
+            duration: '1000' // not duration timing is working
+        });
+    </script>
 
     <? if(bonus()): ?>
         <script>
@@ -721,91 +776,59 @@ $this->load->view('template/head', $headdata); ?>
         <!-- from @rem's http://html5demos.com/file-api-simple -->
         <!--  and @rem's http://html5demos.com/file-api -->
         <script>
-        var upload = document.getElementById('imageupload'),
-        holder = document.getElementById('dnd-holder');
+            var upload = document.getElementById('imageupload'),
+            holder = document.getElementById('dnd-holder');
 
-        // upload.onchange = function (e) {
-        //     e.preventDefault();
+            // upload.onchange = function (e) {
+            //     e.preventDefault();
 
-        //     var file = upload.files[0],
-        //     reader = new FileReader();
-        //     reader.onload = function (event) {
-        //         imageLoad(event);
-        //     };
-            
-        //     reader.readAsDataURL(file);
+            //     var file = upload.files[0],
+            //     reader = new FileReader();
+            //     reader.onload = function (event) {
+            //         imageLoad(event);
+            //     };
+                
+            //     reader.readAsDataURL(file);
 
-        //     return false;
-        // };
+            //     return false;
+            // };
 
-        // drag-and-drop image
-        if(holder) {
-            holder.ondragover = function () { this.className = 'hover'; return false; };
-            holder.ondragend = function () { this.className = ''; return false; };
-            holder.ondrop = function (e) {
-                this.className = '';
-                e.preventDefault();
+            // drag-and-drop image
+            if(holder) {
+                holder.ondragover = function () { this.className = 'hover'; return false; };
+                holder.ondragend = function () { this.className = ''; return false; };
+                holder.ondrop = function (e) {
+                    this.className = '';
+                    e.preventDefault();
+              
+                    var file = e.dataTransfer.files[0],
+                    reader = new FileReader();
+                    
+                    reader.onload = function (event) {
+                        imageLoad(event);
+                    };
+                    
+                    reader.readAsDataURL(file);
           
-                var file = e.dataTransfer.files[0],
-                reader = new FileReader();
-                
-                reader.onload = function (event) {
-                    imageLoad(event);
+                    return false;
                 };
-                
-                reader.readAsDataURL(file);
-      
-                return false;
             };
-        };
-      
-        // for when a photo is added
-        function imageLoad(event) {
-            photoadded=true;
-            window.onbeforeunload = "You have unsaved changes.";
-            window.onbeforeunload = function(e) {
-                return "You have unsaved changes.";
-            };
-            holder.style.background = 'url(' + event.target.result + ')';
-            holder.style.borderColor = 'darkred';
-            holder.className += "backgrounded";
-            $('#dnd-instructions').remove();
-            $('#imageupload').remove();
-            $('figcaption.bonus').show();
-            $('figure').removeClass('mini');
-        }
-
-        function isScrolledTo(elem) {
-            var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
-            var docViewBottom = docViewTop + $(window).height();
-            var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
-            var elemBottom = elemTop + $(elem).height();
-            return ((elemTop <= docViewTop));
-        }
-
-        // set up the table of contents navigation stickiness
-        var catcher = $('.sidebar-shim');
-        var sticky = $('.sidebar');
-
-        $(window).scroll(function() {
-            if(isScrolledTo(sticky)) {
-                sticky.css('position','fixed');
-                sticky.css('top','100px');
-
-                $("#bonus-bar").css("right", 0);
-                $("#bonus-bar").css("left", "");
+          
+            // for when a photo is added
+            function imageLoad(event) {
+                photoadded=true;
+                window.onbeforeunload = "You have unsaved changes.";
+                window.onbeforeunload = function(e) {
+                    return "You have unsaved changes.";
+                };
+                holder.style.background = 'url(' + event.target.result + ')';
+                holder.style.borderColor = 'darkred';
+                holder.className += "backgrounded";
+                $('#dnd-instructions').remove();
+                $('#imageupload').remove();
+                $('figcaption.bonus').show();
+                $('figure').removeClass('mini');
             }
-            
-            var topStop = catcher.offset().top + catcher.height() - 200;
-            
-            if ( topStop > sticky.offset().top - 200) {
-                sticky.css('position','absolute');
-                sticky.css('top','0');
-                
-                $offset = $("#mainstory").width() + 0.5 * ($("#container").width() - $("#mainstory").width());
-                $(".sidebar#bonus-bar").css("left", $offset - 0.5 * $(".sidebar#bonus-bar").width());
-            }
-        });
         </script>
       
     <? endif; ?>

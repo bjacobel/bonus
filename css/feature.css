@@ -78,8 +78,9 @@
       height: 150px;
       width: 40px;
       background-color: blue; }
-    #container #mainstory #toc-bar {
-      left: 0; }
+    #container #mainstory #nav-bar {
+      width: 40px;
+      border-right: 1px dotted gray; }
     #container #mainstory .articlebody h3, #container #mainstory figure#contents h3 {
       font-size: 19pt;
       font-variant: small-caps;
