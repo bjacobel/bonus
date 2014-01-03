@@ -64,7 +64,22 @@
   #container #mainstory {
     max-width: 900px;
     margin: 75px auto 25px auto;
-    padding: 0 20px; }
+    padding: 0 20px;
+    position: relative;
+    display: block; }
+    #container #mainstory .sidebar-shim {
+      width: 100%;
+      height: 0;
+      display: block; }
+    #container #mainstory .sidebar {
+      position: absolute;
+      display: block; }
+    #container #mainstory #bonus-bar {
+      height: 150px;
+      width: 40px;
+      background-color: blue; }
+    #container #mainstory #toc-bar {
+      left: 0; }
     #container #mainstory .articlebody h3, #container #mainstory figure#contents h3 {
       font-size: 19pt;
       font-variant: small-caps;

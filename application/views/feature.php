@@ -55,24 +55,35 @@ $this->load->view('template/head', $headdata); ?>
                 </header>
             </div>
         </div>
+        
         <!-- mildly hackish -->
         <script type="text/javascript">$("#titlepage").height($(window).height());</script>
-        
+
         <article id="mainstory" data-article-id="<?=$article->id?>">
-          
+
+            <div class="sidebar-shim"></div>
+            <div class="sidebar" id="toc-bar"></div>
+            <? if(bonus()): ?>
+                <div class="sidebar" id="bonus-bar">       
+                </div>
+            <? endif; ?>
+
+            <!-- pin the sidebars to their respective sides -->
+            <script>
+                $offset = $("#mainstory").width() + 0.5 * ($("#container").width() - $("#mainstory").width());
+                $(".sidebar#bonus-bar").css("left", $offset - 0.5 * $(".sidebar#bonus-bar").width());
+            </script>
+
             <div id="articlebodycontainer">
         
-            <!-- placeholder for table of contents, to be injected by js -->
-            <!-- <div id="toc_container_catcher"></div> -->
-            <!-- <div id="toc_container"></div>       -->
-        
-            <div id="articlebody" class="articlebody"<?if(bonus()):?> contenteditable="true" title="Article body"<?endif;?>>
-                <? if(!empty($body)): ?>
-                <?=$body->body;?>
-                <? endif; ?>
-            </div>
+                <div id="articlebody" class="articlebody"<?if(bonus()):?> contenteditable="true" title="Article body"<?endif;?>>
+                    <? if(!empty($body)): ?>
+                    <?=$body->body;?>
+                    <? endif; ?>
+                </div>
         
             </div>
+
             <div id="articlefooter">
                 <? if(!bonus()): ?>
                     <!-- Disqus -->
@@ -713,19 +724,19 @@ $this->load->view('template/head', $headdata); ?>
         var upload = document.getElementById('imageupload'),
         holder = document.getElementById('dnd-holder');
 
-        upload.onchange = function (e) {
-            e.preventDefault();
+        // upload.onchange = function (e) {
+        //     e.preventDefault();
 
-            var file = upload.files[0],
-            reader = new FileReader();
-            reader.onload = function (event) {
-                imageLoad(event);
-            };
+        //     var file = upload.files[0],
+        //     reader = new FileReader();
+        //     reader.onload = function (event) {
+        //         imageLoad(event);
+        //     };
             
-            reader.readAsDataURL(file);
+        //     reader.readAsDataURL(file);
 
-            return false;
-        };
+        //     return false;
+        // };
 
         // drag-and-drop image
         if(holder) {
@@ -763,6 +774,38 @@ $this->load->view('template/head', $headdata); ?>
             $('figcaption.bonus').show();
             $('figure').removeClass('mini');
         }
+
+        function isScrolledTo(elem) {
+            var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
+            var docViewBottom = docViewTop + $(window).height();
+            var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
+            var elemBottom = elemTop + $(elem).height();
+            return ((elemTop <= docViewTop));
+        }
+
+        // set up the table of contents navigation stickiness
+        var catcher = $('.sidebar-shim');
+        var sticky = $('.sidebar');
+
+        $(window).scroll(function() {
+            if(isScrolledTo(sticky)) {
+                sticky.css('position','fixed');
+                sticky.css('top','100px');
+
+                $("#bonus-bar").css("right", 0);
+                $("#bonus-bar").css("left", "");
+            }
+            
+            var topStop = catcher.offset().top + catcher.height() - 200;
+            
+            if ( topStop > sticky.offset().top - 200) {
+                sticky.css('position','absolute');
+                sticky.css('top','0');
+                
+                $offset = $("#mainstory").width() + 0.5 * ($("#container").width() - $("#mainstory").width());
+                $(".sidebar#bonus-bar").css("left", $offset - 0.5 * $(".sidebar#bonus-bar").width());
+            }
+        });
         </script>
       
     <? endif; ?>

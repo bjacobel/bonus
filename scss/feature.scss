@@ -105,6 +105,30 @@
         max-width:900px;
         margin:75px auto 25px auto;
         padding:0 20px;
+        position:relative;
+        display:block;
+
+
+        .sidebar-shim {
+            width:100%;
+            height:0;
+            display:block;
+        }
+
+        .sidebar {
+            position:absolute;
+            display:block;
+        }
+
+        #bonus-bar {
+            height:150px;
+            width:40px;
+            background-color:blue;
+        }
+
+        #toc-bar {
+            left:0;
+        }
 
         .articlebody h3, figure#contents h3 {
             font-size: 19pt;
