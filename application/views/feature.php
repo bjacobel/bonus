@@ -170,6 +170,14 @@ $this->load->view('template/head', $headdata); ?>
 
         $('.nav-canvas').detectPixelRatio();
 
+        $('.nav-canvas').drawVector({
+            layer: true,
+            strokeStyle: 'grey',
+            strokeWidth: 1,
+            x: 30, y: 5,
+            a1: 180, l1: $("#nav-bar").height()-10
+        });
+
         for (var i = 5; i <= line_length; i += interval) {
             $('.nav-canvas').drawEllipse({
                 layer: true,
@@ -195,14 +203,6 @@ $this->load->view('template/head', $headdata); ?>
                 }
             });
         };
-
-        $('.nav-canvas').drawVector({
-            layer: true,
-            strokeStyle: 'grey',
-            strokeWidth: 1,
-            x: 30, y: 5,
-            a1: 180, l1: $("#nav-bar").height()-10
-        });
 
         // Set up localScroll smooth scroller to scroll the whole document
         // when a table of contents link is clicked
