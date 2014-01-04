@@ -166,24 +166,42 @@ $this->load->view('template/head', $headdata); ?>
         // populate the navbar with dots
         h3s = $("h3").length;
         line_length = $("#nav-bar").height();
-        interval = (line_length - 6) / (h3s - 1);
+        interval = (line_length - 10) / (h3s - 1);
 
         $('.nav-canvas').detectPixelRatio();
 
-        for (var i = 3; i <= line_length; i += interval) {
-            console.log(i);
+        for (var i = 5; i <= line_length; i += interval) {
             $('.nav-canvas').drawEllipse({
-              fillStyle: 'grey',
-              x: 30, y: i,
-              width: 6, height: 6
+                layer: true,
+                fillStyle: 'grey',
+                strokeStyle: 'transparent',
+                strokeWidth: 8,
+                x: 30, y: i,
+                width: 6, height: 6,
+                mouseover: function(layer) {
+                    $(this).animateLayer(layer, {
+                        width:'+=4', height:'+=4'
+                    }, 50);
+                },
+                mouseout: function(layer) {
+                    $(this).animateLayer(layer, {
+                        width:'-=4', height:'-=4'
+                    }, 50);
+                },
+                cursors: {
+                    mouseover: "pointer",
+                    mousedown: "pointer",
+                    mouseup: "default"
+                }
             });
         };
 
         $('.nav-canvas').drawVector({
+            layer: true,
             strokeStyle: 'grey',
             strokeWidth: 1,
-            x: 30, y: 0,
-            a1: 180, l1: $("#nav-bar").height()
+            x: 30, y: 5,
+            a1: 180, l1: $("#nav-bar").height()-10
         });
 
         // Set up localScroll smooth scroller to scroll the whole document
