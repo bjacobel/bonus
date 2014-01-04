@@ -62,10 +62,10 @@ $this->load->view('template/head', $headdata); ?>
         <article id="mainstory" data-article-id="<?=$article->id?>">
 
             <div class="sidebar-shim"></div>
-            <div class="sidebar" id="nav-bar"></div>
+            <canvas width="40px" class="sidebar nav-canvas" id="nav-bar"></canvas>
             
             <!-- make the nav bar a window's height tall -->
-            <script type="text/javascript">$("#nav-bar").height($(window).height()-125-$("#mainhead").height());</script>
+            <script type="text/javascript">$("#nav-bar").attr("height", $(window).height()-125-$("#mainhead").height());</script>
             
             <? if(bonus()): ?>
                 <div class="sidebar" id="bonus-bar">       
@@ -163,13 +163,32 @@ $this->load->view('template/head', $headdata); ?>
             }
         });
 
-        // populate the navbar with dots and shit
-        $h3s = $("h3").length;
+        // populate the navbar with dots
+        h3s = $("h3").length;
+        line_length = $("#nav-bar").height();
+        interval = (line_length - 6) / (h3s - 1);
 
+        $('.nav-canvas').detectPixelRatio();
+
+        for (var i = 3; i <= line_length; i += interval) {
+            console.log(i);
+            $('.nav-canvas').drawEllipse({
+              fillStyle: 'grey',
+              x: 30, y: i,
+              width: 6, height: 6
+            });
+        };
+
+        $('.nav-canvas').drawVector({
+            strokeStyle: 'grey',
+            strokeWidth: 1,
+            x: 30, y: 0,
+            a1: 180, l1: $("#nav-bar").height()
+        });
 
         // Set up localScroll smooth scroller to scroll the whole document
         // when a table of contents link is clicked
-        $('#toc-bar').localScroll({
+        $('#nav-bar').localScroll({
             target:'body',
             duration: '1000' // not duration timing is working
         });

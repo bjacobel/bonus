@@ -127,8 +127,7 @@
         }
 
         #nav-bar {
-            width:40px;
-            border-right:1px dotted gray;
+            z-index:99;
         }
 
         .articlebody h3, figure#contents h3 {
