@@ -137,8 +137,14 @@
             clear: left;
         }
 
-        .articlebody p {
-            font-size:14pt;
+        .articlebody {
+            p {
+                font-size:14pt;
+            }
+
+            .firstpar {
+                font-size:150%;
+            }
         }
     }
 

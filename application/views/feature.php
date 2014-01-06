@@ -56,16 +56,17 @@ $this->load->view('template/head', $headdata); ?>
             </div>
         </div>
         
-        <!-- mildly hackish -->
         <script type="text/javascript">$("#titlepage").height($(window).height());</script>
 
         <article id="mainstory" data-article-id="<?=$article->id?>">
 
             <div class="sidebar-shim"></div>
-            <canvas width="40px" class="sidebar nav-canvas" id="nav-bar"></canvas>
+            <canvas class="sidebar nav-canvas" id="nav-bar"></canvas>
             
-            <!-- make the nav bar a window's height tall -->
-            <script type="text/javascript">$("#nav-bar").attr("height", $(window).height()-125-$("#mainhead").height());</script>
+            <script type="text/javascript">
+                $("#nav-bar").attr("width", $(window).width());
+                $("#nav-bar").attr("height", $(window).height());
+            </script>
             
             <? if(bonus()): ?>
                 <div class="sidebar" id="bonus-bar">       
@@ -76,7 +77,7 @@ $this->load->view('template/head', $headdata); ?>
             <script>
                 $offset = ($("#container").width() - $("#mainstory").width()) / -2;
                 $(".sidebar#bonus-bar").css("right", $offset+$(".sidebar#bonus-bar").width()/2);
-                $(".sidebar#nav-bar").css("left", $offset+$(".sidebar#nav-bar").width()/2);
+                $(".sidebar#nav-bar").css("left", $offset + 20); // whoever knows why this has to be offset by 20 is a smarter man than I
             </script>
 
             <div id="articlebodycontainer">
@@ -126,6 +127,9 @@ $this->load->view('template/head', $headdata); ?>
     <? $this->load->view('bonus/bonusbar', TRUE); ?>
 
     <script>
+        // apply styles to the first paragraph
+        $("p", $("#articlebody")).first().addClass("firstpar");
+
         function isScrolledTo(elem) {
             var docViewTop = $(window).scrollTop(); //num of pixels hidden above current screen
             var elemTop = $(elem).offset().top - 100; //num of pixels above the elem
@@ -143,13 +147,14 @@ $this->load->view('template/head', $headdata); ?>
         $(window).scroll(function() {
             if(isScrolledTo(sticky)) {
                 sticky.css('position','fixed');
-                sticky.css('top','100px');
+                sticky.css('top','0');
 
                 $("#bonus-bar").css("right", 0);
                 $("#bonus-bar").css("left", "");
 
                 $("#nav-bar").css("left", 0);
                 $("#nav-bar").css("right", "");
+                $("#nav-bar").css("margin", "0");
             }
             
             if (catcher.offset().top > sticky.offset().top) {
@@ -159,33 +164,37 @@ $this->load->view('template/head', $headdata); ?>
 
                 $offset = ($("#container").width() - $("#mainstory").width()) / -2;
                 $(".sidebar#bonus-bar").css("right", $offset+$(".sidebar#bonus-bar").width()/2);
-                $(".sidebar#nav-bar").css("left", $offset+$(".sidebar#nav-bar").width()/2);
+                $(".sidebar#nav-bar").css("left", $offset + 20);
             }
         });
 
-        // populate the navbar with dots
-        h3s = $("h3").length;
-        line_length = $("#nav-bar").height();
-        interval = (line_length - 10) / (h3s - 1);
+        // NAVBAR CANVAS
 
+        // neccesary to have this all work on Retina
         $('.nav-canvas').detectPixelRatio();
 
-        $('.nav-canvas').drawVector({
-            layer: true,
-            strokeStyle: 'grey',
-            strokeWidth: 1,
-            x: 30, y: 5,
-            a1: 180, l1: $("#nav-bar").height()-10
-        });
+        // we'll put in as many dots as there are internal article headings
+        $h3s = $("h3").not(".articlesubtitle").not(".series").not(".footertitle");
+        num_h3s = $h3s.length;
 
-        for (var i = 5; i <= line_length; i += interval) {
+        // the string of dots will be as tall as the number of dots * 40px for each
+        line_length = num_h3s * 40;
+        interval = line_length / num_h3s;
+
+        offset = 125;
+
+        // dots
+        dot = 0;
+        for (var i = 0; i < num_h3s; i++) {
             $('.nav-canvas').drawEllipse({
                 layer: true,
                 fillStyle: 'grey',
-                strokeStyle: 'transparent',
-                strokeWidth: 8,
-                x: 30, y: i,
-                width: 6, height: 6,
+                x: 30,
+                y: i * interval + offset,
+                width: 6,
+                height: 6,
+                title: function(layer) { $h3s[dot].innerHTML; },
+                number: dot,
                 mouseover: function(layer) {
                     $(this).animateLayer(layer, {
                         width:'+=4', height:'+=4'
@@ -200,9 +209,64 @@ $this->load->view('template/head', $headdata); ?>
                     mouseover: "pointer",
                     mousedown: "pointer",
                     mouseup: "default"
+                },
+                scrollover: function(layer) {
+                    $(this).animateLayer(layer, {
+                        color: 'blue'
+                    }, 50);
                 }
             });
+            dot++;
         };
+
+        // triangles
+        $('.nav-canvas').drawPolygon({
+            layer: true,
+            fillStyle: 'grey',
+            x: 30, y: 85,
+            radius: 6,
+            sides: 3,
+            title: "Back to top",
+            mouseover: function(layer) {
+                $(this).animateLayer(layer, {
+                    radius: '+=3'
+                }, 50);
+            },
+            mouseout: function(layer) {
+                $(this).animateLayer(layer, {
+                    radius: '-=3'
+                }, 50);
+            },
+            scrollover: function(layer) {
+                $(this).animateLayer(layer, {
+                    color: 'blue'
+                }, 50);
+            }
+        });
+        $('.nav-canvas').drawPolygon({
+            layer: true,
+            fillStyle: 'grey',
+            x: 30, y: i * interval + offset,
+            radius: 6,
+            sides: 3,
+            rotate: 180,
+            title: "Comments",
+            mouseover: function(layer) {
+                $(this).animateLayer(layer, {
+                    radius: '+=3'
+                }, 50);
+            },
+            mouseout: function(layer) {
+                $(this).animateLayer(layer, {
+                    radius: '-=3'
+                }, 50);
+            },
+            scrollover: function(layer) {
+                $(this).animateLayer(layer, {
+                    color: 'blue'
+                }, 50);
+            }
+        });
 
         // Set up localScroll smooth scroller to scroll the whole document
         // when a table of contents link is clicked
@@ -210,6 +274,30 @@ $this->load->view('template/head', $headdata); ?>
             target:'body',
             duration: '1000' // not duration timing is working
         });
+
+        $layers = $($('.nav-canvas').getLayers());
+
+        dot = 0;
+        $h3s.each(function(){
+            // give each h3 some data-props
+            $(this).attr("data-dot", dot);
+
+            // make each h3 change color of its corresponding nav icon when its waypoint is triggered
+            $(this).waypoint(function(){
+                dotnum = $(this).attr("data-dot");
+                $layers.each(function(){
+                    if($(this)[0].number == dotnum) {
+                        $(this)[0].fillStyle = "blue";
+                    } else {
+                        if(typeof $(this)[0].number !== 'undefined')
+                            $(this)[0].fillStyle = "grey";
+                    }
+                });
+            }, { offset: '25%' });
+            dot++;
+        });
+
+        
     </script>
 
     <? if(bonus()): ?>
