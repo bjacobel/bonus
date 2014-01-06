@@ -183,7 +183,16 @@ $this->load->view('template/head', $headdata); ?>
 
         offset = 125;
 
-        // dots
+        // give each h3 a numbered data-prop
+        dot = 0;
+        $h3s.each(function(){
+            $(this).attr("data-dot", dot);
+            dot++;
+        });
+
+        // start drawing
+
+        // draw the dots
         dot = 0;
         for (var i = 0; i < num_h3s; i++) {
             $('.nav-canvas').drawEllipse({
@@ -205,21 +214,20 @@ $this->load->view('template/head', $headdata); ?>
                         width:'-=4', height:'-=4'
                     }, 50);
                 },
+                click: function(layer) {
+                    $.scrollTo($("h3[data-dot="+layer.number+"]").offset().top-75, 500, {easing: 'easeOutQuint'});
+                },
                 cursors: {
                     mouseover: "pointer",
                     mousedown: "pointer",
                     mouseup: "default"
                 },
-                scrollover: function(layer) {
-                    $(this).animateLayer(layer, {
-                        color: 'blue'
-                    }, 50);
-                }
+
             });
             dot++;
         };
 
-        // triangles
+        // draw the triangles
         $('.nav-canvas').drawPolygon({
             layer: true,
             fillStyle: 'grey',
@@ -237,11 +245,9 @@ $this->load->view('template/head', $headdata); ?>
                     radius: '-=3'
                 }, 50);
             },
-            scrollover: function(layer) {
-                $(this).animateLayer(layer, {
-                    color: 'blue'
-                }, 50);
-            }
+            click : function (layer) {
+                $.scrollTo($("#mainstory").offset().top-75, 500, {easing: 'easeOutQuint'});
+            },
         });
         $('.nav-canvas').drawPolygon({
             layer: true,
@@ -261,28 +267,15 @@ $this->load->view('template/head', $headdata); ?>
                     radius: '-=3'
                 }, 50);
             },
-            scrollover: function(layer) {
-                $(this).animateLayer(layer, {
-                    color: 'blue'
-                }, 50);
-            }
-        });
-
-        // Set up localScroll smooth scroller to scroll the whole document
-        // when a table of contents link is clicked
-        $('#nav-bar').localScroll({
-            target:'body',
-            duration: '1000' // not duration timing is working
+            click : function (layer) {
+                $.scrollTo($("#disqus_thread").offset().top-75, 500, {easing: 'easeOutQuint'});
+            },
         });
 
         $layers = $($('.nav-canvas').getLayers());
 
-        dot = 0;
+        // make each h3 change color of its corresponding nav icon when its waypoint is triggered
         $h3s.each(function(){
-            // give each h3 some data-props
-            $(this).attr("data-dot", dot);
-
-            // make each h3 change color of its corresponding nav icon when its waypoint is triggered
             $(this).waypoint(function(){
                 dotnum = $(this).attr("data-dot");
                 $layers.each(function(){
@@ -293,10 +286,8 @@ $this->load->view('template/head', $headdata); ?>
                             $(this)[0].fillStyle = "grey";
                     }
                 });
-            }, { offset: '25%' });
-            dot++;
+            }, { offset: '15%' });
         });
-
         
     </script>
 

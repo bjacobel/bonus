@@ -78,8 +78,6 @@
       height: 150px;
       width: 40px;
       background-color: blue; }
-    #container #mainstory #nav-bar {
-      z-index: 99; }
     #container #mainstory .articlebody h3, #container #mainstory figure#contents h3 {
       font-size: 19pt;
       font-variant: small-caps;
