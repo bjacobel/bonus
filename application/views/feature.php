@@ -141,13 +141,13 @@ $this->load->view('template/head', $headdata); ?>
         }
 
         // set up the bonusbar and navbar stickiness
-        var catcher = $('.sidebar-shim');
-        var sticky = $('.sidebar');
+        $catcher = $('.sidebar-shim');
+        $sticky = $('.sidebar');
+        $bottom = $("#container");
 
         $(window).scroll(function() {
-            if(isScrolledTo(sticky)) {
-                sticky.css('position','fixed');
-                sticky.css('top','0');
+            if(isScrolledTo($sticky)) {
+                $sticky.css('position','fixed');
 
                 $("#bonus-bar").css("right", 0);
                 $("#bonus-bar").css("left", "");
@@ -157,15 +157,19 @@ $this->load->view('template/head', $headdata); ?>
                 $("#nav-bar").css("margin", "0");
             }
             
-            if (catcher.offset().top > sticky.offset().top) {
+            if ($catcher.offset().top > $sticky.offset().top) {
                 // stick to the top, stop scrolling
-                sticky.css('position','absolute');
-                sticky.css('top','0');
+                $sticky.css('position','absolute');
 
                 $offset = ($("#container").width() - $("#mainstory").width()) / -2;
                 $(".sidebar#bonus-bar").css("right", $offset+$(".sidebar#bonus-bar").width()/2);
                 $(".sidebar#nav-bar").css("left", $offset + 20);
+            } else if ($sticky.offset().top + $sticky.height() > $bottom.offset().top + $bottom.height()){
+                $("#nav-bar").fadeOut();
+            } else {
+                $("#nav-bar").fadeIn();
             }
+
         });
 
         // NAVBAR CANVAS
