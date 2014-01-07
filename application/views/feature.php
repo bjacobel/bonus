@@ -278,13 +278,21 @@ $this->load->view('template/head', $headdata); ?>
 
         $layers = $($('.nav-canvas').getLayers());
 
+        // Waste of the bandwidth to use CF for something so trivial. But maybe we'll use accent colors more in the future?
+        var colorThief = new ColorThief();
+        $(window).load(function(){
+            sourceImage = new Image();
+            sourceImage.src = $("#titlepage").css("background-image").split(/\)|\(/)[1];
+            palette = colorThief.getPalette(sourceImage, 2);
+        });
+
         // make each h3 change color of its corresponding nav icon when its waypoint is triggered
         $h3s.each(function(){
             $(this).waypoint(function(){
                 dotnum = $(this).attr("data-dot");
                 $layers.each(function(){
                     if($(this)[0].number == dotnum) {
-                        $(this)[0].fillStyle = "blue";
+                        $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
                     } else {
                         if(typeof $(this)[0].number !== 'undefined')
                             $(this)[0].fillStyle = "grey";

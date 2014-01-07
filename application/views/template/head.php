@@ -97,6 +97,7 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 		<? if(isset($viewtype) && $viewtype == "feature"): ?>
 			<script type="text/javascript" src="<?=base_url()?>js/jcanvas.min.js"></script>
 			<script type="text/javascript" src="<?=base_url()?>js/waypoints.min.js"></script>
+			<script type="text/javascript" src="<?=base_url()?>js/colorthief.min.js"></script>
 		<? endif; ?>
 
 		<? if(bonus()): ?>	
