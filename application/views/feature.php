@@ -210,18 +210,9 @@ $this->load->view('template/head', $headdata); ?>
                     $(this).animateLayer(layer, {
                         width:'+=4', height:'+=4'
                     }, 50);
-                    $('.nav-canvas').drawRect({
-                        layer: true,
-                        fillStyle: 'white',
-                        shadowColor: 'black',
-                        shadowBlur: 3,
-                        height: 20,
-                        width: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase().length * 10,
-                        x: 45,
-                        y: layer.y - 10,
-                        fromCenter: false,
-                        name: 'text-bg',
-                    }).drawText({
+
+                    // text has to be drawn twice so we can tell how long it'll be
+                    $('.nav-canvas').drawText({
                         layer: true,
                         text: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase(),
                         x: 50,
@@ -229,7 +220,29 @@ $this->load->view('template/head', $headdata); ?>
                         align: 'left',
                         respectAlign: 'true',
                         fillStyle: 'black',
-                        fontSize: 16,
+                        fontSize: 14,
+                        fontFamily: 'minion-pro, Georgia',
+                        name: 'text',
+                    }).drawRect({
+                        layer: true,
+                        fillStyle: 'white',
+                        shadowColor: 'black',
+                        shadowBlur: 15,
+                        height: 24,
+                        width: $('.nav-canvas').measureText('text').width + 15,
+                        x: 43,
+                        y: layer.y - 12,
+                        fromCenter: false,
+                        name: 'text-bg',
+                    }).removeLayer('text').drawText({
+                        layer: true,
+                        text: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase(),
+                        x: 50,
+                        y: layer.y,
+                        align: 'left',
+                        respectAlign: 'true',
+                        fillStyle: 'black',
+                        fontSize: 14,
                         fontFamily: 'minion-pro, Georgia',
                         name: 'text',
                     });
