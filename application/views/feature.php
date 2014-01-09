@@ -212,6 +212,9 @@ $this->load->view('template/head', $headdata); ?>
                     }, 50);
 
                     // text has to be drawn twice so we can tell how long it'll be
+                    // we're just going to hide all this on mobile devices anyway so
+                    // we ought not to have to worry about js performance
+                    // #thingsItellmyselftorationalizeshittycodeIwrote
                     $('.nav-canvas').drawText({
                         layer: true,
                         text: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase(),
@@ -325,7 +328,6 @@ $this->load->view('template/head', $headdata); ?>
             $(this).waypoint(function(){
                 dotnum = $(this).attr("data-dot");
                 $layers.each(function(){
-                    console.log($(this)[0].number);
                     if($(this)[0].number == dotnum) {
                         $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
                     } else {
