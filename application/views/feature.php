@@ -143,7 +143,7 @@ $this->load->view('template/head', $headdata); ?>
         // set up the bonusbar and navbar stickiness
         $catcher = $('.sidebar-shim');
         $sticky = $('.sidebar');
-        $bottom = $("#container");
+        $bottom = $("#Featured");
 
         $(window).scroll(function() {
             if(isScrolledTo($sticky)) {
@@ -197,7 +197,6 @@ $this->load->view('template/head', $headdata); ?>
         // start drawing
 
         // draw the dots
-        dot = 0;
         for (var i = 0; i < num_h3s; i++) {
             $('.nav-canvas').drawEllipse({
                 layer: true,
@@ -206,17 +205,41 @@ $this->load->view('template/head', $headdata); ?>
                 y: i * interval + offset,
                 width: 6,
                 height: 6,
-                title: function(layer) { $h3s[dot].innerHTML; },
-                number: dot,
+                number: i,
                 mouseover: function(layer) {
                     $(this).animateLayer(layer, {
                         width:'+=4', height:'+=4'
                     }, 50);
+                    $('.nav-canvas').drawRect({
+                        layer: true,
+                        fillStyle: 'white',
+                        shadowColor: 'black',
+                        shadowBlur: 3,
+                        height: 20,
+                        width: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase().length * 10,
+                        x: 45,
+                        y: layer.y - 10,
+                        fromCenter: false,
+                        name: 'text-bg',
+                    }).drawText({
+                        layer: true,
+                        text: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase(),
+                        x: 50,
+                        y: layer.y,
+                        align: 'left',
+                        respectAlign: 'true',
+                        fillStyle: 'black',
+                        fontSize: 16,
+                        fontFamily: 'minion-pro, Georgia',
+                        name: 'text',
+                    });
                 },
                 mouseout: function(layer) {
                     $(this).animateLayer(layer, {
                         width:'-=4', height:'-=4'
                     }, 50);
+                    $('.nav-canvas').removeLayer('text');
+                    $('.nav-canvas').removeLayer('text-bg');
                 },
                 click: function(layer) {
                     $.scrollTo($("h3[data-dot="+layer.number+"]").offset().top-75, 500, {easing: 'easeOutQuint'});
@@ -226,9 +249,7 @@ $this->load->view('template/head', $headdata); ?>
                     mousedown: "pointer",
                     mouseup: "default"
                 },
-
-            });
-            dot++;
+            })
         };
 
         // draw the triangles
@@ -276,8 +297,6 @@ $this->load->view('template/head', $headdata); ?>
             },
         });
 
-        $layers = $($('.nav-canvas').getLayers());
-
         // Waste of the bandwidth to use CF for something so trivial. But maybe we'll use accent colors more in the future?
         var colorThief = new ColorThief();
         $(window).load(function(){
@@ -286,11 +305,14 @@ $this->load->view('template/head', $headdata); ?>
             palette = colorThief.getPalette(sourceImage, 2);
         });
 
+        $layers = $($('#nav-bar').getLayers());
+
         // make each h3 change color of its corresponding nav icon when its waypoint is triggered
         $h3s.each(function(){
             $(this).waypoint(function(){
                 dotnum = $(this).attr("data-dot");
                 $layers.each(function(){
+                    console.log($(this)[0].number);
                     if($(this)[0].number == dotnum) {
                         $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
                     } else {
@@ -298,7 +320,7 @@ $this->load->view('template/head', $headdata); ?>
                             $(this)[0].fillStyle = "grey";
                     }
                 });
-            }, { offset: '15%' });
+            }, { offset: '10%' });
         });
         
     </script>
