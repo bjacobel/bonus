@@ -230,18 +230,17 @@ $this->load->view('template/head', $headdata); ?>
                         y: layer.y,
                         align: 'left',
                         respectAlign: 'true',
-                        fillStyle: 'black',
+                        fillStyle: 'white',
                         fontSize: 14,
                         fontFamily: 'minion-pro, Georgia',
                         name: 'text',
                     }).drawRect({
                         layer: true,
-                        fillStyle: 'white',
-                        shadowColor: 'black',
-                        shadowBlur: 15,
+                        fillStyle: 'grey',
                         height: 24,
                         width: $('.nav-canvas').measureText('text').width + 15,
-                        x: 43,
+                        cornerRadius: 4,
+                        x: 42,
                         y: layer.y - 12,
                         fromCenter: false,
                         name: 'text-bg',
@@ -252,7 +251,7 @@ $this->load->view('template/head', $headdata); ?>
                         y: layer.y,
                         align: 'left',
                         respectAlign: 'true',
-                        fillStyle: 'black',
+                        fillStyle: 'white',
                         fontSize: 14,
                         fontFamily: 'minion-pro, Georgia',
                         name: 'text',
@@ -342,7 +341,7 @@ $this->load->view('template/head', $headdata); ?>
                                 $(this)[0].fillStyle = "grey";
                         }
                     });
-                }, { offset: '10%' });
+                }, { offset: '76px' });
             });
         });
     </script>
