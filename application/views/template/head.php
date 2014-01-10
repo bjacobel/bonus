@@ -98,6 +98,8 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
 			<script type="text/javascript" src="<?=base_url()?>js/jcanvas.min.js"></script>
 			<script type="text/javascript" src="<?=base_url()?>js/waypoints.min.js"></script>
 			<script type="text/javascript" src="<?=base_url()?>js/colorthief.min.js"></script>
+			<script type="text/javascript" src="<?=base_url()?>js/jquery.tipsy.js"></script>
+			<link rel="stylesheet" href="<?=base_url()?>css/tipsy.css">
 		<? endif; ?>
 
 		<? if(bonus()): ?>	

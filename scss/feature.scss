@@ -121,10 +121,27 @@
         }
 
         #bonus-bar {
-            height:150px;
-            width:40px;
-            background-color:blue;
             top:100px;
+            width:48px;
+            border: 1px solid black;
+            border-right: 0;
+            z-index:99;
+            background-color:white;
+            @include vendor-prefix(border-radius, 3px);
+            @include vendor-prefix(box-shadow, -1px 0px 1px 0px rgba(50, 50, 50, 0.5));
+
+            .bonus-action {
+                margin:4px;
+                width:40px;
+                height:40px;
+                cursor: pointer;
+            }
+
+            .bonus-action:hover {
+                margin:3px;
+                width:42px;
+                height:42px;
+            }
         }
 
         #nav-bar {
@@ -153,13 +170,3 @@
 
     } 
 }
-
-.draggable {
-    pointer:hand;
-    
-}
-
-.droppable {
-
-}
-

@@ -69,8 +69,16 @@ $this->load->view('template/head', $headdata); ?>
             </script>
             
             <? if(bonus()): ?>
-                <div class="sidebar" id="bonus-bar">       
+                <div class="sidebar" id="bonus-bar">
+                    <img src="<?=base_url()?>img/features/photo.png" class="bonus-action" title="PHOTO" credit="Plinio Fernandes, from The Noun Project"/>
+                    <img src="<?=base_url()?>img/features/video.png" class="bonus-action" title="VIDEO" credit="Thomas Le Bas, from The Noun Project"/>
+                    <img src="<?=base_url()?>img/features/quote.png" class="bonus-action" title="BLOCK QUOTE" credit="Alex Fuller, from The Noun Project"/>
+                    <img src="<?=base_url()?>img/features/map.png" class="bonus-action" title="GOOGLE MAP" credit="Garrett Knoll, from The Noun Project"/>
+                    <img src="<?=base_url()?>img/features/audio.png" class="bonus-action" title="SOUNDCLOUD AUDIO" credit="Samuel Q. Green, from The Noun Project"/>
+                    <img src="<?=base_url()?>img/features/pdf.png" class="bonus-action" title="SCRIBD PDF" credit="Jamison Wieser, from The Noun Project"/>
+                    <img src="<?=base_url()?>img/features/code.png" class="bonus-action" title="HTML" credit="Public domain, from The Noun Project"/>
                 </div>
+                <script type="text/javascript">$(".bonus-action").tipsy({gravity: 'e', offset: '8'});
             <? endif; ?>
 
             <!-- pin the sidebars to their respective sides -->
@@ -319,25 +327,24 @@ $this->load->view('template/head', $headdata); ?>
             sourceImage = new Image();
             sourceImage.src = $("#titlepage").css("background-image").split(/\)|\(/)[1];
             palette = colorThief.getPalette(sourceImage, 2);
-        });
 
-        $layers = $($('#nav-bar').getLayers());
+            $layers = $($('#nav-bar').getLayers());
 
-        // make each h3 change color of its corresponding nav icon when its waypoint is triggered
-        $h3s.each(function(){
-            $(this).waypoint(function(){
-                dotnum = $(this).attr("data-dot");
-                $layers.each(function(){
-                    if($(this)[0].number == dotnum) {
-                        $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
-                    } else {
-                        if(typeof $(this)[0].number !== 'undefined')
-                            $(this)[0].fillStyle = "grey";
-                    }
-                });
-            }, { offset: '10%' });
+            // make each h3 change color of its corresponding nav icon when its waypoint is triggered
+            $h3s.each(function(){
+                $(this).waypoint(function(){
+                    dotnum = $(this).attr("data-dot");
+                    $layers.each(function(){
+                        if($(this)[0].number == dotnum) {
+                            $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
+                        } else {
+                            if(typeof $(this)[0].number !== 'undefined')
+                                $(this)[0].fillStyle = "grey";
+                        }
+                    });
+                }, { offset: '10%' });
+            });
         });
-        
     </script>
 
     <? if(bonus()): ?>
