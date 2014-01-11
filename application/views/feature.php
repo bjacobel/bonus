@@ -95,6 +95,20 @@ $this->load->view('template/head', $headdata); ?>
                     <?=$body->body;?>
                     <? endif; ?>
                 </div>
+
+                <div id="attachments">
+                <!-- where the in-article attachments are created and later removed from with JS -->
+                <!-- this div is deleted fter that takes place -->
+                    <? 
+                        if ($attachments) {
+                            foreach ($attachments as $attachment) {
+                                if ($attachment->type == "pullquote") {
+                                    $this->load->view('template/feature-attachments/pullquote', $attachment);
+                                }
+                            }
+                        }
+                    ?>
+                </div>
         
             </div>
 
@@ -133,6 +147,14 @@ $this->load->view('template/head', $headdata); ?>
     <? $this->load->view('template/bodyfooter', $footerdata); ?>
 
     <? $this->load->view('bonus/bonusbar', TRUE); ?>
+
+    <script>
+        //move the attachments into place
+        $(".attachment").each(function(){
+            $(this).insertAfter("p:eq("+$(this).data('afterpar')+")");
+        });
+        $("#attachments").remove();
+    </script>
 
     <script>
         // apply styles to the first paragraph
@@ -236,12 +258,12 @@ $this->load->view('template/head', $headdata); ?>
                         name: 'text',
                     }).drawRect({
                         layer: true,
-                        fillStyle: 'grey',
+                        fillStyle: 'black',
                         height: 24,
                         width: $('.nav-canvas').measureText('text').width + 15,
                         cornerRadius: 4,
                         x: 42,
-                        y: layer.y - 12,
+                        y: layer.y - 13,
                         fromCenter: false,
                         name: 'text-bg',
                     }).removeLayer('text').drawText({

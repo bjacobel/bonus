@@ -163,10 +163,26 @@
             .firstpar {
                 font-size:150%;
             }
+
+            .attachment {
+                margin-bottom:28px;
+            }
         }
     }
+}
 
-    .blockquote {
+// attachments
+.pullquote {
+    width:80%;
+    margin: 0 auto;
+    position:relative;
 
-    } 
+    .quote {
+        font-size:19pt !important;
+    }
+
+    .credit {
+        text-align: right;
+        font-style: italic;
+    }
 }

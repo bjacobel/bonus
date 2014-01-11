@@ -111,3 +111,15 @@
       font-size: 14pt; }
     #container #mainstory .articlebody .firstpar {
       font-size: 150%; }
+    #container #mainstory .articlebody .attachment {
+      margin-bottom: 28px; }
+
+.pullquote {
+  width: 80%;
+  margin: 0 auto;
+  position: relative; }
+  .pullquote .quote {
+    font-size: 19pt !important; }
+  .pullquote .credit {
+    text-align: right;
+    font-style: italic; }
