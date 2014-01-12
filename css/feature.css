@@ -112,7 +112,8 @@
     #container #mainstory .articlebody .firstpar {
       font-size: 150%; }
     #container #mainstory .articlebody .attachment {
-      margin-bottom: 28px; }
+      margin-bottom: 28px;
+      z-index: 10; }
 
 .pullquote {
   width: 80%;

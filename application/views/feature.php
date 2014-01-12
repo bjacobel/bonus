@@ -61,10 +61,10 @@ $this->load->view('template/head', $headdata); ?>
         <article id="mainstory" data-article-id="<?=$article->id?>">
 
             <div class="sidebar-shim"></div>
-            <canvas class="sidebar nav-canvas" id="nav-bar"></canvas>
+            <canvas class="sidebar" id="nav-bar" tabindex="1"></canvas>
             
             <script type="text/javascript">
-                $("#nav-bar").attr("width", $(window).width());
+                $("#nav-bar").attr("width", $("#articlebodycontainer").css("margin-left"));
                 $("#nav-bar").attr("height", $(window).height());
             </script>
             
@@ -92,22 +92,22 @@ $this->load->view('template/head', $headdata); ?>
         
                 <div id="articlebody" class="articlebody"<?if(bonus()):?> contenteditable="true" title="Article body"<?endif;?>>
                     <? if(!empty($body)): ?>
-                    <?=$body->body;?>
+                        <?=$body->body;?>
                     <? endif; ?>
                 </div>
 
                 <div id="attachments">
                 <!-- where the in-article attachments are created and later removed from with JS -->
                 <!-- this div is deleted fter that takes place -->
-                    <? 
-                        if ($attachments) {
-                            foreach ($attachments as $attachment) {
-                                if ($attachment->type == "pullquote") {
-                                    $this->load->view('template/feature-attachments/pullquote', $attachment);
-                                }
+                    <? if ($attachments) {
+                        foreach ($attachments as $attachment) {
+                            if ($attachment->type == "pullquote") {
+                                $this->load->view('template/feature-attachments/pullquote', $attachment);
+                            } elseif ($attachment->type == "vimeo" || $attachment->type == "youtube") {
+                                $this->load->view('template/feature-attachments/video', $attachment);
                             }
                         }
-                    ?>
+                    }?>
                 </div>
         
             </div>
@@ -205,7 +205,7 @@ $this->load->view('template/head', $headdata); ?>
         // NAVBAR CANVAS
 
         // neccesary to have this all work on Retina
-        $('.nav-canvas').detectPixelRatio();
+        $('#nav-bar').detectPixelRatio();
 
         // we'll put in as many dots as there are internal article headings
         $h3s = $("h3").not(".articlesubtitle").not(".series").not(".footertitle");
@@ -228,7 +228,7 @@ $this->load->view('template/head', $headdata); ?>
 
         // draw the dots
         for (var i = 0; i < num_h3s; i++) {
-            $('.nav-canvas').drawEllipse({
+            $('#nav-bar').drawEllipse({
                 layer: true,
                 fillStyle: 'grey',
                 x: 30,
@@ -245,7 +245,7 @@ $this->load->view('template/head', $headdata); ?>
                     // we're just going to hide all this on mobile devices anyway so
                     // we ought not to have to worry about js performance
                     // #thingsItellmyselftorationalizeshittycodeIwrote
-                    $('.nav-canvas').drawText({
+                    $('#nav-bar').drawText({
                         layer: true,
                         text: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase(),
                         x: 50,
@@ -260,7 +260,7 @@ $this->load->view('template/head', $headdata); ?>
                         layer: true,
                         fillStyle: 'black',
                         height: 24,
-                        width: $('.nav-canvas').measureText('text').width + 15,
+                        width: $('#nav-bar').measureText('text').width + 15,
                         cornerRadius: 4,
                         x: 42,
                         y: layer.y - 13,
@@ -283,8 +283,8 @@ $this->load->view('template/head', $headdata); ?>
                     $(this).animateLayer(layer, {
                         width:'-=4', height:'-=4'
                     }, 50);
-                    $('.nav-canvas').removeLayer('text');
-                    $('.nav-canvas').removeLayer('text-bg');
+                    $('#nav-bar').removeLayer('text');
+                    $('#nav-bar').removeLayer('text-bg');
                 },
                 click: function(layer) {
                     $.scrollTo($("h3[data-dot="+layer.number+"]").offset().top-75, 500, {easing: 'easeOutQuint'});
@@ -298,7 +298,7 @@ $this->load->view('template/head', $headdata); ?>
         };
 
         // draw the triangles
-        $('.nav-canvas').drawPolygon({
+        $('#nav-bar').drawPolygon({
             layer: true,
             fillStyle: 'grey',
             x: 30, y: 85,
@@ -319,7 +319,7 @@ $this->load->view('template/head', $headdata); ?>
                 $.scrollTo($("#mainstory").offset().top-75, 500, {easing: 'easeOutQuint'});
             },
         });
-        $('.nav-canvas').drawPolygon({
+        $('#nav-bar').drawPolygon({
             layer: true,
             fillStyle: 'grey',
             x: 30, y: i * interval + offset,
@@ -355,6 +355,7 @@ $this->load->view('template/head', $headdata); ?>
             $h3s.each(function(){
                 $(this).waypoint(function(){
                     dotnum = $(this).attr("data-dot");
+                    layer = 0;
                     $layers.each(function(){
                         if($(this)[0].number == dotnum) {
                             $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
@@ -362,6 +363,8 @@ $this->load->view('template/head', $headdata); ?>
                             if(typeof $(this)[0].number !== 'undefined')
                                 $(this)[0].fillStyle = "grey";
                         }
+                        $("#nav-bar").drawLayer(layer);
+                        layer++;
                     });
                 }, { offset: '76px' });
             });
