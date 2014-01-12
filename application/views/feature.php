@@ -73,7 +73,6 @@ $this->load->view('template/head', $headdata); ?>
                     <img src="<?=base_url()?>img/features/photo.png" class="bonus-action" title="PHOTO" credit="Plinio Fernandes, from The Noun Project"/>
                     <img src="<?=base_url()?>img/features/video.png" class="bonus-action" title="VIDEO" credit="Thomas Le Bas, from The Noun Project"/>
                     <img src="<?=base_url()?>img/features/quote.png" class="bonus-action" title="BLOCK QUOTE" credit="Alex Fuller, from The Noun Project"/>
-                    <img src="<?=base_url()?>img/features/map.png" class="bonus-action" title="GOOGLE MAP" credit="Garrett Knoll, from The Noun Project"/>
                     <img src="<?=base_url()?>img/features/audio.png" class="bonus-action" title="SOUNDCLOUD AUDIO" credit="Samuel Q. Green, from The Noun Project"/>
                     <img src="<?=base_url()?>img/features/pdf.png" class="bonus-action" title="SCRIBD PDF" credit="Jamison Wieser, from The Noun Project"/>
                     <img src="<?=base_url()?>img/features/code.png" class="bonus-action" title="HTML" credit="Public domain, from The Noun Project"/>
@@ -105,6 +104,8 @@ $this->load->view('template/head', $headdata); ?>
                                 $this->load->view('template/feature-attachments/pullquote', $attachment);
                             } elseif ($attachment->type == "vimeo" || $attachment->type == "youtube") {
                                 $this->load->view('template/feature-attachments/video', $attachment);
+                            } elseif ($attachment->type == "soundcloud") {
+                                $this->load->view('template/feature-attachments/soundcloud', $attachment);
                             }
                         }
                     }?>
