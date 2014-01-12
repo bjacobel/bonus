@@ -20,6 +20,8 @@ class Attachments_model extends CI_Model {
     		photo.filename_large, 
     		photo.credit, 
     		photo.caption,
+            photo.coverphoto,
+            photo.afterpar,
     		author.id as photographer_id, 
     		author.name as photographer_name");
     	$this->db->join("author", "author.id = photo.photographer_id", 'left');

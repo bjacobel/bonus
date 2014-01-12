@@ -172,7 +172,6 @@
     }
 }
 
-// attachments
 .pullquote {
     width:80%;
     margin: 0 auto;
@@ -185,5 +184,12 @@
     .credit {
         text-align: right;
         font-style: italic;
+    }
+}
+
+.photo {
+    img {
+        width:100%;
+        height:auto;
     }
 }

@@ -83,8 +83,7 @@ class Article extends CI_Controller {
 			$data->attachments = $attachments;
 
             if ($article->longform) {
-	            $data->featuremedia = new stdClass();
-	            $data->featuremedia->coverphoto = $this->attachments_model->get_coverphoto($id);
+	            $data->coverphoto = $this->attachments_model->get_coverphoto($id);
             }
 			
 			// meta

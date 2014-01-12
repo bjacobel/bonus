@@ -8,7 +8,7 @@ $this->load->view('template/head', $headdata); ?>
 
     <div id="container">
 
-        <div id="titlepage" style="background-image:url('<?=base_url().'images/'.$article->date.'/'.$featuremedia->coverphoto->filename_large?>')">
+        <div id="titlepage" style="background-image:url('<?=base_url().'images/'.$article->date.'/'.$coverphoto->filename_large?>')">
             <div id="header-bg">
                 <header>
                     <hgroup class="articletitle-group">
@@ -106,9 +106,27 @@ $this->load->view('template/head', $headdata); ?>
                                 $this->load->view('template/feature-attachments/video', $attachment);
                             } elseif ($attachment->type == "soundcloud") {
                                 $this->load->view('template/feature-attachments/soundcloud', $attachment);
+                            } elseif ($attachment->type == "scribd") {
+                                $this->load->view('template/feature-attachments/scribd', $attachment);
+                            } elseif ($attachment->type == "html") {
+                                echo('
+                                    <div class="attachment code" data-afterpar="'.$attachment->afterpar.'">
+                                        '.$attachment->content1.'
+                                    </div>
+                                ');
                             }
                         }
-                    }?>
+                    } ?>
+
+                    <? if ($photos) : ?>
+                        <? foreach ($photos as $photo) : ?>
+                            <? if (!$photo->coverphoto) : ?>
+                                <div class="attachment photo" data-afterpar="<?=$photo->afterpar?>">
+                                    <img src="<?=base_url().'images/'.$article->date.'/'.$photo->filename_large?>"/>
+                                </div>
+                            <? endif; ?>
+                        <? endforeach; ?>
+                    <? endif; ?>
                 </div>
         
             </div>
