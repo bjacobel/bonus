@@ -104,6 +104,8 @@ $this->load->view('template/head', $headdata); ?>
                                 $this->load->view('template/feature-attachments/pullquote', $attachment);
                             } elseif ($attachment->type == "vimeo" || $attachment->type == "youtube") {
                                 $this->load->view('template/feature-attachments/video', $attachment);
+                                // known issues with the chrome extension Youtube Options breaking shit
+                                echo('<script type="text/javascript">$(".attachment.video").attr("yto", "");</script>');
                             } elseif ($attachment->type == "soundcloud") {
                                 $this->load->view('template/feature-attachments/soundcloud', $attachment);
                             } elseif ($attachment->type == "scribd") {
