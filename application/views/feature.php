@@ -64,8 +64,10 @@ $this->load->view('template/head', $headdata); ?>
             <canvas class="sidebar" id="nav-bar" tabindex="1"></canvas>
             
             <script type="text/javascript">
-                $("#nav-bar").attr("width", $("#articlebodycontainer").css("margin-left"));
-                $("#nav-bar").attr("height", $(window).height());
+                $(document).ready(function(){
+                    $("#nav-bar").attr("width", ($(window).width() - $("#articlebodycontainer").width()) / 2);
+                    $("#nav-bar").attr("height", $(window).height());
+                });
             </script>
             
             <? if(bonus()): ?>
