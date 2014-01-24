@@ -114,17 +114,26 @@
     #container #mainstory .articlebody .attachment {
       margin-bottom: 28px;
       z-index: 10; }
-
-.pullquote {
-  width: 80%;
-  margin: 0 auto;
-  position: relative; }
-  .pullquote .quote {
-    font-size: 19pt !important; }
-  .pullquote .credit {
-    text-align: right;
-    font-style: italic; }
-
-.photo img {
-  width: 100%;
-  height: auto; }
+    #container #mainstory .articlebody .pullquote {
+      width: 80%;
+      margin: 0 auto;
+      position: relative; }
+      #container #mainstory .articlebody .pullquote .quote {
+        font-size: 19pt !important; }
+      #container #mainstory .articlebody .pullquote .credit {
+        text-align: right;
+        font-style: italic; }
+    #container #mainstory .articlebody .photo {
+      margin-bottom: 45px; }
+      #container #mainstory .articlebody .photo img {
+        width: 100%;
+        height: auto; }
+      #container #mainstory .articlebody .photo .photocaption, #container #mainstory .articlebody .photo .photocredit {
+        font-size: 14px;
+        line-height: 1;
+        font-family: myriad-pro,helvetica,arial;
+        margin-bottom: 5px; }
+      #container #mainstory .articlebody .photo .photocredit {
+        text-align: right; }
+      #container #mainstory .articlebody .photo .photocredit a {
+        color: grey; }

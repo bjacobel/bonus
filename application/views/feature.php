@@ -55,20 +55,11 @@ $this->load->view('template/head', $headdata); ?>
                 </header>
             </div>
         </div>
-        
-        <script type="text/javascript">$("#titlepage").height($(window).height());</script>
 
         <article id="mainstory" data-article-id="<?=$article->id?>">
 
             <div class="sidebar-shim"></div>
             <canvas class="sidebar" id="nav-bar" tabindex="1"></canvas>
-            
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    $("#nav-bar").attr("width", ($(window).width() - $("#articlebodycontainer").width()) / 2);
-                    $("#nav-bar").attr("height", $(window).height());
-                });
-            </script>
             
             <? if(bonus()): ?>
                 <div class="sidebar" id="bonus-bar">
@@ -79,15 +70,7 @@ $this->load->view('template/head', $headdata); ?>
                     <img src="<?=base_url()?>img/features/pdf.png" class="bonus-action" title="SCRIBD PDF" credit="Jamison Wieser, from The Noun Project"/>
                     <img src="<?=base_url()?>img/features/code.png" class="bonus-action" title="HTML" credit="Public domain, from The Noun Project"/>
                 </div>
-                <script type="text/javascript">$(".bonus-action").tipsy({gravity: 'e', offset: '8'});
             <? endif; ?>
-
-            <!-- pin the sidebars to their respective sides -->
-            <script>
-                $offset = ($("#container").width() - $("#mainstory").width()) / -2;
-                $(".sidebar#bonus-bar").css("right", $offset+$(".sidebar#bonus-bar").width()/2);
-                $(".sidebar#nav-bar").css("left", $offset + 20); // whoever knows why this has to be offset by 20 is a smarter man than I
-            </script>
 
             <div id="articlebodycontainer">
         
@@ -106,8 +89,6 @@ $this->load->view('template/head', $headdata); ?>
                                 $this->load->view('template/feature-attachments/pullquote', $attachment);
                             } elseif ($attachment->type == "vimeo" || $attachment->type == "youtube") {
                                 $this->load->view('template/feature-attachments/video', $attachment);
-                                // known issues with the chrome extension Youtube Options breaking shit
-                                echo('<script type="text/javascript">$(".attachment.video").attr("yto", "");</script>');
                             } elseif ($attachment->type == "soundcloud") {
                                 $this->load->view('template/feature-attachments/soundcloud', $attachment);
                             } elseif ($attachment->type == "scribd") {
@@ -127,6 +108,12 @@ $this->load->view('template/head', $headdata); ?>
                             <? if (!$photo->coverphoto) : ?>
                                 <div class="attachment photo" data-afterpar="<?=$photo->afterpar?>">
                                     <img src="<?=base_url().'images/'.$article->date.'/'.$photo->filename_large?>"/>
+                                    <? if (isset($photo->photographer_id)): ?>
+                                        <p class="photocredit"><a href="<?=base_url().'author/'.$photo->photographer_id?>"><i><?=$photo->photographer_name?></i></a></p>
+                                    <? else: ?>
+                                        <p class="photocredit"><i><?=$photo->credit?></i></p>
+                                    <? endif; ?> 
+                                    <p class="photocaption"><?=$photo->caption?></p>
                                 </div>
                             <? endif; ?>
                         <? endforeach; ?>
@@ -171,7 +158,25 @@ $this->load->view('template/head', $headdata); ?>
 
     <? $this->load->view('bonus/bonusbar', TRUE); ?>
 
-    <script>
+    <script type="text/javascript">$(".bonus-action").tipsy({gravity: 'e', offset: '8'});</script>
+
+    <script type="text/javascript">$("#titlepage").height($(window).height());</script>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#nav-bar").attr("width", ($(window).width() - $("#articlebodycontainer").width()) / 2);
+            $("#nav-bar").attr("height", $(window).height());
+        });
+    </script>
+
+    <script type="text/javascript">
+        // pin the sidebars to respective sides
+        $offset = ($("#container").width() - $("#mainstory").width()) / -2;
+        $(".sidebar#bonus-bar").css("right", $offset+$(".sidebar#bonus-bar").width()/2);
+        $(".sidebar#nav-bar").css("left", $offset + 20); // whoever knows why this has to be offset by 20 is a smarter man than I
+    </script>
+
+    <script type="text/javascript">
         //move the attachments into place
         $(".attachment").each(function(){
             $(this).insertAfter("p:eq("+$(this).data('afterpar')+")");
@@ -179,7 +184,7 @@ $this->load->view('template/head', $headdata); ?>
         $("#attachments").remove();
     </script>
 
-    <script>
+    <script type="text/javascript">
         // apply styles to the first paragraph
         $("p", $("#articlebody")).first().addClass("firstpar");
 

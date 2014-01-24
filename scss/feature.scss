@@ -168,28 +168,44 @@
                 margin-bottom:28px;
                 z-index:10;
             }
+
+            .pullquote {
+                width:80%;
+                margin: 0 auto;
+                position:relative;
+
+                .quote {
+                    font-size:19pt !important;
+                }
+
+                .credit {
+                    text-align: right;
+                    font-style: italic;
+                }
+            }
+
+            .photo {
+                margin-bottom:45px;
+                img {
+                    width:100%;
+                    height:auto;
+                }
+
+                .photocaption, .photocredit {
+                    font-size:14px;
+                    line-height:1;
+                    font-family: myriad-pro,helvetica,arial;
+                    margin-bottom: 5px;
+                }
+
+                .photocredit {
+                    text-align:right;
+                }
+
+                .photocredit a {
+                    color:grey;
+                }
+            }
         }
-    }
-}
-
-.pullquote {
-    width:80%;
-    margin: 0 auto;
-    position:relative;
-
-    .quote {
-        font-size:19pt !important;
-    }
-
-    .credit {
-        text-align: right;
-        font-style: italic;
-    }
-}
-
-.photo {
-    img {
-        width:100%;
-        height:auto;
     }
 }
