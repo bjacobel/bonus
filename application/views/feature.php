@@ -80,47 +80,50 @@ $this->load->view('template/head', $headdata); ?>
                     <? endif; ?>
                 </div>
 
-                <div id="attachments">
-                <!-- where the in-article attachments are created and later removed from with JS -->
-                <!-- this div is deleted fter that takes place -->
-                    <? if ($attachments) {
-                        foreach ($attachments as $attachment) {
-                            if ($attachment->type == "pullquote") {
-                                $this->load->view('template/feature-attachments/pullquote', $attachment);
-                            } elseif ($attachment->type == "vimeo" || $attachment->type == "youtube") {
-                                $this->load->view('template/feature-attachments/video', $attachment);
-                            } elseif ($attachment->type == "soundcloud") {
-                                $this->load->view('template/feature-attachments/soundcloud', $attachment);
-                            } elseif ($attachment->type == "scribd") {
-                                $this->load->view('template/feature-attachments/scribd', $attachment);
-                            } elseif ($attachment->type == "html") {
-                                echo('
-                                    <div class="attachment code" data-afterpar="'.$attachment->afterpar.'">
-                                        '.$attachment->content1.'
-                                    </div>
-                                ');
-                            }
-                        }
-                    } ?>
+                <?if(!bonus()):?>
 
-                    <? if ($photos) : ?>
-                        <? foreach ($photos as $photo) : ?>
-                            <? if (!$photo->coverphoto) : ?>
-                                <div class="attachment photo" data-afterpar="<?=$photo->afterpar?>">
-                                    <img src="<?=base_url().'images/'.$article->date.'/'.$photo->filename_large?>"/>
-                                    <? if (isset($photo->photographer_id)): ?>
-                                        <p class="photocredit"><a href="<?=base_url().'author/'.$photo->photographer_id?>"><i><?=$photo->photographer_name?></i></a></p>
-                                    <? else: ?>
-                                        <p class="photocredit"><i><?=$photo->credit?></i></p>
-                                    <? endif; ?> 
-                                    <p class="photocaption"><?=$photo->caption?></p>
-                                </div>
-                            <? endif; ?>
-                        <? endforeach; ?>
-                    <? endif; ?>
+                    <div id="attachments">
+                    <!-- where the in-article attachments are created and later removed from with JS -->
+                    <!-- this div is deleted fter that takes place -->
+                        <? if ($attachments) {
+                            foreach ($attachments as $attachment) {
+                                if ($attachment->type == "pullquote") {
+                                    $this->load->view('template/feature-attachments/pullquote', $attachment);
+                                } elseif ($attachment->type == "vimeo" || $attachment->type == "youtube") {
+                                    $this->load->view('template/feature-attachments/video', $attachment);
+                                } elseif ($attachment->type == "soundcloud") {
+                                    $this->load->view('template/feature-attachments/soundcloud', $attachment);
+                                } elseif ($attachment->type == "scribd") {
+                                    $this->load->view('template/feature-attachments/scribd', $attachment);
+                                } elseif ($attachment->type == "html") {
+                                    echo('
+                                        <div class="attachment code" data-afterpar="'.$attachment->afterpar.'">
+                                            '.$attachment->content1.'
+                                        </div>
+                                    ');
+                                }
+                            }
+                        } ?>
+
+                        <? if ($photos) : ?>
+                            <? foreach ($photos as $photo) : ?>
+                                <? if (!$photo->coverphoto) : ?>
+                                    <div class="attachment photo" data-afterpar="<?=$photo->afterpar?>">
+                                        <img src="<?=base_url().'images/'.$article->date.'/'.$photo->filename_large?>"/>
+                                        <? if (isset($photo->photographer_id)): ?>
+                                            <p class="photocredit"><a href="<?=base_url().'author/'.$photo->photographer_id?>"><i><?=$photo->photographer_name?></i></a></p>
+                                        <? else: ?>
+                                            <p class="photocredit"><i><?=$photo->credit?></i></p>
+                                        <? endif; ?> 
+                                        <p class="photocaption"><?=$photo->caption?></p>
+                                    </div>
+                                <? endif; ?>
+                            <? endforeach; ?>
+                        <? endif; ?>
+                    </div>
+            
                 </div>
-        
-            </div>
+            <?endif;?>
 
             <div id="articlefooter">
                 <? if(!bonus()): ?>
@@ -177,13 +180,16 @@ $this->load->view('template/head', $headdata); ?>
         $(".sidebar#nav-bar").css("left", $offset + 20); // whoever knows why this has to be offset by 20 is a smarter man than I
     </script>
 
-    <script type="text/javascript">
-        //move the attachments into place
-        $(".attachment").each(function(){
-            $(this).insertAfter("p:eq("+$(this).data('afterpar')+")");
-        });
-        $("#attachments").remove();
-    </script>
+    <?if(!bonus()):?>
+        <script type="text/javascript">
+            //move the attachments into place
+            $attachments = $(".attachment");
+            $attachments.each(function(){
+                $(this).insertAfter("p:eq("+$(this).data('afterpar')+")");
+            });
+            $("#attachments").remove();
+        </script>
+    <? endif; ?>
 
     <script type="text/javascript">
         // apply styles to the first paragraph
