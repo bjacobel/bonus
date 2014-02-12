@@ -137,3 +137,44 @@
         text-align: right; }
       #container #mainstory .articlebody .photo .photocredit a {
         color: grey; }
+
+/* FOR SMARTPHONES (read: iPhones) */
+@media all and (max-width: 480px) {
+  #issuedate, #mainnav, #bonushook {
+    display: none; }
+
+  footer #vcard {
+    display: none; }
+
+  footer #footerlinks, footer #bonusquoteblock {
+    float: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px; }
+
+  footer #footerlinks ul {
+    display: inline;
+    margin: 0;
+    padding: 0; }
+
+  footer #footerlinks ul li {
+    width: 20%;
+    display: block;
+    list-style: none;
+    float: left;
+    margin-bottom: 20px; }
+
+  #container #titlepage #header-bg {
+    margin: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0); }
+    #container #titlepage #header-bg header {
+      top: 30px;
+      padding: 20px;
+      background-color: rgba(50, 50, 50, 0.5); }
+    #container #titlepage #header-bg #series {
+      font-size: 12pt !important; }
+    #container #titlepage #header-bg #articletitle {
+      font-size: 22pt !important; }
+    #container #titlepage #header-bg #articlesubtitle {
+      font-size: 14pt !important; } }
