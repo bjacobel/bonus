@@ -1,12 +1,13 @@
+
 <?php
-class Article extends CI_Controller {
+class Feature extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
         date_default_timezone_set('America/New_York');
         $this->load->model('issue_model', '', TRUE);
-        $this->load->model('article_model', '', TRUE);
+        $this->load->model('feature_model', '', TRUE);
         $this->load->model('attachments_model', '', TRUE);
         $this->load->model('tools_model', '', TRUE);
     }
@@ -81,10 +82,6 @@ class Article extends CI_Controller {
             $data->authors = $authors;
             $data->photos = $photos;
             $data->attachments = $attachments;
-
-            if ($article->longform) {
-                $data->coverphoto = $this->attachments_model->get_coverphoto($id);
-            }
             
             // meta
             $data->page_title = $article->title." — The Bowdoin Orient";
@@ -92,10 +89,7 @@ class Article extends CI_Controller {
             $data->page_type = 'article';
             if($photos) $data->page_image = base_url().'images/'.$article->date.'/'.$photos[0]->filename_large;
             
-            if($article->longform)
-                $this->load->view('feature', $data);
-            else
-                $this->load->view('article', $data);
+            $this->load->view('article', $data);
         }
     }
     

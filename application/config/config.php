@@ -20,13 +20,16 @@
 
 $config['base_url'] = 'http://bowdoinorient.com/';
 
-// If we're running off a development mac
-if ($_SERVER['SERVER_NAME']=='bowdoinorient.dev') {
-    $config['base_url'] = 'http://bowdoinorient.dev/';
-}
-// if we're running off Brian's development server
-elseif ($_SERVER['SERVER_NAME']=='bowdoinorient.bjacobel.com') {
-    $config['base_url'] = 'http://bowdoinorient.bjacobel.com/';
+
+if (array_key_exists('SERVER_NAME', $_SERVER)){
+    // If we're running off a development mac
+    if ($_SERVER['SERVER_NAME']=='bowdoinorient.dev') {
+        $config['base_url'] = 'http://bowdoinorient.dev/';
+    }
+    // if we're running off Brian's development server
+    elseif ($_SERVER['SERVER_NAME']=='bowdoinorient.bjacobel.com') {
+        $config['base_url'] = 'http://bowdoinorient.bjacobel.com/';
+    }
 }
 
 /*
