@@ -14,7 +14,7 @@ dateoverlay: the "1 day ago" red overlay text -->
 			<?if(!empty($dateified)):?>
 			<div class="dateified"><?=dateify($block->date, $date)?></div>
 			<?endif;?>
-			<h3><? if($block->series): ?><span class="series"><?=$block->series?>:</span> <? endif; ?><?=$block->title?></h3>
+			<h3 class="footertitle"><? if($block->series): ?><span class="series"><?=$block->series?>:</span> <? endif; ?><?=$block->title?></h3>
 			<? if($block->subtitle): ?>
 			<h4><?= $block->subtitle ?></h4><? endif; ?>
 			<div class="excerpt"><?=$block->excerpt?></div>
