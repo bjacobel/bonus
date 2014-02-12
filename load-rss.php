@@ -12,12 +12,12 @@ $rss = Feed::loadRss('http://bowdoinorientexpress.com/rss');
 <p><i><?php echo htmlSpecialChars($rss->description)?></i></p>
 
 <?php foreach ($rss->item as $item): ?>
-	<h2><a href="<?php echo htmlSpecialChars($item->link)?>"><?php echo htmlSpecialChars($item->title)?></a>
-	<small><?php echo date("j.n.Y H:i", (int) $item->timestamp)?></small></h2>
+    <h2><a href="<?php echo htmlSpecialChars($item->link)?>"><?php echo htmlSpecialChars($item->title)?></a>
+    <small><?php echo date("j.n.Y H:i", (int) $item->timestamp)?></small></h2>
 
-	<?php if (isset($item->{'content:encoded'})):?>
-		<div><?php echo $item->{'content:encoded'} ?></div>
-	<?php else:?>
-		<p><?php echo htmlSpecialChars($item->description)?></p>
-	<?php endif?>
+    <?php if (isset($item->{'content:encoded'})):?>
+        <div><?php echo $item->{'content:encoded'} ?></div>
+    <?php else:?>
+        <p><?php echo htmlSpecialChars($item->description)?></p>
+    <?php endif?>
 <?php endforeach?>

@@ -1,8 +1,8 @@
 <?
 // Encode data
 if(isset($volumes)) {
-	echo json_encode($volumes);
+    echo json_encode($volumes);
 }
 else
-	echo json_encode(array('error' => true));
+    echo json_encode(array('error' => true));
 ?>

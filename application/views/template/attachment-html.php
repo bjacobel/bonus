@@ -9,7 +9,7 @@
     <? $width = ($big ? '890' : '500'); ?>
 
     <div style="max-width:<?=$width?>; overflow:hidden" class="html-content">
-    	<?= $content1 ?>
+        <?= $content1 ?>
     </div>
 
     <script>

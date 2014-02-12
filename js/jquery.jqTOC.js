@@ -11,7 +11,7 @@
 $.fn.jqTOC = function(settings) {
 
    function tocToggleDisplay(e){
-		$('#'+settings.tocContainer+' .toc_content')[e.data.mode]();
+        $('#'+settings.tocContainer+' .toc_content')[e.data.mode]();
    }
    settings = $.extend({
       tocWidth: '220px',
@@ -42,20 +42,20 @@ $.fn.jqTOC = function(settings) {
    this.children().each(function(i) {
       headerLevel = this.nodeName.substr(1);
       if(
-      	this.nodeName.match(/^H\d+$/)
-      	&& headerLevel >= settings.tocStart
-      	&& headerLevel <= settings.tocEnd
-      	&& this.nodeName.substr(1) < start
+          this.nodeName.match(/^H\d+$/)
+          && headerLevel >= settings.tocStart
+          && headerLevel <= settings.tocEnd
+          && this.nodeName.substr(1) < start
       ) {
-      	headerFound = true;
-      	start = this.nodeName.substr(1);
-     	}
-		if (start == settings.tocStart) {
-		   return false;
-		}
-	});
-	settings.tocStart=start;
-	if(headerFound) { $(".toc_content").prepend('<a href="#top">Introduction</a>'); }
+          headerFound = true;
+          start = this.nodeName.substr(1);
+         }
+        if (start == settings.tocStart) {
+           return false;
+        }
+    });
+    settings.tocStart=start;
+    if(headerFound) { $(".toc_content").prepend('<a href="#top">Introduction</a>'); }
 
    this.children().each(function(i) {
       headerLevel = this.nodeName.substr(1);
@@ -64,13 +64,13 @@ $.fn.jqTOC = function(settings) {
          && headerLevel >= settings.tocStart
          && headerLevel <= settings.tocEnd
       ) {
-      	 sectionId = this.firstChild;
-      	 while(sectionId.nodeValue == null)
-      	 {
-      	 	sectionId = sectionId.firstChild;
-      	 }
-      	 sectionId = sectionId.nodeValue.replace(/ /g, "_");
-      	 
+           sectionId = this.firstChild;
+           while(sectionId.nodeValue == null)
+           {
+               sectionId = sectionId.firstChild;
+           }
+           sectionId = sectionId.nodeValue.replace(/ /g, "_");
+           
          headerId = this.id || sectionId || 'section' + i;
          t.append('<a href="#'+ headerId +'" style="margin-left: ' + (headerLevel-settings.tocStart+1)*1.4 +'em;" ' +
             (headerLevel != settings.tocStart ? 'class="indent" ': '') +
@@ -83,11 +83,11 @@ $.fn.jqTOC = function(settings) {
       }
    });
 
-	if (settings.tocShowOnClick) {
-	   if (settings.tocTitle) {
-	      $('#'+settings.tocContainer+' .toc_header').bind('click', {mode: 'toggle'}, function(e){tocToggleDisplay(e);});
-	   }
-	   if (settings.tocAutoClose) {
+    if (settings.tocShowOnClick) {
+       if (settings.tocTitle) {
+          $('#'+settings.tocContainer+' .toc_header').bind('click', {mode: 'toggle'}, function(e){tocToggleDisplay(e);});
+       }
+       if (settings.tocAutoClose) {
          $('#'+settings.tocContainer+' .toc_content a').bind('click', {mode: 'hide'}, function(e){tocToggleDisplay(e);});
       }
    } else {

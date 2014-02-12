@@ -1,7 +1,7 @@
 <?='<?xml version="1.0" encoding="UTF-8"?><rss version="2.0">'?> 
 <?php
 function xmlclean($string) {
-	return str_replace(array("&", "<", ">", "\"", "'"),
+    return str_replace(array("&", "<", ">", "\"", "'"),
         array("&amp;", "&lt;", "&gt;", "&quot;", "&apos;"), $string);
 }
 ?>

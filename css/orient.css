@@ -948,10 +948,10 @@ section h2, #sidebar h2 {
 
   /* one day... but i'd need to separate headline and container & i hate endless nesting containers
   .articleblock li.backgrounded {
-  	-webkit-filter: blur(2px);
+      -webkit-filter: blur(2px);
   }
   .articleblock li.backgrounded:hover {
-  	-webkit-filter: none;
+      -webkit-filter: none;
   }
   */
   .articleblock li.backgrounded a, .articleblock.threetier li:nth-child(-n+5).backgrounded a {
@@ -1097,7 +1097,7 @@ section h2, #sidebar h2 {
 
   /*
   .articleblock li:nth-child(n+5) {
-  	display: none;
+      display: none;
   }
   */
   footer {
