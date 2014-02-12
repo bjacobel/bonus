@@ -166,6 +166,7 @@ $this->load->view('template/head', $headdata); ?>
         $(document).ready(function(){
             $("#nav-bar").attr("width", ($(window).width() - $("#articlebodycontainer").width()) / 2);
             $("#nav-bar").attr("height", $(window).height());
+            $navbar_width = $('#nav-bar').width();
         });
     </script>
 
@@ -270,12 +271,14 @@ $this->load->view('template/head', $headdata); ?>
                     }, 50);
 
                     // text has to be drawn twice so we can tell how long it'll be
-                    // we're just going to hide all this on mobile devices anyway so
-                    // we ought not to have to worry about js performance
-                    // #thingsItellmyselftorationalizeshittycodeIwrote
+                    // and truncate it if it's too long. Can't tell before drawing it
+                    // because our font is very irregulary spaced
+
+                    txt = $h3s[layer.number].innerHTML.split(/[\<\>]/)[2].toUpperCase();
+
                     $('#nav-bar').drawText({
                         layer: true,
-                        text: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase(),
+                        text: txt,
                         x: 50,
                         y: layer.y,
                         align: 'left',
@@ -284,11 +287,29 @@ $this->load->view('template/head', $headdata); ?>
                         fontSize: 14,
                         fontFamily: 'minion-pro, Georgia',
                         name: 'text',
-                    }).drawRect({
+                    });
+
+                    // if text is too long, just draw box as big as you can
+                    // truncate text with ellipses
+                    preferred_width = $('#nav-bar').measureText('text').width + 15;
+                    
+                    if ((preferred_width + 50) > $navbar_width){
+                        // how much too big is the text?
+                        oversize_factor = (preferred_width + 50) / $navbar_width;
+
+                        // truncate the text at 1/oversize_factor, add ellipses
+                        truncate_after = Math.floor(txt.length * (1/oversize_factor))-1;
+                        txt = txt.substr(0, truncate_after);
+                        txt = txt.concat("…");
+                        
+                        preferred_width = $navbar_width - 50;
+                    }
+
+                    $('#nav-bar').drawRect({
                         layer: true,
                         fillStyle: 'black',
                         height: 24,
-                        width: $('#nav-bar').measureText('text').width + 15,
+                        width: preferred_width,
                         cornerRadius: 4,
                         x: 42,
                         y: layer.y - 13,
@@ -296,7 +317,7 @@ $this->load->view('template/head', $headdata); ?>
                         name: 'text-bg',
                     }).removeLayer('text').drawText({
                         layer: true,
-                        text: $h3s[layer.number].innerHTML.split(/[<>]/)[2].toUpperCase(),
+                        text: txt,
                         x: 50,
                         y: layer.y,
                         align: 'left',
