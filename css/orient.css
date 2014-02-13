@@ -1301,11 +1301,6 @@ figure.authorpic img {
     margin: 0 auto;
     width: 890px; }
 
-  #articlebody, #articlefooter {
-    /* width: 620px;
-    margin-left: 80px; */
-    margin-right: 220px; }
-
   /* some rejiggering required so that, when you follow an anchor link, the header isn't hidden behind the fixed header */
   /* i.e. an anchor offset so you get a good scroll offset — in this case, 50px, cuz that's the header height(ish). */
   .articlebody h3 {
