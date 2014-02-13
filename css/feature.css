@@ -140,30 +140,6 @@
 
 /* FOR SMARTPHONES (read: iPhones) */
 @media all and (max-width: 480px) {
-  #issuedate, #mainnav, #bonushook {
-    display: none; }
-
-  footer #vcard {
-    display: none; }
-
-  footer #footerlinks, footer #bonusquoteblock {
-    float: none;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px; }
-
-  footer #footerlinks ul {
-    display: inline;
-    margin: 0;
-    padding: 0; }
-
-  footer #footerlinks ul li {
-    width: 20%;
-    display: block;
-    list-style: none;
-    float: left;
-    margin-bottom: 20px; }
-
   #container #titlepage #header-bg {
     margin: 0;
     width: 100%;
