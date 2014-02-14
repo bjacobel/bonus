@@ -1672,10 +1672,10 @@ figure.authorpic img {
 /* FOR NON-IPHONES */
 @media all and (min-width: 481px) {
 
-    #mainstory {
-        margin: 0 auto;
-        width: 890px;
-    }
+    // #mainstory {
+    //     margin: 0 auto;
+    //     width: 890px;
+    // }
     
     /* some rejiggering required so that, when you follow an anchor link, the header isn't hidden behind the fixed header */
     /* i.e. an anchor offset so you get a good scroll offset — in this case, 50px, cuz that's the header height(ish). */

@@ -28,7 +28,7 @@ $(function() {
             <h1 id="wordmark"><a href="<?=site_url()?>"><span class="super">The</span> Bowdoin Orient</a></h1>
             
             <?if (isset($viewtype) && $viewtype == "feature"):?>
-                <div class="share-anchor"></div>
+                <div class="share-anchor hidemobile"></div>
                 <script type="text/javascript">$(".share-anchor").share({flyout: "bottom center", text: "<?=$article->title?>"});</script>
                 <script type="text/javascript">$(document).ready(function(){$(".share-anchor").show();});</script>
             <?else:?>

@@ -131,7 +131,7 @@
     #mainstory {
         max-width:825px;
         margin:75px auto 25px auto;
-        padding:0 20px;
+        padding:0 !important;
         position:relative;
         display:block;
 
@@ -240,6 +240,11 @@
 /* FOR SMARTPHONES (read: iPhones) */
 @media all and (max-width: 480px) {
     #container {
+        #mainstory {
+            #articlebodycontainer {
+                margin:0 10px !important;
+            }
+        }
         #titlepage {
             #header-bg { 
                 margin:0;
