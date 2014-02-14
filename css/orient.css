@@ -114,6 +114,10 @@ nav .oebug {
   position: absolute !important;
   margin: 12px 0 0 450px; }
 
+#mainhead .share-anchor {
+  position: absolute !important;
+  margin: 14px 0 0 290px; }
+
 footer {
   clear: both;
   position: relative;

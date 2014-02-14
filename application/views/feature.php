@@ -167,7 +167,7 @@ $this->load->view('template/head', $headdata); ?>
     <script type="text/javascript">$("#titlepage").height($(window).height());</script>
 
     <script type="text/javascript">$(".downarrow").click(function(){$.scrollTo($("#mainstory").offset().top-75, 500, {easing: 'easeOutQuint'});});</script>
-    
+
     <script type="text/javascript">
         $(document).ready(function(){
             $("#nav-bar").attr("width", ($(window).width() - $("#articlebodycontainer").width()) / 2);

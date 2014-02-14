@@ -63,6 +63,9 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
     <!-- SwipeView -->
     <link rel="stylesheet" media="screen" href="<?=base_url()?>css/swipeview.css?v=1">
 
+    <!-- share buttons - nicer/faster than native buttons -->
+    <script type="text/javascript" src="<?=base_url()?>js/share.min.js"></script>
+
     <!-- for homepage -->
     <? if($this->uri->segment(1) == "" || $this->uri->segment(1) == "browse"): ?>
         <!-- rss -->
