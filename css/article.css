@@ -364,3 +364,14 @@ button {
 
 button img {
   margin-top: 2px; }
+
+/* FOR NON-IPHONES */
+@media all and (min-width: 481px) {
+  #mainstory {
+    margin: 0 auto;
+    width: 890px; }
+
+  #articlebody, #articlefooter {
+    /* width: 620px;
+    margin-left: 80px; */
+    margin-right: 220px; } }

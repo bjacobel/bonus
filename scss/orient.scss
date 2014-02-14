@@ -135,6 +135,12 @@ nav .oebug {
     margin: 12px 0 0 450px;
 }
 
+#mainhead .share-anchor {
+    position:absolute !important;
+    margin: 14px 0 0 290px;
+
+}
+
 footer {
     clear: both;
     position: relative;
@@ -1645,12 +1651,6 @@ figure.authorpic img {
     #mainstory {
         margin: 0 auto;
         width: 890px;
-    }
-    
-    #articlebody, #articlefooter {
-        /* width: 620px;
-        margin-left: 80px; */
-        margin-right: 220px;
     }
     
     /* some rejiggering required so that, when you follow an anchor link, the header isn't hidden behind the fixed header */
