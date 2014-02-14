@@ -242,191 +242,195 @@ $this->load->view('template/head', $headdata); ?>
 
         // NAVBAR CANVAS
 
-        // neccesary to have this all work on Retina
-        $('#nav-bar').detectPixelRatio();
-
         // we'll put in as many dots as there are internal article headings
         $h3s = $("h3").not(".articlesubtitle").not(".series").not(".footertitle");
         num_h3s = $h3s.length;
 
-        // the string of dots will be as tall as the number of dots * 40px for each
-        line_length = num_h3s * 40;
-        interval = line_length / num_h3s;
+        // don't bother with ANY of this if we don't have subheds
+        if (num_h3s > 0) {
 
-        offset = 125;
+            // neccesary to have this all work on Retina
+            $('#nav-bar').detectPixelRatio();
 
-        // give each h3 a numbered data-prop
-        dot = 0;
-        $h3s.each(function(){
-            $(this).attr("data-dot", dot);
-            dot++;
-        });
+            // the string of dots will be as tall as the number of dots * 40px for each
+            line_length = num_h3s * 40;
+            interval = line_length / num_h3s;
 
-        // start drawing
+            offset = 125;
 
-        // draw the dots
-        for (var i = 0; i < num_h3s; i++) {
-            $('#nav-bar').drawEllipse({
+            // give each h3 a numbered data-prop
+            dot = 0;
+            $h3s.each(function(){
+                $(this).attr("data-dot", dot);
+                dot++;
+            });
+
+            // start drawing
+
+            // draw the dots
+            for (var i = 0; i < num_h3s; i++) {
+                $('#nav-bar').drawEllipse({
+                    layer: true,
+                    fillStyle: 'grey',
+                    x: 30,
+                    y: i * interval + offset,
+                    width: 6,
+                    height: 6,
+                    number: i,
+                    mouseover: function(layer) {
+                        $(this).animateLayer(layer, {
+                            width:'+=4', height:'+=4'
+                        }, 50);
+
+                        // text has to be drawn twice so we can tell how long it'll be
+                        // and truncate it if it's too long. Can't tell before drawing it
+                        // because our font is very irregulary spaced
+
+                        txt = $h3s[layer.number].innerHTML.split(/[\<\>]/)[2].toUpperCase();
+
+                        $('#nav-bar').drawText({
+                            layer: true,
+                            text: txt,
+                            x: 50,
+                            y: layer.y,
+                            align: 'left',
+                            respectAlign: 'true',
+                            fillStyle: 'white',
+                            fontSize: 14,
+                            fontFamily: 'minion-pro, Georgia',
+                            name: 'text',
+                        });
+
+                        // if text is too long, just draw box as big as you can
+                        // truncate text with ellipses
+                        preferred_width = $('#nav-bar').measureText('text').width + 15;
+                        
+                        if ((preferred_width + 50) > $navbar_width){
+                            // how much too big is the text?
+                            oversize_factor = (preferred_width + 50) / $navbar_width;
+
+                            // truncate the text at 1/oversize_factor, add ellipses
+                            truncate_after = Math.floor(txt.length * (1/oversize_factor))-1;
+                            txt = txt.substr(0, truncate_after);
+                            txt = txt.concat("…");
+                            
+                            preferred_width = $navbar_width - 50;
+                        }
+
+                        $('#nav-bar').drawRect({
+                            layer: true,
+                            fillStyle: 'black',
+                            height: 24,
+                            width: preferred_width,
+                            cornerRadius: 4,
+                            x: 42,
+                            y: layer.y - 13,
+                            fromCenter: false,
+                            name: 'text-bg',
+                        }).removeLayer('text').drawText({
+                            layer: true,
+                            text: txt,
+                            x: 50,
+                            y: layer.y,
+                            align: 'left',
+                            respectAlign: 'true',
+                            fillStyle: 'white',
+                            fontSize: 14,
+                            fontFamily: 'minion-pro, Georgia',
+                            name: 'text',
+                        });
+                    },
+                    mouseout: function(layer) {
+                        $(this).animateLayer(layer, {
+                            width:'-=4', height:'-=4'
+                        }, 50);
+                        $('#nav-bar').removeLayer('text');
+                        $('#nav-bar').removeLayer('text-bg');
+                    },
+                    click: function(layer) {
+                        $.scrollTo($("h3[data-dot="+layer.number+"]").offset().top-75, 500, {easing: 'easeOutQuint'});
+                    },
+                    cursors: {
+                        mouseover: "pointer",
+                        mousedown: "pointer",
+                        mouseup: "default"
+                    },
+                })
+            };
+
+            // draw the triangles
+            $('#nav-bar').drawPolygon({
                 layer: true,
                 fillStyle: 'grey',
-                x: 30,
-                y: i * interval + offset,
-                width: 6,
-                height: 6,
-                number: i,
+                x: 30, y: 85,
+                radius: 6,
+                sides: 3,
+                title: "Back to top",
                 mouseover: function(layer) {
                     $(this).animateLayer(layer, {
-                        width:'+=4', height:'+=4'
+                        radius: '+=3'
                     }, 50);
-
-                    // text has to be drawn twice so we can tell how long it'll be
-                    // and truncate it if it's too long. Can't tell before drawing it
-                    // because our font is very irregulary spaced
-
-                    txt = $h3s[layer.number].innerHTML.split(/[\<\>]/)[2].toUpperCase();
-
-                    $('#nav-bar').drawText({
-                        layer: true,
-                        text: txt,
-                        x: 50,
-                        y: layer.y,
-                        align: 'left',
-                        respectAlign: 'true',
-                        fillStyle: 'white',
-                        fontSize: 14,
-                        fontFamily: 'minion-pro, Georgia',
-                        name: 'text',
-                    });
-
-                    // if text is too long, just draw box as big as you can
-                    // truncate text with ellipses
-                    preferred_width = $('#nav-bar').measureText('text').width + 15;
-                    
-                    if ((preferred_width + 50) > $navbar_width){
-                        // how much too big is the text?
-                        oversize_factor = (preferred_width + 50) / $navbar_width;
-
-                        // truncate the text at 1/oversize_factor, add ellipses
-                        truncate_after = Math.floor(txt.length * (1/oversize_factor))-1;
-                        txt = txt.substr(0, truncate_after);
-                        txt = txt.concat("…");
-                        
-                        preferred_width = $navbar_width - 50;
-                    }
-
-                    $('#nav-bar').drawRect({
-                        layer: true,
-                        fillStyle: 'black',
-                        height: 24,
-                        width: preferred_width,
-                        cornerRadius: 4,
-                        x: 42,
-                        y: layer.y - 13,
-                        fromCenter: false,
-                        name: 'text-bg',
-                    }).removeLayer('text').drawText({
-                        layer: true,
-                        text: txt,
-                        x: 50,
-                        y: layer.y,
-                        align: 'left',
-                        respectAlign: 'true',
-                        fillStyle: 'white',
-                        fontSize: 14,
-                        fontFamily: 'minion-pro, Georgia',
-                        name: 'text',
-                    });
                 },
                 mouseout: function(layer) {
                     $(this).animateLayer(layer, {
-                        width:'-=4', height:'-=4'
+                        radius: '-=3'
                     }, 50);
-                    $('#nav-bar').removeLayer('text');
-                    $('#nav-bar').removeLayer('text-bg');
                 },
-                click: function(layer) {
-                    $.scrollTo($("h3[data-dot="+layer.number+"]").offset().top-75, 500, {easing: 'easeOutQuint'});
+                click : function (layer) {
+                    $.scrollTo($("#mainstory").offset().top-75, 500, {easing: 'easeOutQuint'});
                 },
-                cursors: {
-                    mouseover: "pointer",
-                    mousedown: "pointer",
-                    mouseup: "default"
-                },
-            })
-        };
-
-        // draw the triangles
-        $('#nav-bar').drawPolygon({
-            layer: true,
-            fillStyle: 'grey',
-            x: 30, y: 85,
-            radius: 6,
-            sides: 3,
-            title: "Back to top",
-            mouseover: function(layer) {
-                $(this).animateLayer(layer, {
-                    radius: '+=3'
-                }, 50);
-            },
-            mouseout: function(layer) {
-                $(this).animateLayer(layer, {
-                    radius: '-=3'
-                }, 50);
-            },
-            click : function (layer) {
-                $.scrollTo($("#mainstory").offset().top-75, 500, {easing: 'easeOutQuint'});
-            },
-        });
-        $('#nav-bar').drawPolygon({
-            layer: true,
-            fillStyle: 'grey',
-            x: 30, y: i * interval + offset,
-            radius: 6,
-            sides: 3,
-            rotate: 180,
-            title: "Comments",
-            mouseover: function(layer) {
-                $(this).animateLayer(layer, {
-                    radius: '+=3'
-                }, 50);
-            },
-            mouseout: function(layer) {
-                $(this).animateLayer(layer, {
-                    radius: '-=3'
-                }, 50);
-            },
-            click : function (layer) {
-                $.scrollTo($("#disqus_thread").offset().top-75, 500, {easing: 'easeOutQuint'});
-            },
-        });
-
-        // Waste of the bandwidth to use CF for something so trivial. But maybe we'll use accent colors more in the future?
-        var colorThief = new ColorThief();
-        $(window).load(function(){
-            sourceImage = new Image();
-            sourceImage.src = $("#titlepage").css("background-image").split(/\)|\(/)[1];
-            palette = colorThief.getPalette(sourceImage, 2);
-
-            $layers = $($('#nav-bar').getLayers());
-
-            // make each h3 change color of its corresponding nav icon when its waypoint is triggered
-            $h3s.each(function(){
-                $(this).waypoint(function(){
-                    dotnum = $(this).attr("data-dot");
-                    layer = 0;
-                    $layers.each(function(){
-                        if($(this)[0].number == dotnum) {
-                            $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
-                        } else {
-                            if(typeof $(this)[0].number !== 'undefined')
-                                $(this)[0].fillStyle = "grey";
-                        }
-                        $("#nav-bar").drawLayer(layer);
-                        layer++;
-                    });
-                }, { offset: '76px' });
             });
-        });
+            $('#nav-bar').drawPolygon({
+                layer: true,
+                fillStyle: 'grey',
+                x: 30, y: i * interval + offset,
+                radius: 6,
+                sides: 3,
+                rotate: 180,
+                title: "Comments",
+                mouseover: function(layer) {
+                    $(this).animateLayer(layer, {
+                        radius: '+=3'
+                    }, 50);
+                },
+                mouseout: function(layer) {
+                    $(this).animateLayer(layer, {
+                        radius: '-=3'
+                    }, 50);
+                },
+                click : function (layer) {
+                    $.scrollTo($("#disqus_thread").offset().top-75, 500, {easing: 'easeOutQuint'});
+                },
+            });
+
+            // Waste of the bandwidth to use CF for something so trivial. But maybe we'll use accent colors more in the future?
+            var colorThief = new ColorThief();
+            $(window).load(function(){
+                sourceImage = new Image();
+                sourceImage.src = $("#titlepage").css("background-image").split(/\)|\(/)[1];
+                palette = colorThief.getPalette(sourceImage, 2);
+
+                $layers = $($('#nav-bar').getLayers());
+
+                // make each h3 change color of its corresponding nav icon when its waypoint is triggered
+                $h3s.each(function(){
+                    $(this).waypoint(function(){
+                        dotnum = $(this).attr("data-dot");
+                        layer = 0;
+                        $layers.each(function(){
+                            if($(this)[0].number == dotnum) {
+                                $(this)[0].fillStyle = 'rgb('+palette[0][0]+','+palette[0][1]+','+palette[0][2]+')';
+                            } else {
+                                if(typeof $(this)[0].number !== 'undefined')
+                                    $(this)[0].fillStyle = "grey";
+                            }
+                            $("#nav-bar").drawLayer(layer);
+                            layer++;
+                        });
+                    }, { offset: '76px' });
+                });
+            });
+        }
     </script>
 
     <? if(bonus()): ?>
