@@ -979,6 +979,30 @@ section h2, #sidebar h2 {
     margin-bottom: 0;
 }
 
+
+.authortile.opinion .articleauthor {
+    font-size: 130%;
+}
+
+.authortile.opinion .articleauthorjob {
+    font-size: 110%;
+    padding-bottom: 0;
+}
+
+.articleauthor {
+    font-family:myriad-pro,helvetica,arial;
+    font-weight:bold;
+    text-transform:uppercase;
+    padding-bottom:0;
+}
+
+.articleauthorjob {
+    font-family:myriad-pro,helvetica,arial;
+    font-weight:normal;
+    text-transform:uppercase;
+    padding-bottom: 5px;
+}
+
 .carouseltile img {
     width: 50% !important;
     float: right;
