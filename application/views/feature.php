@@ -29,7 +29,18 @@ $this->load->view('template/head', $headdata); ?>
                     </hgroup>
 
                     <div id="authorblock">
+                        <? if(bonus() && $series->name != "Editorial"): ?>
+                            <div class="opinion-notice"><input type="checkbox" name="opinion" value="opinion" <? if($article->opinion): ?>checked="checked"<? endif; ?> /> Does this piece represent the opinion of the author?</div>
+                        <? endif; ?>
+                        <? if($series->name == "Editorial"): ?>
+                            <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
+                            <div class="opinion-notice">This piece represents the opinion of <span style="font-style:normal;">The Bowdoin Orient</span> editorial board.</div>
+                        <? endif; ?>
                         <? if($authors): ?>
+                            <? if($article->opinion == '1' && !bonus()): ?>
+                                <object data="<?=base_url()?>img/icon-opinion.svg" type="image/svg+xml" class="opinion-icon" height="20" width="20" title="Plinio Fernandes, from The Noun Project"></object>
+                                <div class="opinion-notice">This piece represents the opinion of the author<?if(count($authors)>1):?>s<?endif;?>:</div>
+                            <? endif; ?>
                             <? foreach($authors as $key => $author): ?>
                                 <a href="<?=site_url()?>author/<?=$author->authorid?>">
                                     <div id="author<?=$author->articleauthorid?>" class="authortile<? if(bonus()):?> bonus<? endif; ?> <?if($article->opinion == '1'):?>opinion<? endif; ?>">

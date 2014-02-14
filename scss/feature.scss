@@ -101,6 +101,18 @@
                     cursor: pointer;
                 }
 
+                #authorblock .opinion-notice {
+                    font-family:myriad-pro,helvetica,arial;
+                    font-style: italic;
+                    margin-bottom: 15px;
+                }
+
+                #authorblock .opinion-icon {
+                    display: block;
+                    float: left;
+                    margin-right: 3px;
+                }
+
                 .bonus .articleauthor, .bonus .articleauthorjob {
                     text-transform:none !important;
                     padding: 0 !important;

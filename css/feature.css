@@ -64,6 +64,14 @@
         #container #titlepage #header-bg header .authortile .delete:hover {
           color: red;
           cursor: pointer; }
+        #container #titlepage #header-bg header #authorblock .opinion-notice {
+          font-family: myriad-pro,helvetica,arial;
+          font-style: italic;
+          margin-bottom: 15px; }
+        #container #titlepage #header-bg header #authorblock .opinion-icon {
+          display: block;
+          float: left;
+          margin-right: 3px; }
         #container #titlepage #header-bg header .bonus .articleauthor, #container #titlepage #header-bg header .bonus .articleauthorjob {
           text-transform: none !important;
           padding: 0 !important;
