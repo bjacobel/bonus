@@ -6,6 +6,17 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed; }
+    #container #titlepage .downarrow {
+      position: absolute;
+      top: 90%;
+      width: 100%;
+      height: 10%; }
+      #container #titlepage .downarrow img {
+        display: block;
+        position: relative;
+        width: 3%;
+        margin: 0 auto;
+        cursor: pointer; }
     #container #titlepage #header-bg {
       margin-left: 10%;
       width: 50%;

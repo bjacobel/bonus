@@ -15,9 +15,9 @@ $this->load->view('template/head', $headdata); ?>
                   
                         <? if($article->series || bonus()): ?>
                             <h3 id="feature-series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
-                            <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
-                            <?=$series->name?>
-                            <? if(!bonus()): ?></a><? endif; ?>
+                                <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
+                                <?=$series->name?>
+                                <? if(!bonus()): ?></a><? endif; ?>
                             </h3>
                         <? endif; ?>
                       
@@ -54,6 +54,7 @@ $this->load->view('template/head', $headdata); ?>
                     <p class="articledate"><time pubdate datetime="<?=$article->date?>"><?=date("F j, Y",strtotime($article->date))?></time></p> 
                 </header>
             </div>
+            <div class="hidemobile downarrow"><img src="<?=base_url().'img/icon-chevron-down.svg'?>"></div>
         </div>
 
         <article id="mainstory" data-article-id="<?=$article->id?>">
@@ -164,6 +165,8 @@ $this->load->view('template/head', $headdata); ?>
     <script type="text/javascript">$(".bonus-action").tipsy({gravity: 'e', offset: '8'});</script>
 
     <script type="text/javascript">$("#titlepage").height($(window).height());</script>
+
+    <script type="text/javascript">$(".downarrow").click(function(){$.scrollTo($("#mainstory").offset().top-75, 500, {easing: 'easeOutQuint'});});</script>
     
     <script type="text/javascript">
         $(document).ready(function(){
