@@ -14,7 +14,7 @@ $this->load->view('template/head', $headdata); ?>
                     <hgroup class="articletitle-group">
                   
                         <? if($article->series || bonus()): ?>
-                            <h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
+                            <h3 id="feature-series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
                             <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
                             <?=$series->name?>
                             <? if(!bonus()): ?></a><? endif; ?>
