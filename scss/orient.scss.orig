@@ -135,12 +135,6 @@ nav .oebug {
     margin: 12px 0 0 450px;
 }
 
-#mainhead .share-anchor {
-    position:absolute !important;
-    margin: 14px 0 0 290px;
-
-}
-
 footer {
     clear: both;
     position: relative;
@@ -1405,8 +1399,16 @@ section h2, #sidebar h2 {
         width: 100%;
     }
             
-    // Hide entire excerpt div
-    .articleblock li .excerpt {
+    .articleblock li p {
+<<<<<<< HEAD
+=======
+        display: none;
+    }
+
+    
+    // bug fix
+    .articleblock li .excerpt{
+>>>>>>> parent of 77ddbe1... excerpt hide issue tweaking
         display: none;
     }
     
