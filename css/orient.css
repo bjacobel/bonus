@@ -1115,7 +1115,7 @@ section h2, #sidebar h2 {
   .articleblock li a {
     width: 100%; }
 
-  .articleblock li p {
+  .articleblock li .excerpt {
     display: none; }
 
   /*

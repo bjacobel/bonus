@@ -1405,7 +1405,8 @@ section h2, #sidebar h2 {
         width: 100%;
     }
             
-    .articleblock li p {
+    // Hide entire excerpt div
+    .articleblock li .excerpt {
         display: none;
     }
     
