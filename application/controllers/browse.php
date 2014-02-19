@@ -52,6 +52,8 @@ class Browse extends CI_Controller {
             // get adjacent issues (for next/prev buttons)
             $nextissue = $this->issue_model->get_adjacent_issue($volume, $issue_number, 1);
             $previssue = $this->issue_model->get_adjacent_issue($volume, $issue_number, -1);
+
+            //$this->benchmark->mark('scribd_start'); 
             
             // scribd
             try {
@@ -61,6 +63,8 @@ class Browse extends CI_Controller {
                     curl_setopt($ch, CURLOPT_URL, "http://api.scribd.com/api?method=thumbnail.get&api_key=34m5pzwzt3fqi0fod70cc&doc_id=".$issue->scribd);
                     curl_setopt($ch, CURLOPT_HEADER, 0);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3); 
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 3); //timeout in seconds
                     $scribd_thumb_response = curl_exec($ch);
                     curl_close($ch);
 
@@ -73,6 +77,8 @@ class Browse extends CI_Controller {
             } catch (Exception $e) {
                 // scribd sucks
             }
+
+            //$this->benchmark->mark('scribd_end'); 
                         
             // latest articles
             $latest = $this->article_model->get_articles_by_date($date, false, false, '10');
