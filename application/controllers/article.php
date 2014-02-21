@@ -180,11 +180,12 @@ class Article extends CI_Controller {
             );
         
         // If body was updated, set excerpt to first three paragraphs.
-        // Yes, this is sloppy is so many ways. FML.
         if($body) 
         {
-            $thirdgraf = strnposr($body, "</p>", 3) + 4;
-            $data['excerpt'] = strip_tags(substr($body, 0, $thirdgraf),"<p>");
+            preg_match_all("/<p>[^<]*<\/p>/i", $body, $matches);
+            $excerpt = array_slice($matches[0], 0, 3);
+            $excerpt = implode($excerpt);
+            $data['excerpt'] = $excerpt;
         }
         
         // if the article is just now being published, set publication
