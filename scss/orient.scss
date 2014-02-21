@@ -667,6 +667,7 @@ img {
     padding: 3px;
 }
 
+
 [contenteditable]:hover:not(:focus) {
     border: 1px solid darkred;
 }
@@ -676,6 +677,12 @@ img {
 #addauthor[contenteditable]:hover:not(:focus)::before { content: "Add author: "; }
 #addauthorjob[contenteditable]:hover:not(:focus)::before { content: "Add author job: "; }
 */
+
+
+//Input fields don't have height with no text in Firefox - insert a space
+.tooltip:before{
+    content: "\00a0";
+}
 
 .tooltip:hover:before {
     content: attr(title);

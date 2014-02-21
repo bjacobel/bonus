@@ -548,6 +548,9 @@ img {
 #addauthor[contenteditable]:hover:not(:focus)::before { content: "Add author: "; }
 #addauthorjob[contenteditable]:hover:not(:focus)::before { content: "Add author job: "; }
 */
+.tooltip:before {
+  content: "\00a0"; }
+
 .tooltip:hover:before {
   content: attr(title); }
 
