@@ -182,7 +182,7 @@ class Article extends CI_Controller {
         // If body was updated, set excerpt to first three paragraphs.
         if($body) 
         {
-            preg_match_all("/<p>[^<]*<\/p>/i", $body, $matches);
+            preg_match_all("/<p>.*(?!<p>)<\/p>/i", $body, $matches);
             $excerpt = array_slice($matches[0], 0, 3);
             $excerpt = implode($excerpt);
             $data['excerpt'] = $excerpt;
