@@ -808,65 +808,37 @@ img {
     background: #ffcccc;
 }
 
-#abovethefold {
+#bignews {
     padding: 20px 0;
     border-bottom: double 3px darkgray;
-}
 
-#abovethefold h2 a {
-    color: black;
-}
+    h2 a {
+        color: black;
+    }   
 
-#abovethefold h2 a:hover {
-    text-decoration: none;
-    color: darkblue;
-}
+    h2 a:hover {
+        text-decoration: none;
+        color: darkblue;
+    }
 
-#carousel {
-    float: left;
-    width: 45%;
-    height: 420px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-
-#carousel #swipeview-slider span {
-    height: 100%;
-}
-
-#latest {
-    float: right;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    width: 35%;
-    padding: 0 20px;
-}
-
-#latest .smalltile {
-    width: 47% !important;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    margin-right: 3% !important;
-}
-
-#twitter-widget {
-    float: right;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    border-left: 0;
-    width: 100%;
-    padding: 0;
-    margin-bottom:20px;
+    #carousel {
+        float: left;
+        width: 45%;
+        height: 420px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        
+        #swipeview-slider span {
+            height: 100%;
+        }
+    }
 }
 
 /* below the fold */
 
 section {
-    width: 100%;
+    width: 80%;
     clear: left;
     float: left;
 }
@@ -876,10 +848,6 @@ section h2, #sidebar h2 {
     font-variant: small-caps;
     font-weight: bold;
     border-bottom: solid 1px lightgray;
-}
-
-.issuesection {
-    width: 80%;
 }
 
 /* sidebar */
@@ -897,6 +865,17 @@ section h2, #sidebar h2 {
 
 #sidebar h2 {
     margin-top: 20px;
+}
+
+#twitter-widget {
+    float: right;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-left: 0;
+    width: 100%;
+    padding: 0;
+    margin-bottom:20px;
 }
 
 .issue_thumb {
@@ -1415,7 +1394,7 @@ article header, .authorheader {
 @media all and (min-width: 481px) {
     
     section {
-        padding-top: 65px;
+        padding-top: 35px;
     }
     
     section.authorsection {

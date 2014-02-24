@@ -45,7 +45,7 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
     <link rel="apple-touch-icon" href="<?=base_url()?>img/o-114.png"/>
     <meta name = "viewport" content = "initial-scale = 1.0, user-scalable = no">
         
-    <!-- jQuery -->
+    <!-- jQuery + UI-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="<?=base_url()?>js/jquery-ui-1.8.17.custom.min.js"></script>
     
@@ -63,8 +63,14 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
     <!-- SwipeView -->
     <link rel="stylesheet" media="screen" href="<?=base_url()?>css/swipeview.css?v=1">
 
-    <!-- share buttons - nicer/faster than native buttons -->
+    <!-- share buttons -->
     <script type="text/javascript" src="<?=base_url()?>js/share.min.js"></script>
+
+    <!-- Vex: modals from Hubspot -->
+    <script type="text/javascript" src="<?base_url()?>js/vex.combined.min.js"></script>
+    <script type="text/javascript">vex.defaultOptions.className = 'vex-theme-top';</script>
+    <link rel="stylesheet" href="<?base_url()?>css/vex.css" />
+    <link rel="stylesheet" href="<?base_url()?>css/vex-theme-top.css" />
 
     <!-- for homepage -->
     <? if($this->uri->segment(1) == "" || $this->uri->segment(1) == "browse"): ?>

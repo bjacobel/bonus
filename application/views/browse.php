@@ -5,7 +5,6 @@
 <? $this->load->view('template/bodyheader', $headerdata); ?>
 
 <div id="content">
-    
     <!-- Below-the-fold sidebar -->
     <div id="sidebar" class="hidetablet">
 
@@ -67,9 +66,13 @@
         <!-- End Disqus -->
         
         <!-- Plancast events -->
-        <script type="text/javascript" src="http://plancast.com/goodies/widgets/sidebar/1/43729"></script>
-                
+        <script type="text/javascript" src="http://plancast.com/goodies/widgets/sidebar/1/43729"></script>                
     </div>
+
+    <section id="bignews">
+        <? if(bonus()): ?>
+        <? endif; ?>
+    </section>
     
     <!-- SECTIONS -->
     <? foreach($sections as $section): ?>
@@ -85,7 +88,6 @@
         </section>
         <? endif; ?>
     <? endforeach; ?>
-        
 </div>
 
 <? $this->load->view('template/bodyfooter', $footerdata); ?>
