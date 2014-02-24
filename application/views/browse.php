@@ -6,43 +6,13 @@
 
 <div id="content">
     
-    <section id="abovethefold" class="">
-        
-        <!-- carousel -->
-        <div id="carousel">
-            <div id="swipeview_wrapper"></div>
-            <div id="swipeview_relative_nav">
-                <span id="prev" onclick="carousel.prev();hasInteracted=true">&laquo;</span>
-                <span id="next" onclick="carousel.next();hasInteracted=true">&raquo;</span>
-            </div>
-            <ul id="swipeview_nav">
-                <? foreach($popular as $key => $article): ?>
-                <li <? if($key==0): ?>class="selected"<? endif; ?> onclick="carousel.goToPage(<?=$key?>);hasInteracted=true"></li>
-                <? endforeach; ?>
-            </ul>            
-        </div>
-        
-        <!-- tweets -->
+    <!-- Below-the-fold sidebar -->
+    <div id="sidebar" class="hidetablet">
+
         <div id="twitter-widget" class="hidetablet">
             <a class="twitter-timeline" href="https://twitter.com/bowdoinorient" data-widget-id="265861494951002113">Tweets by @bowdoinorient</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
-        
-        <!-- latest articles -->
-        <div id="latest">
-            <h2>Latest</h2>
-            <?$blocktype = array(
-                "blocks"=>$latest,
-                "articles"=>TRUE,
-                "dateified"=>TRUE,
-                "excerpt"=>TRUE);?>
-            <?$this->load->view('template/smalltile', $blocktype);?>
-        </div>
-        
-    </section>
-    
-    <!-- Below-the-fold sidebar -->
-    <div id="sidebar" class="hidetablet">
 
         <!-- ADS -->
         <? if($ad): ?>
@@ -68,8 +38,8 @@
             <form action="http://bowdoinorient.us4.list-manage.com/subscribe/post?u=eab94f63abe221b2ef4a4baec&amp;id=739fef0bb9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <h2 style="margin-top:0;margin-bottom:5px;">Weekly newsletter</h2>
             <div class="mc-field-group">
-                <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email address">
-                <input type="submit" value="Subscribe, free" name="subscribe" id="mc-embedded-subscribe" class="button">
+                <input class="email" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email address">
+                <input class="button" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
             </div>
             </form>
         </div>

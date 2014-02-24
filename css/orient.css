@@ -697,8 +697,9 @@ img {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   border-left: 0;
-  width: 20%;
-  padding: 0; }
+  width: 100%;
+  padding: 0;
+  margin-bottom: 20px; }
 
 /* below the fold */
 section {
@@ -724,7 +725,7 @@ section h2, #sidebar h2 {
   -webkit-box-sizing: border-box;
   padding: 0 0 0 20px;
   width: 20%;
-  margin-top: 65px; }
+  margin-top: 35px; }
 
 #sidebar h2 {
   margin-top: 20px; }
@@ -742,6 +743,17 @@ section h2, #sidebar h2 {
   max-width: 100%;
   background-size: contain;
   background-repeat: no-repeat; }
+
+.mc-field-group input {
+  margin-right: 5px;
+  display: table-cell; }
+
+.dsq-widget-item {
+  font-weight: bold; }
+  .dsq-widget-item .dsq-widget-comment {
+    font-weight: normal; }
+  .dsq-widget-item .dsq-widget-meta {
+    font-weight: normal; }
 
 /* carousel tiles */
 .carouseltile {
