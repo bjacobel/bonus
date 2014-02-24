@@ -1271,7 +1271,7 @@ article header, .authorheader {
   .articleblock li a {
     width: 100%; }
 
-  .articleblock li p {
+  .articleblock li .excerpt {
     display: none; }
 
   footer {
