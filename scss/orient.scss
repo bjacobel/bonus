@@ -124,7 +124,7 @@ nav .oebug {
 
 #mainhead .fb-like {
     position: absolute !important;
-    margin: 14px 0 0 450px;
+    margin: 12px 0 0 450px;
 }
 
 footer {
@@ -663,6 +663,11 @@ img {
 
 .cke_inner, .cke_toolgroup, .cke_combo_button {
     background: white !important;
+}
+
+//Input fields don't have height with no text in Firefox - insert a space
+.tooltip:before{
+    content: "\00a0";
 }
 
 /* above the fold */
