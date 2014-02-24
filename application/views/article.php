@@ -103,25 +103,25 @@ $this->load->view('template/head', $headdata); ?>
                         $('.readericon').click(function(){
                             var clickedid = $(this).attr("id");
                             switch(clickedid){
-                                  case "readability": //READABILITY WORKS
+                                  case "readability":
                                       $('#addtoreader').fadeOut("fast", function(){
                                           $('#addtoreader').replaceWith('<div id="readability" class="rdbWrapper readerEmbed" data-show-read-now="0" data-show-read-later="1" data-show-send-to-kindle="0" data-show-print="0" data-show-email="0" data-orientation="0" data-version="1" data-bg-color="#ffffff"></div><script type="text/javascript">(function() {var s = document.getElementsByTagName("script")[0],rdb = document.createElement("script"); rdb.type = "text/javascript"; rdb.async = true; rdb.src = document.location.protocol + "//www.readability.com/embed.js"; s.parentNode.insertBefore(rdb, s); })();</scr'+'ipt>').hide();
                                           $('#addtoreader').fadeIn("fast");
                                       });
                                       break;
-                                  case "instapaper": //INSTAPAPER WORKS
+                                  case "instapaper":
                                       $('#addtoreader').fadeOut("fast", function(){
                                           $('#addtoreader').replaceWith('<div id="instapaper" class="readerEmbed"><div style="display:inline-block;padding:3px;cursor:pointer;font-size:11px;font-family:Tahoma;white-space:nowrap;line-height:1;border-radius:3px;border:#ccc thin solid;color:black;background:transparent url('+'https://d1xnn692s7u6t6.cloudfront.net/button-gradient.png'+') repeat-x;background-size:contain;"><img style="vertical-align:middle;margin:0;padding:0;border:none;height:15px;" src="<?=base_url()?>/img/instapaper.png"/><a href="javascript:function iprl5(){var d=document,z=d.createElement('+"'"+'scr'+"'"+'+'+"'"+'ipt'+"'"+'),b=d.body,l=d.location;try{if(!b)throw(0);d.title='+"'"+'(Saving...) '+"'"+'+d.title;z.setAttribute('+"'"+'src'+"'"+',l.protocol+'+"'"+'//www.instapaper.com/j/3Kf0O6XBwYB0?u='+"'"+'+encodeURIComponent(l.href)+'+"'"+'&t='+"'"+'+(new Date().getTime()));b.appendChild(z);}catch(e){alert('+"'"+'Please wait until the page has loaded.'+"'"+');}}iprl5();void(0)" class="bookmarklet" onclick="return explain_bookmarklet();" title="Read Later" style="color:black;text-decoration:none;vertical-align:middle;margin-left:6px">Add to Instapaper</a></div></div>').hide();
                                           $('#addtoreader').fadeIn("fast");
                                       });
                                       break;
-                                  case "pocket": //POCKET IS WORKING
+                                  case "pocket":
                                       $('#addtoreader').fadeOut("fast", function(){
                                           $('#addtoreader').replaceWith('<div id="pocket" class="readerEmbed"> <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</scr'+'ipt>').hide();
                                           $('#addtoreader').fadeIn("fast");
                                       });
                                       break;
-                                  case "kindle": //KINDLE IS WORKING (AFAICT)
+                                  case "kindle":
                                       $('#addtoreader').fadeOut("fast", function(){
                                           $('#addtoreader').replaceWith('<div id="kindle" class="readerEmbed"><div class="kindleWidget" style="display:inline-block;padding:3px;cursor:pointer;font-size:11px;font-family:Tahoma;white-space:nowrap;line-height:1;border-radius:3px;border:#ccc thin solid;color:black;background:transparent url('+'https://d1xnn692s7u6t6.cloudfront.net/button-gradient.png'+') repeat-x;background-size:contain;"><img style="vertical-align:middle;margin:0;padding:0;border:none;" src="https://d1xnn692s7u6t6.cloudfront.net/white-15.png"/><span style="vertical-align:middle;margin-left:3px;">Send to Kindle</span></div></div><script type="text/javascript" src="https://d1xnn692s7u6t6.cloudfront.net/widget.js"></scr'+'ipt><script type="text/javascript">(function k(){window.$SendToKindle&&window.$SendToKindle.Widget?$SendToKindle.Widget.init({"content":"#articlebody","title":".articletitle","author":".articleauthor","published":".articledate"}):setTimeout(k,500);})();</scr'+'ipt>').hide();
                                           $('#addtoreader').fadeIn("fast");
@@ -144,29 +144,21 @@ $this->load->view('template/head', $headdata); ?>
             <!-- sidebar contains photos, videos, and other attachments -->
             <div id="article-sidebar">
                 <div id="article-attachments">
-                    <? if($photos): ?>
-                        <? if(count($photos) == 1 || bonus()): ?>
-                            <? foreach($photos as $key => $photo): ?>
-                                <? $photo_view_data = array('article' => $article, 'photo' => $photo); ?>
-                                <? $this->load->view('template/attachment-photo', $photo_view_data); ?>
-                            <? endforeach; ?>
-                        <? else: ?>
-                            <figure class="articlemedia <?= ($article->bigphoto ? 'bigphoto' : '') ?>">
-                                <div id="swipeview_wrapper"></div>
-                                <div id="swipeview_relative_nav">
-                                    <span id="prev" onclick="carousel.prev();hasInteracted=true">&laquo;</span>
-                                    <span id="next" onclick="carousel.next();hasInteracted=true">&raquo;</span>
-                                </div>
-                                <ul id="swipeview_nav">
-                                    <? foreach($photos as $key => $photo): ?>
-                                        <li <? if($key==0): ?>class="selected"<? endif; ?> onclick="carousel.goToPage(<?=$key; ?>);hasInteracted=true"></li>
-                                    <? endforeach; ?>
-                                </ul>
-                            </figure>
-                        <? endif; ?>
-                    <? endif; ?>
-                    <? if($attachments): //looks through the attachments and sees what's there ?>
-                        <? 
+                    <? 
+                        if($photos) {
+                            if(count($photos) == 1 || bonus()) {
+                                foreach($photos as $key => $photo) {
+                                    $photo_view_data = array('article' => $article, 'photo' => $photo);
+                                    $this->load->view('template/attachment-photo', $photo_view_data);
+                                }
+                            } else {
+                                if(count($photos) > 1){
+                                    $photo_view_data = array('article' => $article, 'photos' => $photos);
+                                    $this->load->view('template/carousel', $photo_view_data);
+                                }
+                            }
+                        }
+                        if($attachments) { //looks through the attachments and sees what's there
                             $hasYoutube = false;
                             $youtubePlaylist = array();
         
@@ -214,8 +206,8 @@ $this->load->view('template/head', $headdata); ?>
                             }
                             if($hasVimeo) { foreach($vimeos as $vimeo) { $this->load->view('template/attachment-video', $vimeo); } }
                             if($hasHTML) { foreach($HTMLs as $html) { $this->load->view('template/attachment-html', $html); } }
-                        ?>
-                    <? endif; ?>
+                        }
+                    ?>
                 </div>
                 <div id="bonus-attachments">
                     <? if(bonus()): ?>

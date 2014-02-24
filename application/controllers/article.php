@@ -25,6 +25,7 @@ class Article extends CI_Controller {
     
     public function error($message = '')
     {
+        $data = new stdClass();
         $data->message = $message;
         $this->load->view('error', $data);
     }
