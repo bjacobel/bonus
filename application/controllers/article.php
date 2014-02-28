@@ -185,6 +185,7 @@ class Article extends CI_Controller {
             preg_match_all("/<p>.*(?!<p>)<\/p>/i", $body, $matches);
             $excerpt = array_slice($matches[0], 0, 3);
             $excerpt = implode($excerpt);
+            $excerpt = strip_tags($excerpt, '<p>');
             $data['excerpt'] = $excerpt;
         }
         
