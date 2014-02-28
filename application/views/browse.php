@@ -80,11 +80,21 @@
         <div id="lead-overlay"></div>
         <div id="photo">
             <? if (count($homepage->carousel->photos)==1): ?>
-<!--            <?$photo_view_data = array('article' => $homepage->carousel, 'photos' => array($homepage->carousel->photos, $homepage->carousel->photos));
-                $this->load->view('template/carousel', $photo_view_data);?> -->
+
             <? else: ?>
-<!--            <?$photo_view_data = array('article' => $homepage->carousel, 'photos' => $homepage->carousel->photos);
-                $this->load->view('template/carousel', $photo_view_data);?> -->
+                <div id="bigphoto">
+                    <div id='slider' class='swipe'>
+                        <div class='swipe-wrap'>
+                            <? foreach ($homepage->carousel->photos as $photo): ?>
+                                <div class="carousel-photo" style="background-image:url('<?=base_url()?>images/<?=$homepage->carousel->date?>/<?=$photo->filename_large?>')"></div>
+                            <? endforeach; ?>
+                      </div>
+                    </div>
+                </div>
+                <div id="caption">
+                    <div class="dates"><?=dateify($homepage->leadstory->date, $date)?></div>
+                    <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->carousel->title?></a></h3>
+                </div>
             <? endif; ?>
         </div>
         <div id="teasers" class="hidetablet">
@@ -119,76 +129,14 @@
 
 <? $this->load->view('bonus/bonusbar', TRUE); ?>
 
-<!-- SwipeView. Only needed for slideshows. -->
-<script type="text/javascript" src="<?= base_url() ?>js/swipeview-mwidmann.js"></script>
 <script type="text/javascript">
-var    carousel,
-    el,
-    i,
-    page,
-    hasInteracted = false,
-    dots = document.querySelectorAll('#swipeview_nav li'),
-    slides = [
-        <? foreach($popular as $key => $article): ?>
-            <? if($key > 0): ?>,<? endif; ?>
-            '<div class="carouseltile <? if(!$article->published): ?>draft<?endif;?>">'
-                +'<div class="articletitle-group">'
-                <? if($article->series): ?>+'<div class="series"><?=anchor('series/'.$article->series_id,$article->series); ?></div>'<? endif; ?>
-                +'<a href="<?=site_url()?>article/<?=$article->id?>"><h3><?= addslashes(trim(str_replace(array("\r\n", "\n", "\r")," ",$article->title))); ?></h3></a>'
-                <? if($article->subtitle): ?>+'<h4 class="articlesubtitle"><?= addslashes(trim(str_replace(array("\r\n", "\n", "\r")," ",$article->subtitle))); ?></h4>'<? endif; ?>
-                +'</div>'
-                <? if(!empty($article->filename_small)): ?>+'<img src="<?=base_url().'images/'.$article->date.'/'.$article->filename_small?>">'<? endif; ?>
-                +'<div class="article-author-date">'
-                <? if(!empty($article->author)): ?>+'<a href="<?=base_url()?>author/<?=$article->author_id?>"><div class="authortile hidemobile"><p class="articleauthor"><?=addslashes($article->author)?></p></div></a>'<? endif; ?>
-                +'<p class="articledate hidemobile"><time pubdate datetime="<?=$article->date?>"><?=date("F j, Y",strtotime($article->date))?></time></p>'
-                +'</div>'
-                +'<div class="excerpt"><?= addslashes(trim(str_replace(array("\r\n", "\n", "\r"),"<br/>",$article->excerpt))); ?></div>'
-            +'</div>'
-        <? endforeach; ?>
-    ];
-
-carousel = new SwipeView('#swipeview_wrapper', {
-    numberOfPages: slides.length,
-    hastyPageFlip: true
-});
-
-// Load initial data
-for (i=0; i<3; i++) {
-    page = i==0 ? slides.length-1 : i-1;
-
-    el = document.createElement('span');
-    el.innerHTML = slides[page];
-    carousel.masterPages[i].appendChild(el)
-}
-
-carousel.onFlip(function () {
-    var el,
-        upcoming,
-        i;
-
-    for (i=0; i<3; i++) {
-        upcoming = carousel.masterPages[i].dataset.upcomingPageIndex;
-
-        if (upcoming != carousel.masterPages[i].dataset.pageIndex) {
-            el = carousel.masterPages[i].querySelector('span');
-            el.innerHTML = slides[upcoming];
-        }
-    }
-
-    document.querySelector('#swipeview_nav .selected').className = '';
-    dots[carousel.pageIndex].className = 'selected';
-});
-
-
-// timer for carousel autoplay
-function loaded() {
-    var interval = setInterval(function () {
-            if(!hasInteracted) carousel.next();
-        }, 5000);
-
-}
-document.addEventListener('DOMContentLoaded', loaded, false);
-
+    $(document).ready(function(){
+        window.mySwipe = Swipe($('#slider')[0], {
+            speed: 300,
+            auto: 5000,
+            disableScroll: true,
+        });
+    });
 </script>
 
 </body>

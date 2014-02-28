@@ -655,16 +655,19 @@ img {
   background: #ffcccc; }
 
 #bignews {
-  padding: 20px 0;
+  padding: 20px 0 10px 0;
   border-bottom: double 3px lightgray;
   display: block;
   position: relative; }
+  #bignews .bignews-overlay {
+    background-color: rgba(100, 100, 100, 0.7); }
   #bignews #lead {
     width: 25%;
     height: 420px;
     float: left;
     overflow: hidden;
     position: relative;
+    padding: 0 10px;
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -674,26 +677,40 @@ img {
     width: 25%;
     height: 60px;
     position: absolute;
+    padding: 0 10px;
     top: 385px;
     left: 0;
-    z-index: 98da;
+    z-index: 98;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white); }
   #bignews #photo {
+    position: relative;
     float: left;
     width: 50%;
     height: 420px;
+    padding: 0 10px;
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey; }
-    #bignews #photo #swipeview-slider span {
-      height: 100%; }
+    #bignews #photo #bigphoto {
+      height: 75%;
+      padding-bottom: 10px; }
+      #bignews #photo #bigphoto .carousel-photo {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center; }
+    #bignews #photo #caption {
+      width: 100%;
+      height: 25%;
+      position: relative; }
+      #bignews #photo #caption .dates {
+        padding: 0; }
   #bignews #teasers {
     width: 25%;
     height: 420px;
-    float: left;
-    padding: 0 !important; }
+    float: left; }
     #bignews #teasers .teaser {
       height: 33.3333%;
-      position: relative; }
+      position: relative;
+      padding: 0 10px; }
     #bignews #teasers .teaser:nth-child(2) {
       border-top: 1px solid lightgrey;
       border-bottom: 1px solid lightgrey;
@@ -705,12 +722,11 @@ img {
     -ms-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -o-box-sizing: border-box;
-    box-sizing: border-box;
-    padding-left: 10px;
-    padding-right: 10px; }
+    box-sizing: border-box; }
   #bignews .dates {
     z-index: 99;
     position: absolute;
+    padding: 0 10px;
     font-size: 10px;
     font-family: myriad-pro, helvetica, arial;
     bottom: 3px;
@@ -737,6 +753,9 @@ img {
   #bignews a:hover {
     color: darkblue;
     text-decoration: none; }
+
+.bignews-overlay:hover {
+  display: block; }
 
 /* below the fold */
 section {

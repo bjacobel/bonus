@@ -29,8 +29,6 @@
                 $iframe.css("-webkit-transform-origin", "0 0");
             }
         });
-
-
     </script>
 
     <figcaption>

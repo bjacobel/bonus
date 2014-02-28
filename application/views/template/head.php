@@ -72,6 +72,10 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
     <link rel="stylesheet" href="<?base_url()?>css/vex.css" />
     <link rel="stylesheet" href="<?base_url()?>css/vex-theme-top.css" />
 
+    <!-- Swipe.js -->
+    <script type="text/javascript" src="<?=base_url()?>js/swipe.min.js"></script>
+    <link rel="stylesheet" href="<?=base_url()?>css/swipe.css">
+
     <!-- for homepage -->
     <? if($this->uri->segment(1) == "" || $this->uri->segment(1) == "browse"): ?>
         <!-- rss -->

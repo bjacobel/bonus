@@ -817,10 +817,14 @@ img {
 }
 
 #bignews {
-    padding: 20px 0;
+    padding: 20px 0 10px 0;
     border-bottom: double 3px lightgray;
     display:block;
     position:relative;
+
+    .bignews-overlay {
+        background-color:rgba(100,100,100,0.7);
+    }
 
     #lead {
         width:25%;
@@ -828,6 +832,7 @@ img {
         float:left;
         overflow:hidden;
         position:relative;
+        padding:0 10px;
         @include vendor-prefix(box-sizing,border-box);
     }
 
@@ -835,33 +840,56 @@ img {
         width:25%;
         height:60px;
         position:absolute;
+        padding:0 10px;
         top:385px;
         left:0;
-        z-index:98da;
+        z-index:98;
         background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
     }
 
     #photo {
+        position:relative;
         float:left;
         width:50%;
         height:420px;
+        padding:0 10px;
         border-left:1px solid lightgrey;
         border-right:1px solid lightgrey;
-        
-        #swipeview-slider span {
-            height: 100%;
+
+        #bigphoto {
+            height: 75%;
+            padding-bottom:10px;
+
+            .carousel-photo {
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-position:center;
+            }
         }
+
+        #caption {
+            width:100%;
+            height:25%;
+            position:relative;
+
+            .dates {
+                padding: 0;
+            }
+        }
+
+
     }
 
     #teasers {
         width:25%;
         height:420px;
         float:left;
-        padding:0 !important;
+
 
         .teaser {
             height:33.3333%; 
-            position:relative;       
+            position:relative; 
+            padding:0 10px;      
         }
 
         .teaser:nth-child(2) {
@@ -877,13 +905,12 @@ img {
 
     div {
         @include vendor-prefix(box-sizing,border-box);
-        padding-left:10px;
-        padding-right:10px;
     }
 
     .dates {
         z-index:99;
         position:absolute;
+        padding:0 10px;
         font-size:10px;
         font-family: myriad-pro, helvetica, arial;
         bottom:3px;
@@ -918,6 +945,10 @@ img {
         text-decoration: none;
     }
 
+}
+
+.bignews-overlay:hover {
+    display:block;
 }
 
 /* below the fold */
