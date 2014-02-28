@@ -1,4 +1,5 @@
-<?$headdata = new stdClass();
+<?php
+$headdata = new stdClass();
 $headdata->viewtype = "article";
 $this->load->view('template/head', $headdata); ?>
 
@@ -7,12 +8,12 @@ $this->load->view('template/head', $headdata); ?>
     <? $this->load->view('template/bodyheader', $headerdata); ?>
 
     <div id="content">
-        
+
         <article id="mainstory" data-article-id="<?=$article->id?>">
-          
+
             <header>
-            <hgroup class="articletitle-group">
-          
+                <hgroup class="articletitle-group">
+
                 <!-- NEXT / PREV -->
                 <div class="article_header_nav hidetablet hidemobile">
                     <? if(!empty($series_previous)): ?>
@@ -32,7 +33,7 @@ $this->load->view('template/head', $headdata); ?>
                         <script type="text/javascript">if(!isFullyVisible($('.rightmargin')))$(".rightmargin").hide();</script>
                     <? endif; ?>
                 </div>
-          
+
                 <? if($article->series || bonus()): ?>
                     <h3 id="series" class="series"<?if(bonus()):?> contenteditable="true" title="Series"<?endif;?>>
                 <? if(!bonus()): ?><a href="<?=site_url()?>series/<?=$series->id?>"><? endif; ?>
@@ -40,7 +41,7 @@ $this->load->view('template/head', $headdata); ?>
                 <? if(!bonus()): ?></a><? endif; ?>
                     </h3>
                 <? endif; ?>
-              
+
                 <h2 id="articletitle" class="articletitle <?= ($article->published ? '' : 'draft'); ?>"<?if(bonus()):?> contenteditable="true" title="Title"<?endif;?>><?=$article->title?></h2>
                 <? if(bonus()): ?><div id="title" class="charsremaining"></div><? endif; ?>
                 <h3 id="articlesubtitle" class="articlesubtitle"<?if(bonus()):?> contenteditable="true" title="Subtitle"<?endif;?>><? if(isset($article->subtitle)): ?><?=$article->subtitle?><? endif; ?></h3>
@@ -81,9 +82,9 @@ $this->load->view('template/head', $headdata); ?>
                 </div>
             <? endif; ?>
         </div>
-        
+
         <p class="articledate"><time pubdate datetime="<?=$article->date?>"><?=date("F j, Y",strtotime($article->date))?></time></p>
-        
+
             <div class="toolbox">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?= current_url() ?>" data-via="bowdoinorient" data-lang="en">Tweet</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -136,15 +137,15 @@ $this->load->view('template/head', $headdata); ?>
                     <? if(bonus()): // only show views to logged-in staff, mostly bc display is too ugly to be public ?>
                         Views: <?=$article->views?> (<?=$article->views_bowdoin?>)<br/>
                     <? endif; ?>
-                </div>    
-            </header>                
-          
+                </div>
+            </header>
+
             <!-- catcher is used to trigger sticky sidebar, currently disabled (see below) -->
             <div id="article-sidebar-catcher"></div>
             <!-- sidebar contains photos, videos, and other attachments -->
             <div id="article-sidebar">
                 <div id="article-attachments">
-                    <? 
+                    <?
                         if($photos) {
                             if(count($photos) == 1 || bonus()) {
                                 foreach($photos as $key => $photo) {
@@ -161,13 +162,13 @@ $this->load->view('template/head', $headdata); ?>
                         if($attachments) { //looks through the attachments and sees what's there
                             $hasYoutube = false;
                             $youtubePlaylist = array();
-        
+
                             $hasVimeo = false;
                             $vimeos = array();
-        
+
                             $hasHTML = false;
                             $HTMLs = array();
-          
+
                             // looks through each attachment
                             foreach($attachments as $key => $attachment) {
                                 // spots youtube. holds onto the first, sticks the rest in a playlist
@@ -181,13 +182,13 @@ $this->load->view('template/head', $headdata); ?>
                                         $youtubePlaylist[] = $attachment->content1;
                                     }
                                 }
-                                    
+
                                 // spots and handles vimeos
                                 if($attachment->type == 'vimeo') {
                                     $hasVimeo = true;
                                     $vimeos[] = $attachment;
                                 }
-                                    
+
                                 // spots and handles raw html
                                 // note that there's currently no way to create an html attachment in bonus
                                 // but you can do it straight through the database if you want
@@ -196,13 +197,13 @@ $this->load->view('template/head', $headdata); ?>
                                     $HTMLs[] = $attachment;
                                 }
                             }
-                                
+
                             // if there's at least one youtube video, load the first and put the rest in the playlist
-                            if($hasYoutube) { 
+                            if($hasYoutube) {
                                 // serializes the playlist (so you have comma-separated IDs: 124234,43t346,3i4ngiu...)
                                 $youtube->playlist = join($youtubePlaylist,',');
                                 // load the actual embedded player
-                                $this->load->view('template/attachment-video', $youtube); 
+                                $this->load->view('template/attachment-video', $youtube);
                             }
                             if($hasVimeo) { foreach($vimeos as $vimeo) { $this->load->view('template/attachment-video', $vimeo); } }
                             if($hasHTML) { foreach($HTMLs as $html) { $this->load->view('template/attachment-html', $html); } }
@@ -228,7 +229,7 @@ $this->load->view('template/head', $headdata); ?>
                                 <p class="hide-photo">Use photo as homepage thumbnail only:  <input class="hide-photo" type="checkbox"></p>
                             </figcaption>
                         </figure>
-          
+
                         <!-- video attachment -->
                         <figure class="articlemedia mini">
                             <div id="video-attach" class="bonus-attachment">
@@ -250,23 +251,23 @@ $this->load->view('template/head', $headdata); ?>
                                 </form>
                             </div>
                         </figure>
-          
+
                     <? endif; ?>
-                </div>        
+                </div>
             </div>
-          
+
             <div id="articlebodycontainer">
-        
+
             <!-- placeholder for table of contents, to be injected by js -->
             <div id="toc_container_catcher"></div>
-            <div id="toc_container"></div>        
-        
+            <div id="toc_container"></div>
+
             <div id="articlebody" class="articlebody"<?if(bonus()):?> contenteditable="true" title="Article body"<?endif;?>>
                 <? if(!empty($body)): ?>
                 <?=$body->body;?>
                 <? endif; ?>
             </div>
-        
+
             </div>
             <div id="articlefooter">
                 <? if(!bonus()): ?>
@@ -285,7 +286,7 @@ $this->load->view('template/head', $headdata); ?>
                         <? else: ?>
                             var disqus_identifier = '<?=$article->id?>';
                         <? endif; ?>
-                            
+
                         /* * * DON'T EDIT BELOW THIS LINE * * */
                         (function() {
                             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -296,7 +297,7 @@ $this->load->view('template/head', $headdata); ?>
                     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
                 <? endif; ?>
-            </div>  
+            </div>
         </article>
     </div>
 
@@ -330,10 +331,10 @@ $this->load->view('template/head', $headdata); ?>
                     }
                 });
             });
-        
+
             // SET PUBLISHED
             window.published = <?= $article->published ? 'true' : 'false' ?>;
-        
+
             // DETECT CHANGES AND SUCH
             // surely there's a better way to handle this
             // if only i really knew javascript
@@ -366,7 +367,7 @@ $this->load->view('template/head', $headdata); ?>
                 titleedited=true;
                 $('#articletitle').css("color", "darkred");
             });
-        
+
             $('#articlesubtitle').keydown(function() {
                 subtitleedited=true;
                 $('#articlesubtitle').css("color", "darkred");
@@ -387,7 +388,7 @@ $this->load->view('template/head', $headdata); ?>
                 subtitleedited=true;
                 $('#articlesubtitle').css("color", "darkred");
             });
-        
+
             $('#articlebody').keydown(function() {
                 bodyedited=true;
                 window.onbeforeunload = "You have unsaved changes.";
@@ -405,7 +406,7 @@ $this->load->view('template/head', $headdata); ?>
                 };
                 $('#articlebody').css("color", "darkred");
             });
-        
+
             $('#photocreditbonus').keydown(function() {
                 photocreditedited=true;
                 $('#photocreditbonus').css("color", "darkred");
@@ -415,17 +416,17 @@ $this->load->view('template/head', $headdata); ?>
                 photocreditedited=true;
                 $('#photocreditbonus').css("color", "darkred");
             });
-            
+
             $('#photocaptionbonus').keydown(function() {
                 photocaptionedited=true;
                 $('#photocaptionbonus').css("color", "darkred");
             });
-            
+
             $('#photocaptionbonus').bind('paste', function() {
                 photocaptionedited=true;
                 $('#photocaptionbonus').css("color", "darkred");
             });
-        
+
             $("#publisharticle").click(function() {
                 if(confirm("Is this article ready for the world?")) {
                     window.publish = true;
@@ -433,7 +434,7 @@ $this->load->view('template/head', $headdata); ?>
                     $("#savearticle").click();
                 }
             });
-        
+
             $("#unpublish").click(function() {
                 if(confirm("Are you sure you want to unpublish this article? Unless you, like, JUST published it, that's probs not kosher.")) {
                     window.unpublish = true;
@@ -441,21 +442,21 @@ $this->load->view('template/head', $headdata); ?>
                     $("#savearticle").click();
                 }
             });
-        
+
             $("#savearticle").click(function() {
                 $("#savenotify").html("Saving...");
                 var statusMessage = '';
                 var refresh = false;
                 var calls = [];
-          
+
                 // if an image was added, save it.
                 // $('#dnd-holder').length != 0 && $('#dnd-holder').attr('class') == 'backgrounded'
                 if(photoadded) {
                     calls.push($.ajax({
                         type: "POST",
                         url: "<?=site_url()?>article/ajax_add_photo/<?=$article->date?>/<?=$article->id?>",
-                        data: 
-                            "img=" + $('#dnd-holder').css('background-image') + 
+                        data:
+                            "img=" + $('#dnd-holder').css('background-image') +
                             "&credit=" + urlencode($("#photocreditbonus").html()) +
                             "&caption=" + urlencode($("#photocaptionbonus").html()) +
                             "&hidephoto=" + urlencode($("input.hide-photo").is(':checked')),
@@ -471,15 +472,15 @@ $this->load->view('template/head', $headdata); ?>
                         }
                     }));
                 }
-          
-                // save photo credit/caption edits 
+
+                // save photo credit/caption edits
                 var photoEdits = {};
 
                 $('.articlemedia.photo-wrapper').each( function(index, photo) {
                     var photoId = $("#"+photo.id).data("photo-id");
                     var thisPhotoEdits = {};
                     thisPhotoEdits["credit"] = $("#photocredit"+photoId).html();
-                    thisPhotoEdits["caption"] = $("#photocaption"+photoId).html(); 
+                    thisPhotoEdits["caption"] = $("#photocaption"+photoId).html();
                     photoEdits[photoId] = thisPhotoEdits;
                 });
 
@@ -490,7 +491,7 @@ $this->load->view('template/head', $headdata); ?>
                     // else serialize array for ajaxing
                     var photoEditsJSON = JSON.stringify(photoEdits);
                 }
-          
+
                 // save attachment credit/caption edits
                 var attachmentEdits = {};
 
@@ -500,10 +501,10 @@ $this->load->view('template/head', $headdata); ?>
                     var attachmentId = $("#"+attachment.id).data("attachment-id");
                     var thisAttachmentEdits = {};
                     thisAttachmentEdits["credit"]  = $("#attachmentcredit"+attachmentId).html();
-                    thisAttachmentEdits["caption"] = $("#attachmentcaption"+attachmentId).html(); 
+                    thisAttachmentEdits["caption"] = $("#attachmentcaption"+attachmentId).html();
                     attachmentEdits[attachmentId] = thisAttachmentEdits;
                 });
-            
+
                 if(attachmentEdits.length===0) {
                     // if array is empty, i.e. no attachments were found...
                     var attachmentEditsJSON = false;
@@ -511,7 +512,7 @@ $this->load->view('template/head', $headdata); ?>
                     // else serialize array for ajaxing
                     var attachmentEditsJSON = JSON.stringify(attachmentEdits);
                 }
-          
+
                 var ajaxrequest = {
                     title:             urlencode($("#articletitle").html()),
                     subtitle:        urlencode($("#articlesubtitle").html()),
@@ -530,7 +531,7 @@ $this->load->view('template/head', $headdata); ?>
                 if(photoEditsJSON)        { ajaxrequest.photoEdits =         urlencode(photoEditsJSON); }
                 if(attachmentEditsJSON)    { ajaxrequest.attachmentEdits =    urlencode(attachmentEditsJSON); }
                 if(bodyedited)             { ajaxrequest.body =             urlencode($("#articlebody").html()); }
-          
+
                 // write title, subtitle, author, authorjob, bonus-meta stuff
                 // (regardless of whether they've been edited. sloppy.)
                 // and body, only if it's been edited
@@ -551,7 +552,7 @@ $this->load->view('template/head', $headdata); ?>
                             $("#publisharticle").show();
                             $("#unpublish").hide();
                         }
-                            
+
                         titleedited=false;
                         subtitleedited=false;
                         bodyedited=false;
@@ -564,21 +565,21 @@ $this->load->view('template/head', $headdata); ?>
                         $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
                     }
                 }));
-          
+
                 $.when.apply($, calls).then(function() {
                     $("#savenotify").html(statusMessage);
                     if(window.publish) {
-                        window.location = "<?=site_url()?>"; 
+                        window.location = "<?=site_url()?>";
                     }
-                    if(refresh) { 
-                        window.location.reload(); 
+                    if(refresh) {
+                        window.location.reload();
                     }
-                });  
+                });
             });
-        
+
             $("#deletearticle").click(function(event) {
                 event.preventDefault()
-          
+
                 if(confirm("Are you sure you want to delete this article? (If this article has already been published, it's probs not kosher to delete it.)")) {
                     $.ajax({
                         type: "POST",
@@ -598,13 +599,13 @@ $this->load->view('template/head', $headdata); ?>
                     });
                 }
             });
-        
+
 
 
             $(".authortile .delete").click(function(event) {
                 event.preventDefault();
                 var articleAuthorId = event.target.id.replace("deleteAuthor","");
-              
+
                 $.ajax({
                     type: "POST",
                     url: "<?=site_url()?>article/ajax_remove_article_author/"+articleAuthorId,
@@ -621,12 +622,12 @@ $this->load->view('template/head', $headdata); ?>
                     }
                 });
             });
-        
+
 
 
             $(".articlemedia .deletePhoto").click(function(event) {
                 var photoId = event.target.id.replace("deletePhoto","");
-              
+
                 $.ajax({
                     type: "POST",
                     url: "<?=site_url()?>article/ajax_delete_photo/"+photoId,
@@ -644,13 +645,13 @@ $this->load->view('template/head', $headdata); ?>
                     }
                 });
             });
-        
+
 
 
             $(".articlemedia .bigPhotoToggle").click(function(event) {
                 var photoId = $("#"+event.target.id).data("photo-id");
                 var toggle = $("#"+event.target.id).data("toggle");
-              
+
                 $.ajax({
                     type: "POST",
                     url: "<?=site_url()?>article/ajax_bigphoto/"+<?=$article->id?>,
@@ -665,7 +666,7 @@ $this->load->view('template/head', $headdata); ?>
                             $("#bigPhotoEnable"+photoId).show();
                             $("#bigPhotoDisable"+photoId).hide();
                         }
-                    
+
                         //show alert
                         $("#savenotify").html(result);
                     },
@@ -674,7 +675,7 @@ $this->load->view('template/head', $headdata); ?>
                     }
                 });
             });
-        
+
             $("#insert-code").click(function(event) {
                 event.preventDefault();
                 $.ajax({
@@ -715,17 +716,17 @@ $this->load->view('template/head', $headdata); ?>
                             //if it's a youtube video and there's an existing youtube video on the page...
                             if(result.type == 'youtube' && $('.articlemedia.video-wrapper.youtube').length>0) {
                                 console.log("Appending to YouTube playlist.");
-                                
+
                                 //just add this new video to the playlist
                                 $('.articlemedia.video-wrapper.youtube iframe').attr('src', $('.articlemedia.video-wrapper.youtube iframe').attr('src')+result.content1+',');
                                 $('.articlemedia.video-wrapper.youtube iframe').addClass('playlist');
                             } else {
                                 $("#article-attachments").append(result.view);
                             }
-                        
+
                             // clear the video URL input from the attachment form
                             $('input[name=video-url]').val('');
-                        } 
+                        }
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown){
                         $("#savenotify").html("There was an unknown error. The site could not be reached. "+errorThrown+" "+textStatus);
@@ -734,10 +735,10 @@ $this->load->view('template/head', $headdata); ?>
             });
 
 
-        
+
             $(".articlemedia .deleteAttachment").live("click", function(event) {
                 var attachmentId = event.target.id.replace("deleteAttachment","");
-              
+
                 ajaxrequest = {
                     remove: true,
                     article_id: $("#mainstory").data('article-id')
@@ -746,7 +747,7 @@ $this->load->view('template/head', $headdata); ?>
                 if($("#attachment"+attachmentId).data('playlist') && $("#attachment"+attachmentId).data('playlist').length > 0) {
                     ajaxrequest.playlist = true;
                 }
-              
+
                 $.ajax({
                     type: "POST",
                     url: "<?=site_url()?>article/ajax_delete_attachment/"+attachmentId,
@@ -765,11 +766,11 @@ $this->load->view('template/head', $headdata); ?>
                 });
             });
 
-        
+
             $(".articlemedia .bigAttachmentToggle").live("click", function(event) {
                 var attachmentId = $("#"+event.target.id).data("attachment-id");
                 var toggle = $("#"+event.target.id).data("toggle");
-              
+
                 $.ajax({
                     type: "POST",
                     url: "<?=site_url()?>article/ajax_attachment_big/"+attachmentId,
@@ -831,7 +832,7 @@ $this->load->view('template/head', $headdata); ?>
                 });
             <? endforeach; ?>
         <? endif; ?>
-      
+
         <? if(!empty($attachments)): ?>
             <? foreach($attachments as $attachment): ?>
                 $(function() {
@@ -841,7 +842,7 @@ $this->load->view('template/head', $headdata); ?>
                 });
             <? endforeach; ?>
         <? endif; ?>
-      
+
         $(function() {
             $( "#series" ).autocomplete({
                 source: "<?=site_url()?>article/ajax_suggest/series/name"
@@ -880,25 +881,25 @@ $this->load->view('template/head', $headdata); ?>
             }
         });
 
-      
+
         // We need to turn off the automatic editor creation first.
         CKEDITOR.disableAutoInline = true;
         var editor = CKEDITOR.inline( 'articlebody' );
-      
+
         editor.on('paste', function(evt) {
             // Update the text
             // evt.editor.setData(evt.editor.getData() + ' your additional comments.');
             bodyedited=true;
             window.onbeforeunload = "You have unsaved changes.";
-            
+
             window.onbeforeunload = function(e) {
               return "You have unsaved changes.";
             };
-            
+
             $('#articlebody').css("color", "darkred");
 
         }, editor.element.$);
-          
+
         </script>
 
         <!-- image upload, drag-and-drop or file upload input -->
@@ -916,7 +917,7 @@ $this->load->view('template/head', $headdata); ?>
             reader.onload = function (event) {
                 imageLoad(event);
             };
-            
+
             reader.readAsDataURL(file);
 
             return false;
@@ -929,20 +930,20 @@ $this->load->view('template/head', $headdata); ?>
             holder.ondrop = function (e) {
                 this.className = '';
                 e.preventDefault();
-          
+
                 var file = e.dataTransfer.files[0],
                 reader = new FileReader();
-                
+
                 reader.onload = function (event) {
                     imageLoad(event);
                 };
-                
+
                 reader.readAsDataURL(file);
-      
+
                 return false;
             };
         };
-      
+
         // for when a photo is added
         function imageLoad(event) {
             photoadded=true;
@@ -959,7 +960,7 @@ $this->load->view('template/head', $headdata); ?>
             $('figure').removeClass('mini');
         }
         </script>
-      
+
     <? endif; ?>
 
     <? if(!bonus()): // doesn't work with ckeditor, i think bc of the injection of IDs ?>
@@ -977,14 +978,14 @@ $this->load->view('template/head', $headdata); ?>
                             tocShowOnClick : false,
                             tocTopLink   : ''
                         });
-        
+
                         // Set up localScroll smooth scroller to scroll the whole document
                         // when a table of contents link is clicked
                         $('#toc_container').localScroll({
                             target:'body',
                             duration: '1000' //not duration timing is working
                         });
-        
+
                         // not actually sure i want this to happen...
                         // should the url change as ppl navigate the article? i guess so, right?
                         // add section anchor to url
@@ -992,7 +993,7 @@ $this->load->view('template/head', $headdata); ?>
                             location.hash = $(this).attr('href');
                         });
 
-                        // thanks hartbro! 
+                        // thanks hartbro!
                         // http://blog.hartleybrody.com/creating-sticky-sidebar-widgets-that-scrolls-with-you/
                         // function used to detect whether you've scrolled to an element
                         function isScrolledTo(elem) {
@@ -1002,7 +1003,7 @@ $this->load->view('template/head', $headdata); ?>
                             var elemBottom = elemTop + $(elem).height();
                             return ((elemTop <= docViewTop));
                         }
-        
+
                         // set up the table of contents navigation stickiness
                         var catcher = $('#toc_container_catcher');
                         var sticky = $('#toc_container');
@@ -1014,19 +1015,19 @@ $this->load->view('template/head', $headdata); ?>
                                 var bodyLeftOffset = $("#articlebodycontainer").offset().left - 200;
                                 sticky.css('left',bodyLeftOffset+'px');
                             }
-                            
+
                             var stopHeight = catcher.offset().top + catcher.height() - 200;
-                            
+
                             if ( stopHeight > sticky.offset().top) {
                                 sticky.css('position','absolute');
                                 sticky.css('top','0');
                                 sticky.css('left','-200px');
                             }
-          
+
                             // #todo: highlight active TOC section
                             // a la bootstrap scrollspy
                         });
-        
+
                         // make article attachments fixed and mini after you scroll past,
                         // settling them in the sidebar.
                         // not sure we want to do this, so it's disabled for now.
@@ -1068,7 +1069,7 @@ $this->load->view('template/head', $headdata); ?>
             page,
             hasInteracted = false,
             dots = document.querySelectorAll('#swipeview_nav li'),
-            
+
             slides = [
                 <? foreach($photos as $key => $photo): ?>
                     <? if($key > 0): ?>,<? endif; ?>
@@ -1084,11 +1085,11 @@ $this->load->view('template/head', $headdata); ?>
                 numberOfPages: slides.length,
                 hastyPageFlip: true
             });
-  
+
             // Load initial data
             for (i=0; i<3; i++) {
                 page = i==0 ? slides.length-1 : i-1;
-      
+
                 el = document.createElement('span');
                 el.innerHTML = slides[page];
                 carousel.masterPages[i].appendChild(el)
@@ -1098,20 +1099,20 @@ $this->load->view('template/head', $headdata); ?>
                 var el,
                 upcoming,
                 i;
-  
+
                 for (i=0; i<3; i++) {
                     upcoming = carousel.masterPages[i].dataset.upcomingPageIndex;
-  
+
                     if (upcoming != carousel.masterPages[i].dataset.pageIndex) {
                         el = carousel.masterPages[i].querySelector('span');
                         el.innerHTML = slides[upcoming];
                     }
                 }
-  
+
                 document.querySelector('#swipeview_nav .selected').className = '';
                 dots[carousel.pageIndex].className = 'selected';
             });
-  
+
   </script>
   <? endif; ?>
 </body>

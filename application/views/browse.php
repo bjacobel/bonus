@@ -31,7 +31,7 @@
             <? endif; ?>
         <? endif; ?>
         <!-- end ads -->
-            
+
         <!-- Begin MailChimp Signup Form -->
         <div id="mc_embed_signup">
             <form action="http://bowdoinorient.us4.list-manage.com/subscribe/post?u=eab94f63abe221b2ef4a4baec&amp;id=739fef0bb9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -43,7 +43,7 @@
             </form>
         </div>
         <!-- end MailChimp -->
-        
+
         <!-- Scribd issue download -->
         <? if($scribd_thumb_url): ?>
         <h2>Download issue</h2>
@@ -57,23 +57,48 @@
         </div>
         <? endif; ?>
         <!-- end Scribd -->
-        
+
         <!-- Disqus recent comments -->
         <div id="recentcomments" class="dsq-widget">
             <h2 class="dsq-widget-title">Recent Comments</h2>
             <script type="text/javascript" src="http://disqus.com/forums/bowdoinorient/recent_comments_widget.js?num_items=8&hide_avatars=1&avatar_size=24&excerpt_length=140"></script>
         </div>
         <!-- End Disqus -->
-        
+
         <!-- Plancast events -->
-        <script type="text/javascript" src="http://plancast.com/goodies/widgets/sidebar/1/43729"></script>                
+        <script type="text/javascript" src="http://plancast.com/goodies/widgets/sidebar/1/43729"></script>
     </div>
 
     <section id="bignews">
+        <div id="lead" class="hidemobile">
+            <div class="dates"><?=dateify($homepage->leadstory->date, $date)?></div>
+            <? if($homepage->leadstory->series): ?><span class="series"><a href="<?=base_url().'series/'.$homepage->leadstory->series?>"><?=$homepage->leadstory->series?>:</span></a><? endif; ?>
+            <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->leadstory->title?></a></h3>
+            <!-- <p><a href="<?=site_url()?>author/<?=$homepage->leadstory->author_id?>"><?=$homepage->leadstory->author?></a></p> -->
+            <p><?=$homepage->leadstory->excerpt?></p>
+        </div>
+        <div id="lead-overlay"></div>
+        <div id="photo">
+            <? if (count($homepage->carousel->photos)==1): ?>
+<!--            <?$photo_view_data = array('article' => $homepage->carousel, 'photos' => array($homepage->carousel->photos, $homepage->carousel->photos));
+                $this->load->view('template/carousel', $photo_view_data);?> -->
+            <? else: ?>
+<!--            <?$photo_view_data = array('article' => $homepage->carousel, 'photos' => $homepage->carousel->photos);
+                $this->load->view('template/carousel', $photo_view_data);?> -->
+            <? endif; ?>
+        </div>
+        <div id="teasers" class="hidetablet">
+            <? foreach($homepage->teasers as $teaser): ?>
+                <div class="teaser">
+                    <div class="dates"><?=dateify($teaser->date, $date)?></div>
+                    <h4><a href="<?=site_url()?>article/<?=$teaser->id?>"><?=$teaser->title?></a></h4>
+                </div>
+            <? endforeach; ?>
+        </div>
         <? if(bonus()): ?>
         <? endif; ?>
     </section>
-    
+
     <!-- SECTIONS -->
     <? foreach($sections as $section): ?>
         <? if(!empty($articles[$section->name])): ?>
@@ -149,7 +174,7 @@ carousel.onFlip(function () {
             el.innerHTML = slides[upcoming];
         }
     }
-    
+
     document.querySelector('#swipeview_nav .selected').className = '';
     dots[carousel.pageIndex].className = 'selected';
 });
@@ -157,10 +182,10 @@ carousel.onFlip(function () {
 
 // timer for carousel autoplay
 function loaded() {
-    var interval = setInterval(function () { 
-            if(!hasInteracted) carousel.next(); 
-        }, 5000); 
-    
+    var interval = setInterval(function () {
+            if(!hasInteracted) carousel.next();
+        }, 5000);
+
 }
 document.addEventListener('DOMContentLoaded', loaded, false);
 

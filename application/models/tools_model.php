@@ -68,5 +68,22 @@ class Tools_model extends CI_Model {
         return $this->db->update('alerts');
     }
 
+    // set the story featured in the ATF box
+    // $spot is 1-5 (1 is top news, 2 is top photo, 3-5 are the teasers)
+    // $article is the id of the article you want to go there
+    function set_abovethefold($spot, $article){
+        $this->db->from('browse');
+        $this->db->where('id', $spot);
+        $this->db->update('article',$article);
+    }
+
+    // return an array of the articles in spots 1-5 on the homepage abovethefold
+    function get_abovethefold(){
+        $this->db->from('browse');
+        $this->db->select('article');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
 ?>
