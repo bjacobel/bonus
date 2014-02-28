@@ -655,7 +655,7 @@ $this->load->view('template/head', $headdata); ?>
                 var ajaxrequest = {
                     title:          urlencode($("#articletitle").html()),
                     subtitle:       urlencode($("#articlesubtitle").html()),
-                    series:         urlencode($("#series").html()),
+                    series:         urlencode($("#feature-series").html()),
                     author:         urlencode($("#addauthor").html()),
                     authorjob:      urlencode($("#addauthorjob").html()),
                     volume:         urlencode($('input[name=volume]').val()),
