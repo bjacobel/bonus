@@ -90,14 +90,14 @@ class Browse extends CI_Controller {
                 // popular articles with photos
                 $twenty_popular_this_week_with_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '20', false, false, false, true);
                 $twenty_popular_this_semester_with_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '20', false, false, false, true);
-            } else {
-                $atf = $this->tools_model->get_abovethefold();
-                $leadstory = $this->article_model->get_article($atf[0]->article);
-                $carousel = $this->article_model->get_article($atf[1]->article);
-                $teaser1 = $this->article_model->get_article($atf[2]->article);
-                $teaser2 = $this->article_model->get_article($atf[3]->article);
-                $teaser3 = $this->article_model->get_article($atf[4]->article);
             }
+
+            $atf = $this->tools_model->get_abovethefold();
+            $leadstory = $this->article_model->get_article($atf[0]->article);
+            $carousel = $this->article_model->get_article($atf[1]->article);
+            $teaser1 = $this->article_model->get_article($atf[2]->article);
+            $teaser2 = $this->article_model->get_article($atf[3]->article);
+            $teaser3 = $this->article_model->get_article($atf[4]->article);
 
             // php 5.4 STRONGLY objects if you don't do this and E_STRICT is turned on (which it is by default on OSX)
             $data = new stdClass();
@@ -141,13 +141,13 @@ class Browse extends CI_Controller {
                 $data->popular_week = $twenty_popular_this_week;
                 $data->popular_semester_photo = $twenty_popular_this_semester_with_photo;
                 $data->popular_week_photo = $twenty_popular_this_week_with_photo;
-            } else {
-                $data->homepage = new stdClass();
-                $data->homepage->leadstory = $leadstory;
-                $data->homepage->carousel = $carousel;
-                $data->homepage->carousel->photos = $this->attachments_model->get_photos($carousel->id);
-                $data->homepage->teasers = array($teaser1, $teaser2, $teaser3);
             }
+
+            $data->homepage = new stdClass();
+            $data->homepage->leadstory = $leadstory;
+            $data->homepage->carousel = $carousel;
+            $data->homepage->carousel->photos = $this->attachments_model->get_photos($carousel->id);
+            $data->homepage->teasers = array($teaser1, $teaser2, $teaser3);
 
             
             // meta

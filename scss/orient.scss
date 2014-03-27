@@ -281,7 +281,7 @@ footer .bonusquoteattribution {
     color: lightblue;
 }
 
-.bonusbar button, .bonusbutton {
+.bonusbar button, .bonusbutton, .bonus-change {
     font-family:myriad-pro,helvetica,arial;
     font-size: 16px;
     margin-left: 10px;
@@ -822,8 +822,40 @@ img {
     display:block;
     position:relative;
 
-    .bignews-overlay {
-        background-color:rgba(100,100,100,0.7);
+    .bonus-overlay {
+        width:100%;
+        height:100%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:98;
+
+        button.bonus-change {
+            width:100%;
+            height:100%;
+            max-width:90px;
+            max-height:40px;
+            margin: auto;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            display:none;
+            cursor:pointer;
+            cursor:hand;
+            background:darkgreen;
+            color:white;
+        }
+    }
+
+    .bonus-overlay:hover {
+        background-color:rgba(255,255,255,0.7);
+
+        button.bonus-change {
+            display:block;
+        }
+    }
+
+    .dnone {
+        display:none;
     }
 
     #lead {
@@ -843,7 +875,7 @@ img {
         padding:0 10px;
         top:385px;
         left:0;
-        z-index:98;
+        z-index:90;
         background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
     }
 
@@ -908,7 +940,7 @@ img {
     }
 
     .dates {
-        z-index:99;
+        z-index:95;
         position:absolute;
         padding:0 10px;
         font-size:10px;

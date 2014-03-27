@@ -74,8 +74,10 @@
             <div class="dates"><?=dateify($homepage->leadstory->date, $date)?></div>
             <? if($homepage->leadstory->series): ?><span class="series"><a href="<?=base_url().'series/'.$homepage->leadstory->series?>"><?=$homepage->leadstory->series?>:</span></a><? endif; ?>
             <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->leadstory->title?></a></h3>
-            <!-- <p><a href="<?=site_url()?>author/<?=$homepage->leadstory->author_id?>"><?=$homepage->leadstory->author?></a></p> -->
             <p><?=$homepage->leadstory->excerpt?></p>
+            <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
+                <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>">Change</button>
+            </div>
         </div>
         <div id="lead-overlay"></div>
         <div id="photo">
@@ -96,17 +98,21 @@
                     <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->carousel->title?></a></h3>
                 </div>
             <? endif; ?>
+            <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
+                <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>">Change</button>
+            </div>
         </div>
         <div id="teasers" class="hidetablet">
             <? foreach($homepage->teasers as $teaser): ?>
                 <div class="teaser">
                     <div class="dates"><?=dateify($teaser->date, $date)?></div>
                     <h4><a href="<?=site_url()?>article/<?=$teaser->id?>"><?=$teaser->title?></a></h4>
+                    <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
+                        <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>">Change</button>
+                    </div>
                 </div>
             <? endforeach; ?>
         </div>
-        <? if(bonus()): ?>
-        <? endif; ?>
     </section>
 
     <!-- SECTIONS -->
