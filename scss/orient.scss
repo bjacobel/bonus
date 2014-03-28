@@ -1466,6 +1466,26 @@ article header, .authorheader {
 }
 
 /* ///////////// */
+/* ATF DROPDOWN  */
+/* ///////////// */
+
+.article-list {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    max-height:420px;
+    overflow:scroll;
+    li {
+        margin:0 0 5px 0;
+        p {
+            margin:0;
+            cursor:pointer;
+        }
+    }
+}
+
+
+/* ///////////// */
 /* MEDIA QUERIES */
 /* ///////////// */
 

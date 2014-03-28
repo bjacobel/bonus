@@ -145,6 +145,37 @@
     });
 </script>
 
+<script type="text/javascript">
+    $("button.bonus-change").click(function(){
+        vex.dialog.open({
+            message: 'Pick a story for this container.',
+
+            // this is... complicated.
+            input: '<? $v=$this->load->view("template/atf-chooser", $articlelists, true); echo(str_replace("'", "\\'", str_replace("\"", "\\\"", str_replace(array("\n", "\r"), "", $v)))); ?>',
+            
+            callback: function(data) {
+                if (data === true) {
+                    $("p.article-choice").each(function(){
+                        if($(this).data("chosen", 1)){
+                            // fire some shit off to some api
+                        }
+                    });
+                }
+            }
+        });
+
+        // highlight the 
+        $("p.article-choice").click(function(){
+            $("p.article-choice").each(function(){
+                $(this).css("color", "#444444");
+                $(this).data("chosen", 0);
+            });
+            $(this).css("color", "blue");
+            $(this).data("chosen", 1);
+        });
+    });
+</script>
+
 </body>
 
 </html>

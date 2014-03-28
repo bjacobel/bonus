@@ -80,16 +80,15 @@ class Browse extends CI_Controller {
             $featured = $this->article_model->get_articles_by_date($date, false, false, '5', true);
                         
             if(bonus()) {
-                // latest articles
-                $twenty_latest = $this->article_model->get_articles_by_date($date, false, false, '20');
-                
-                // popular articles
-                $twenty_popular_this_week = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '20');
-                $twenty_popular_this_semester = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '20');
+                // latest/popular articles
+                $latest = $this->article_model->get_articles_by_date($date, false, false, '40');
+                $popular_week = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '15');
+                $popular_semester = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '15');
 
-                // popular articles with photos
-                $twenty_popular_this_week_with_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '20', false, false, false, true);
-                $twenty_popular_this_semester_with_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '20', false, false, false, true);
+                // latest/popular articles with photos
+                $latest_photo = [];
+                $popular_week_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '15', false, false, false, true);
+                $popular_semester_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '15', false, false, false, true);
             }
 
             $atf = $this->tools_model->get_abovethefold();
@@ -136,11 +135,15 @@ class Browse extends CI_Controller {
             $data->articles = $articles;
 
             if(bonus()) {
-                $data->latest = $twenty_latest;
-                $data->popular_semester = $twenty_popular_this_semester;
-                $data->popular_week = $twenty_popular_this_week;
-                $data->popular_semester_photo = $twenty_popular_this_semester_with_photo;
-                $data->popular_week_photo = $twenty_popular_this_week_with_photo;
+                $data->articlelists = new stdClass();
+
+                $data->articlelists->latest = $latest;
+                $data->articlelists->popular_week = $popular_week;
+                $data->articlelists->popular_semester = $popular_semester;
+
+                $data->articlelists->latest_photo = $latest_photo;
+                $data->articlelists->popular_week_photo = $popular_week;
+                $data->articlelists->popular_semester_photo = $popular_semester;
             }
 
             $data->homepage = new stdClass();
