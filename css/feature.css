@@ -149,8 +149,9 @@
     #container #mainstory .articlebody .photo {
       margin-bottom: 45px; }
       #container #mainstory .articlebody .photo img {
-        width: 100%;
-        height: auto; }
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0 auto; }
       #container #mainstory .articlebody .photo .photocaption, #container #mainstory .articlebody .photo .photocredit {
         font-size: 14px;
         line-height: 1;

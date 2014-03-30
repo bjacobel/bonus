@@ -219,8 +219,9 @@
             .photo {
                 margin-bottom:45px;
                 img {
-                    width:100%;
-                    height:auto;
+                    max-width:100%;
+                    max-height:100%;
+                    margin:0 auto;
                 }
 
                 .photocaption, .photocredit {
