@@ -135,9 +135,8 @@
       font-size: 150%; }
     #container #mainstory .articlebody .attachment {
       margin-bottom: 28px;
-      z-index: 10; }
-      #container #mainstory .articlebody .attachment photo {
-        max-height: 550px; }
+      z-index: 10;
+      max-height: 550px; }
     #container #mainstory .articlebody .pullquote {
       width: 80%;
       margin: 0 auto;
