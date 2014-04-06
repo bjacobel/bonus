@@ -1525,7 +1525,7 @@ article header, .authorheader {
     overflow:scroll;
     li {
         margin:5px 0 5px 0;
-        max-height:75px;
+        
         display:table;
         p {
             margin:0;
@@ -1540,6 +1540,14 @@ article header, .authorheader {
             background-size:cover;
             background-repeat:no-repeat;
             background-position:center;
+        }
+    }
+    li.withphotos{
+        height:75px;
+        p {
+            position:relative;
+            left:10px;
+            top:-5px;
         }
     }
 }

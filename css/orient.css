@@ -1229,7 +1229,6 @@ article header, .authorheader {
   overflow: scroll; }
   .article-list li {
     margin: 5px 0 5px 0;
-    max-height: 75px;
     display: table; }
     .article-list li p {
       margin: 0;
@@ -1243,6 +1242,12 @@ article header, .authorheader {
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center; }
+  .article-list li.withphotos {
+    height: 75px; }
+    .article-list li.withphotos p {
+      position: relative;
+      left: 10px;
+      top: -5px; }
 
 .article-list#popular_week, .article-list#popular_semester {
   display: none; }

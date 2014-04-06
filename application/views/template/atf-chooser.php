@@ -29,7 +29,7 @@
 <? else: ?>
     <ul class="article-list" id="latest">
         <?foreach ($latest_photo as $article):?>
-            <li>
+            <li class="withphotos">
                 <div class="img-preview" style="background-image:url('<?=base_url()?>images/<?=$article->date?>/<?=$article->filename_small?>')"></div>
                 <p class="article-choice" id="<?=$article->id?>"><?=$article->title?></p>
             </li>
@@ -38,7 +38,7 @@
 
     <ul class="article-list" id="popular_week">
         <?foreach ($popular_week_photo as $article):?>
-            <li>
+            <li class="withphotos">
                 <div class="img-preview" style="background-image:url('<?=base_url()?>images/<?=$article->date?>/<?=$article->filename_small?>')"></div>
                 <p class="article-choice" id="<?=$article->id?>"><?=$article->title?></p>
             </li>
@@ -47,7 +47,7 @@
 
     <ul class="article-list" id="popular_semester">
         <?foreach ($popular_semester_photo as $article):?>
-            <li>
+            <li class="withphotos">
                 <div class="img-preview" style="background-image:url('<?=base_url()?>images/<?=$article->date?>/<?=$article->filename_small?>')"></div>
                 <p class="article-choice" id="<?=$article->id?>"><?=$article->title?></p>
             </li>
