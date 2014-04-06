@@ -83,7 +83,7 @@
         <div id="photo">
             <div id="bigphoto">
                 <? if (count($homepage->carousel->photos)==1): ?>
-                    <div class="single-photo" style="background-image:url('<?=base_url()?>images/<?=$homepage->carousel->date?>/<?=$photo->filename_large?>')"></div>
+                    <div class="single-photo" style="background-image:url('<?=base_url()?>images/<?=$homepage->carousel->date?>/<?=$homepage->carousel->photos[0]->filename_large?>')"></div>
                 <? else: ?>
                     <div id='slider' class='swipe'>
                         <div class='swipe-wrap'>
