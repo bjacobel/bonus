@@ -1229,7 +1229,7 @@ article header, .authorheader {
   overflow: scroll; }
   .article-list li {
     margin: 5px 0 5px 0;
-    height: 75px;
+    max-height: 75px;
     display: table; }
     .article-list li p {
       margin: 0;

@@ -1525,7 +1525,7 @@ article header, .authorheader {
     overflow:scroll;
     li {
         margin:5px 0 5px 0;
-        height:75px;
+        max-height:75px;
         display:table;
         p {
             margin:0;
