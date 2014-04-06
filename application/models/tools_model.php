@@ -74,7 +74,9 @@ class Tools_model extends CI_Model {
     function set_abovethefold($spot, $article){
         $this->db->from('browse');
         $this->db->where('id', $spot);
-        $this->db->update('article',$article);
+        $data = array('article'=>$article);
+        $this->db->update('browse', $data);
+        return true;
     }
 
     // return an array of the articles in spots 1-5 on the homepage abovethefold

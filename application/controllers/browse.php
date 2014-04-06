@@ -93,6 +93,7 @@ class Browse extends CI_Controller {
 
             $atf = $this->tools_model->get_abovethefold();
             $leadstory = $this->article_model->get_article($atf[0]->article);
+            $leadstory->seriesname = $this->article_model->get_article_series($leadstory->series)->name;
             $carousel = $this->article_model->get_article($atf[1]->article);
             $teaser1 = $this->article_model->get_article($atf[2]->article);
             $teaser2 = $this->article_model->get_article($atf[3]->article);
@@ -176,6 +177,14 @@ class Browse extends CI_Controller {
         else
         {
             redirect('browse/'.$issue->issue_date, 'refresh');
+        }
+    }
+
+    public function ajax_set_atf($container){
+        if($this->input->server('REQUEST_METHOD') != "POST"){
+            $this->error();
+        } else {
+            return $this->tools_model->set_abovethefold($container, $this->input->post("id"));
         }
     }
 }

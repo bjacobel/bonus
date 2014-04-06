@@ -72,11 +72,11 @@
     <section id="bignews">
         <div id="lead" class="hidemobile">
             <div class="dates"><?=dateify($homepage->leadstory->date, $date)?></div>
-            <? if($homepage->leadstory->series): ?><span class="series"><a href="<?=base_url().'series/'.$homepage->leadstory->series?>"><?=$homepage->leadstory->series?>:</span></a><? endif; ?>
+            <? if($homepage->leadstory->series): ?><span class="series"><a href="<?=base_url().'series/'.$homepage->leadstory->series?>"><?=$homepage->leadstory->seriesname?>:</span></a><? endif; ?>
             <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->leadstory->title?></a></h3>
             <p><?=$homepage->leadstory->excerpt?></p>
             <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
-                <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>">Change</button>
+                <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="1">Change</button>
             </div>
         </div>
         <div id="lead-overlay"></div>
@@ -99,18 +99,20 @@
                 </div>
             <? endif; ?>
             <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
-                <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>">Change</button>
+                <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="2">Change</button>
             </div>
         </div>
         <div id="teasers" class="hidetablet">
+            <? $i = 3; ?>
             <? foreach($homepage->teasers as $teaser): ?>
                 <div class="teaser">
                     <div class="dates"><?=dateify($teaser->date, $date)?></div>
                     <h4><a href="<?=site_url()?>article/<?=$teaser->id?>"><?=$teaser->title?></a></h4>
                     <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
-                        <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>">Change</button>
+                        <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="<?=$i?>">Change</button>
                     </div>
                 </div>
+                <? $i++; ?>
             <? endforeach; ?>
         </div>
     </section>
@@ -146,7 +148,9 @@
 </script>
 
 <script type="text/javascript">
+    var selected = 0;
     $("button.bonus-change").click(function(){
+        $button = $(this);
         vex.dialog.open({
             message: 'Pick a story for this container.',
 
@@ -154,24 +158,30 @@
             input: '<? $v=$this->load->view("template/atf-chooser", $articlelists, true); echo(str_replace("'", "\\'", str_replace("\"", "\\\"", str_replace(array("\n", "\r"), "", $v)))); ?>',
             
             callback: function(data) {
-                if (data === true) {
-                    $("p.article-choice").each(function(){
-                        if($(this).data("chosen", 1)){
-                            // fire some shit off to some api
+                if (data !== false && selected > 0) {
+                    $.ajax({
+                        url:    "/browse/ajax_set_atf/"+$button.data("container"),
+                        type:   "POST",
+                        data:   "id="+selected,
+                        dataType: 'json',
+                        success: function(data, textStatus, jqXHR) {
+                            location.reload(true);
+                        },
+                        error: function(err){
+                            console.log(err);
+                            vex.dialog.alert("Error: " + err.responseText);
                         }
                     });
                 }
             }
         });
 
-        // highlight the 
         $("p.article-choice").click(function(){
             $("p.article-choice").each(function(){
                 $(this).css("color", "#444444");
-                $(this).data("chosen", 0);
             });
             $(this).css("color", "blue");
-            $(this).data("chosen", 1);
+            selected = $(this).attr("id"); 
         });
     });
 </script>
