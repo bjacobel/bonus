@@ -725,6 +725,9 @@ img {
     #bignews #photo #bigphoto {
       height: 75%;
       padding-bottom: 10px; }
+      #bignews #photo #bigphoto .single-photo {
+        height: 100%;
+        width: 100%; }
       #bignews #photo #bigphoto .carousel-photo, #bignews #photo #bigphoto .single-photo {
         background-size: cover;
         background-repeat: no-repeat;
