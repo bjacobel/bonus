@@ -81,14 +81,14 @@ class Browse extends CI_Controller {
                         
             if(bonus()) {
                 // latest/popular articles
-                $latest = $this->article_model->get_articles_by_date($date, false, false, '40');
-                $popular_week = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '15');
-                $popular_semester = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '15');
+                $latest = $this->article_model->get_articles_by_date($date, false, false, '30');
+                $popular_week = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '30');
+                $popular_semester = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '30');
 
                 // latest/popular articles with photos
-                $latest_photo = [];
-                $popular_week_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '15', false, false, false, true);
-                $popular_semester_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '15', false, false, false, true);
+                $latest_photo = $this->article_model->get_articles_by_date($date, false, false, 30, false, false, false, false, 'desc', true);  // I. Hate. PHP.
+                $popular_week_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '30', false, false, false, true);
+                $popular_semester_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '30', false, false, false, true);
             }
 
             $atf = $this->tools_model->get_abovethefold();
@@ -137,14 +137,15 @@ class Browse extends CI_Controller {
 
             if(bonus()) {
                 $data->articlelists = new stdClass();
+                $data->photolists = new stdClass();
 
                 $data->articlelists->latest = $latest;
                 $data->articlelists->popular_week = $popular_week;
                 $data->articlelists->popular_semester = $popular_semester;
 
-                $data->articlelists->latest_photo = $latest_photo;
-                $data->articlelists->popular_week_photo = $popular_week;
-                $data->articlelists->popular_semester_photo = $popular_semester;
+                $data->photolists->latest_photo = $latest_photo;
+                $data->photolists->popular_week_photo = $popular_week_photo;
+                $data->photolists->popular_semester_photo = $popular_semester_photo;
             }
 
             $data->homepage = new stdClass();

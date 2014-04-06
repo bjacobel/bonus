@@ -36,7 +36,7 @@ class Article_model extends CI_Model {
     // for the love of god, either use a finite date span or a limit!
     // i.e. don't let both $date_since and $limit stay false.
     // maybe this function should control for that ugly possibility.
-    function get_articles_by_date($date_up_to=false, $date_since=false, $sec=false, $limit=false, $featured=false, $author=false, $series=false, $exclude=false, $sort='desc')
+    function get_articles_by_date($date_up_to=false, $date_since=false, $sec=false, $limit=false, $featured=false, $author=false, $series=false, $exclude=false, $sort='desc', $requirephoto=false)
     {
         $this->db->select("
             article.id, 
@@ -85,6 +85,11 @@ class Article_model extends CI_Model {
         $this->db->group_by("article.id");
         $this->db->order_by("article.date", $sort);
         $this->db->order_by("article.priority", "asc");
+
+        // If we want stories with only photos
+        if($requirephoto==true){
+            $this->db->where('photo.active', 1);
+        }
 
         $query = $this->db->get();
         //echo $this->db->last_query();

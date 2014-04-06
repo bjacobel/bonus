@@ -1478,6 +1478,40 @@ article header, .authorheader {
 /* ATF DROPDOWN  */
 /* ///////////// */
 
+.chooser {
+    width:100%;
+    height:32px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgba(100,100,100,0.4);
+
+    p {
+        font-size:12pt;
+        font-family:myriad-pro,helvetica,arial;
+        font-variant:small-caps;
+        margin:0;
+    }
+
+    div {
+        width:33%;
+        height:24px;
+        text-align:center;
+        box-sizing:border-box;
+        cursor:pointer;
+    }
+
+    div:hover {
+        color:blue;
+    }
+
+    .left {float:left;}
+    .right {float:right;}
+    .center {
+        border-left:1px solid rgba(100,100,100,0.4);
+        border-right:1px solid rgba(100,100,100,0.4);
+        display:inline-block;
+    }
+}
+
 .article-list {
     margin:0;
     padding:0;
@@ -1491,6 +1525,10 @@ article header, .authorheader {
             cursor:pointer;
         }
     }
+}
+
+.article-list#popular_week,.article-list#popular_semester {
+    display:none;
 }
 
 
