@@ -1524,10 +1524,22 @@ article header, .authorheader {
     max-height:420px;
     overflow:scroll;
     li {
-        margin:0 0 5px 0;
+        margin:5px 0 5px 0;
+        height:75px;
+        display:table;
         p {
             margin:0;
             cursor:pointer;
+            display:table-cell;
+        }
+        .img-preview{
+            width:75px;
+            padding-right:10px;
+            padding-top:3px;
+            display:table-cell;
+            background-size:cover;
+            background-repeat:no-repeat;
+            background-position:center;
         }
     }
 }

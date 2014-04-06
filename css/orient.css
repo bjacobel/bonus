@@ -1228,10 +1228,21 @@ article header, .authorheader {
   max-height: 420px;
   overflow: scroll; }
   .article-list li {
-    margin: 0 0 5px 0; }
+    margin: 5px 0 5px 0;
+    height: 75px;
+    display: table; }
     .article-list li p {
       margin: 0;
-      cursor: pointer; }
+      cursor: pointer;
+      display: table-cell; }
+    .article-list li .img-preview {
+      width: 75px;
+      padding-right: 10px;
+      padding-top: 3px;
+      display: table-cell;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center; }
 
 .article-list#popular_week, .article-list#popular_semester {
   display: none; }
