@@ -150,8 +150,10 @@
 
 <script type="text/javascript">
     var selected = 0;
-    input_articles = '<? $v=$this->load->view("template/atf-chooser", $articlelists, true); echo(str_replace("'", "\\'", str_replace("\"", "\\\"", str_replace(array("\n", "\r"), "", $v)))); ?>';
-    input_photos = '<? $v=$this->load->view("template/atf-chooser", $photolists, true); echo(str_replace("'", "\\'", str_replace("\"", "\\\"", str_replace(array("\n", "\r"), "", $v)))); ?>';
+    <?if(bonus()):?>
+        input_articles = '<? $v=$this->load->view("template/atf-chooser", $articlelists, true); echo(str_replace("'", "\\'", str_replace("\"", "\\\"", str_replace(array("\n", "\r"), "", $v)))); ?>';
+        input_photos = '<? $v=$this->load->view("template/atf-chooser", $photolists, true); echo(str_replace("'", "\\'", str_replace("\"", "\\\"", str_replace(array("\n", "\r"), "", $v)))); ?>';
+    <?endif;?>
 
     $("button.bonus-change").click(function(){
         $button = $(this);
