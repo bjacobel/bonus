@@ -821,6 +821,7 @@ img {
     border-bottom: double 3px lightgray;
     display:block;
     position:relative;
+    overflow:hidden;
 
     .bonus-overlay {
         width:100%;
@@ -868,15 +869,22 @@ img {
         @include vendor-prefix(box-sizing,border-box);
     }
 
-    #lead-overlay{
-        width:25%;
+    .overlay{       
         height:60px;
         position:absolute;
         padding:0 10px;
         top:385px;
-        left:0;
         z-index:90;
         background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+    }
+    .lead {
+        width:25%;
+        left:0;
+    }
+
+    .photo {
+        width:50%;
+        left:25%;
     }
 
     #photo {
@@ -903,6 +911,7 @@ img {
             width:100%;
             height:25%;
             position:relative;
+            overflow:hidden;
 
             .dates {
                 padding: 0;
@@ -1613,20 +1622,15 @@ article header, .authorheader {
         width: 100%;
     }
     
-    #carousel {
-        width: 50%;
-    }
-    
-    .carouseltile h3 {
-        font-size: 20pt;
-    }
-    
-    .carouseltile h4 {
-        font-size: 16pt;
-    }
-    
-    #latest {
-        width: 50%;
+    #bignews {
+        width:100%;
+        #lead, #photo, .overlay {
+            width:50%;
+            border-right:none;
+        }
+        h3 {
+            font-size:18pt;
+        }
     }
     
     nav input {
@@ -1670,20 +1674,12 @@ article header, .authorheader {
         margin-right: 10px;
     }
     
-    #carousel {
-        width: 100%;
-        height: 300px;
-        margin-bottom: 30px;
-    }
-    
-    #latest {
-        clear: both;
-        padding: 0;
-        width: 100%;
-    }
-    
-    #latest li {
-        height: 92px !important;
+    #bignews {
+        #photo, .overlay {
+            width:100%;
+            border-left:none;
+            padding:0;
+        }
     }
     
     /* end above the fold */

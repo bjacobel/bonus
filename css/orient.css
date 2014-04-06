@@ -658,7 +658,8 @@ img {
   padding: 20px 0 10px 0;
   border-bottom: double 3px lightgray;
   display: block;
-  position: relative; }
+  position: relative;
+  overflow: hidden; }
   #bignews .bonus-overlay {
     width: 100%;
     height: 100%;
@@ -700,15 +701,19 @@ img {
     -moz-box-sizing: border-box;
     -o-box-sizing: border-box;
     box-sizing: border-box; }
-  #bignews #lead-overlay {
-    width: 25%;
+  #bignews .overlay {
     height: 60px;
     position: absolute;
     padding: 0 10px;
     top: 385px;
-    left: 0;
     z-index: 90;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white); }
+  #bignews .lead {
+    width: 25%;
+    left: 0; }
+  #bignews .photo {
+    width: 50%;
+    left: 25%; }
   #bignews #photo {
     position: relative;
     float: left;
@@ -727,7 +732,8 @@ img {
     #bignews #photo #caption {
       width: 100%;
       height: 25%;
-      position: relative; }
+      position: relative;
+      overflow: hidden; }
       #bignews #photo #caption .dates {
         padding: 0; }
   #bignews #teasers {
@@ -1290,17 +1296,13 @@ article header, .authorheader {
   .issuesection {
     width: 100%; }
 
-  #carousel {
-    width: 50%; }
-
-  .carouseltile h3 {
-    font-size: 20pt; }
-
-  .carouseltile h4 {
-    font-size: 16pt; }
-
-  #latest {
-    width: 50%; }
+  #bignews {
+    width: 100%; }
+    #bignews #lead, #bignews #photo, #bignews .overlay {
+      width: 50%;
+      border-right: none; }
+    #bignews h3 {
+      font-size: 18pt; }
 
   nav input {
     width: 55px; } }
@@ -1330,18 +1332,10 @@ article header, .authorheader {
     margin-left: 10px;
     margin-right: 10px; }
 
-  #carousel {
+  #bignews #photo, #bignews .overlay {
     width: 100%;
-    height: 300px;
-    margin-bottom: 30px; }
-
-  #latest {
-    clear: both;
-    padding: 0;
-    width: 100%; }
-
-  #latest li {
-    height: 92px !important; }
+    border-left: none;
+    padding: 0; }
 
   /* end above the fold */
   h2 {

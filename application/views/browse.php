@@ -79,12 +79,12 @@
                 <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="1">Change</button>
             </div>
         </div>
-        <div id="lead-overlay"></div>
+        <div class="lead overlay"></div>
         <div id="photo">
-            <? if (count($homepage->carousel->photos)==1): ?>
+            <div id="bigphoto">
+                <? if (count($homepage->carousel->photos)==1): ?>
 
-            <? else: ?>
-                <div id="bigphoto">
+                <? else: ?>
                     <div id='slider' class='swipe'>
                         <div class='swipe-wrap'>
                             <? foreach ($homepage->carousel->photos as $photo): ?>
@@ -92,16 +92,17 @@
                             <? endforeach; ?>
                       </div>
                     </div>
-                </div>
-                <div id="caption">
-                    <div class="dates"><?=dateify($homepage->leadstory->date, $date)?></div>
-                    <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->carousel->title?></a></h3>
-                </div>
-            <? endif; ?>
+                <? endif; ?>
+            </div>
+            <div id="caption">
+                <div class="dates"><?=dateify($homepage->leadstory->date, $date)?></div>
+                <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->carousel->title?></a></h3>
+            </div>
             <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
                 <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="2">Change</button>
             </div>
         </div>
+        <div class="photo overlay"></div>
         <div id="teasers" class="hidetablet">
             <? $i = 3; ?>
             <? foreach($homepage->teasers as $teaser): ?>
