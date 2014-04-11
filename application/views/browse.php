@@ -74,13 +74,7 @@
             <div class="dates"><?=dateify($homepage->leadstory->date, $date)?></div>
             <? if($homepage->leadstory->series): ?><span class="series"><a href="<?=base_url().'series/'.$homepage->leadstory->series?>"><?=$homepage->leadstory->seriesname?>:</span></a><? endif; ?>
             <h3><a href="<?=site_url()?>article/<?=$homepage->leadstory->id?>"><?=$homepage->leadstory->title?></a></h3>
-            <span>
-                <? if($homepage->leadstory->authors):?>
-                    <? foreach($homepage->leadstory->authors as $author):?>
-                        <span class="bignews-author"><?=$author->authorname?>, <?=$author->jobname?></span></br>
-                    <? endforeach; ?>
-                <? endif; ?>
-            </span>
+            <span class="bignews-subtitle"><?=$homepage->leadstory->subtitle?></span>
             <p><?=$homepage->leadstory->excerpt?></p>
             <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
                 <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="1">Change</button>
@@ -105,13 +99,7 @@
                 <div class="dates"><?=dateify($homepage->carousel->date, $date)?></div>
                 <h3><a href="<?=site_url()?>article/<?=$homepage->carousel->id?>"><?=$homepage->carousel->title?></a></h3>
             </div>
-            <span>
-                <? if($homepage->carousel->authors):?>
-                    <? foreach($homepage->carousel->authors as $author):?>
-                        <span class="bignews-author"><?=$author->authorname?>, <?=$author->jobname?></span></br>
-                    <? endforeach; ?>
-                <? endif; ?>
-            </span>
+            <span class="bignews-subtitle"><?=$homepage->carousel->subtitle?></span>
             <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
                 <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="2">Change</button>
             </div>
@@ -124,13 +112,7 @@
                     <div class="dates"><?=dateify($teaser->date, $date)?></div>
                     <? if($teaser->series): ?><span class="series"><a href="<?=base_url().'series/'.$teaser->series?>"><?=$teaser->seriesname?>:</span></a><? endif; ?>
                     <h4 class="teaser-hed"><a href="<?=site_url()?>article/<?=$teaser->id?>"><?=$teaser->title?></a></h4>
-                    <span>
-                        <? if($teaser->authors): ?>
-                            <? foreach($teaser->authors as $author):?>
-                                <span class="bignews-author"><?=$author->authorname?>, <?=$author->jobname?></span></br>
-                            <? endforeach; ?>
-                        <? endif; ?>
-                    </span>
+                    <span class="bignews-subtitle"><?=$teaser->subtitle?></span>
                     <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
                         <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="<?=$i?>">Change</button>
                     </div>

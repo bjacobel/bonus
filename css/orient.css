@@ -689,10 +689,9 @@ img {
       display: block; }
   #bignews .dnone {
     display: none; }
-  #bignews .bignews-author {
+  #bignews .bignews-subtitle {
     font-size: 13px;
-    color: #666;
-    font-variant: small-caps; }
+    color: #666; }
   #bignews #lead {
     width: 25%;
     height: 500px;
