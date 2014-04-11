@@ -37,7 +37,7 @@ if(empty($page_image)) $page_image=base_url()."img/o-200.png";
     <meta property="twitter:image"          content="<?=$page_image?>" />
     
     <!-- CSS -->
-    <link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css">
+    <link rel="stylesheet" media="screen" href="<?=base_url()?>css/orient.css?v=2">
     <?if(isset($viewtype) && $viewtype=="feature"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/feature.css"><?endif;?>
     <?if(isset($viewtype) && $viewtype=="article"):?><link rel="stylesheet" media="screen" href="<?=base_url()?>css/article.css"><?endif;?>
     
