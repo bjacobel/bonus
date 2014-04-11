@@ -275,7 +275,7 @@ figure {
   z-index: 98; }
 
 #mainhead {
-  z-index: 99; }
+  z-index: 100; }
 
 #bonusbar {
   z-index: 99; }
@@ -720,6 +720,7 @@ img {
     left: 25%; }
   #bignews #photo {
     position: relative;
+    overflow: hidden;
     float: left;
     width: 50%;
     height: 420px;

@@ -341,7 +341,7 @@ figure {
 }
 
 #mainhead {
-    z-index: 99;
+    z-index: 100;
 }
 
 #bonusbar {
@@ -895,6 +895,7 @@ img {
 
     #photo {
         position:relative;
+        overflow:hidden;
         float:left;
         width:50%;
         height:420px;
