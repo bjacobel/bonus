@@ -1696,8 +1696,12 @@ article header, .authorheader {
         h3 {
             font-size:18pt;
         }
+        .lead.overlay{
+            width:50%;
+        } 
         .overlay.photo {
             left:50%;
+            width:50%;
         }
     }
     

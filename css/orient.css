@@ -1354,8 +1354,11 @@ article header, .authorheader {
       border-right: none; }
     #bignews h3 {
       font-size: 18pt; }
+    #bignews .lead.overlay {
+      width: 50%; }
     #bignews .overlay.photo {
-      left: 50%; }
+      left: 50%;
+      width: 50%; }
 
   nav input {
     width: 55px; } }
