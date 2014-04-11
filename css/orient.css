@@ -1242,7 +1242,8 @@ article header, .authorheader {
       display: table-cell;
       background-size: cover;
       background-repeat: no-repeat;
-      background-position: center; }
+      background-position: center;
+      cursor: pointer; }
   .article-list li.withphotos {
     height: 75px; }
     .article-list li.withphotos p {

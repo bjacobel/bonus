@@ -195,12 +195,21 @@
         });
 
         $("p.article-choice").click(function(){
+            pick($(this));
+        });
+
+        $("div.img-preview").click(function(){ 
+            pick($(this).next());
+        });
+
+        function pick($element){
             $("p.article-choice").each(function(){
                 $(this).css("color", "#444444");
             });
-            $(this).css("color", "blue");
-            selected = $(this).attr("id"); 
-        });
+            $element.css("color", "blue");
+            selected = $element.attr("id"); 
+        }
+
     });
 </script>
 
