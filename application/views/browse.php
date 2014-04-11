@@ -90,7 +90,7 @@
                             <? foreach ($homepage->carousel->photos as $photo): ?>
                                 <div class="carousel-photo" style="background-image:url('<?=base_url()?>images/<?=$homepage->carousel->date?>/<?=$photo->filename_large?>')"></div>
                             <? endforeach; ?>
-                      </div>
+                        </div>
                     </div>
                 <? endif; ?>
             </div>
@@ -144,7 +144,6 @@
         window.mySwipe = Swipe($('#slider')[0], {
             speed: 300,
             auto: 5000,
-            disableScroll: true,
         });
     });
 </script>
