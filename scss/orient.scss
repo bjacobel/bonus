@@ -1689,12 +1689,15 @@ article header, .authorheader {
     
     #bignews {
         width:100%;
-        #lead, #photo, .overlay {
+        #lead, #photo{
             width:50%;
             border-right:none;
         }
         h3 {
             font-size:18pt;
+        }
+        .overlay.photo {
+            left:50%;
         }
     }
     

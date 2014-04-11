@@ -1349,11 +1349,13 @@ article header, .authorheader {
 
   #bignews {
     width: 100%; }
-    #bignews #lead, #bignews #photo, #bignews .overlay {
+    #bignews #lead, #bignews #photo {
       width: 50%;
       border-right: none; }
     #bignews h3 {
       font-size: 18pt; }
+    #bignews .overlay.photo {
+      left: 50%; }
 
   nav input {
     width: 55px; } }
