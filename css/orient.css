@@ -746,7 +746,8 @@ img {
     #bignews #teasers .teaser {
       height: 33.3333%;
       position: relative;
-      padding: 0 10px; }
+      padding: 0 10px;
+      overflow: hidden; }
     #bignews #teasers .teaser:nth-child(2) {
       border-top: 1px solid lightgrey;
       border-bottom: 1px solid lightgrey;

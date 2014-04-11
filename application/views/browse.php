@@ -108,7 +108,8 @@
             <? foreach($homepage->teasers as $teaser): ?>
                 <div class="teaser">
                     <div class="dates"><?=dateify($teaser->date, $date)?></div>
-                    <h4><a href="<?=site_url()?>article/<?=$teaser->id?>"><?=$teaser->title?></a></h4>
+                    <? if($teaser->series): ?><span class="series"><a href="<?=base_url().'series/'.$teaser->series?>"><?=$teaser->seriesname?>:</span></a><? endif; ?>
+                    <h4 class="teaser-hed"><a href="<?=site_url()?>article/<?=$teaser->id?>"><?=$teaser->title?></a></h4>
                     <div class="bonus-overlay <?if(!bonus()):?>dnone<?endif;?>">
                         <button class="bonus-change <?if(!bonus()):?>dnone<?endif;?>" data-container="<?=$i?>">Change</button>
                     </div>

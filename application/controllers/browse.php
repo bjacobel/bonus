@@ -96,8 +96,11 @@ class Browse extends CI_Controller {
             $leadstory->seriesname = $this->article_model->get_article_series($leadstory->series)->name;
             $carousel = $this->article_model->get_article($atf[1]->article);
             $teaser1 = $this->article_model->get_article($atf[2]->article);
+            $teaser1->seriesname = $this->article_model->get_article_series($teaser1->series)->name;
             $teaser2 = $this->article_model->get_article($atf[3]->article);
+            $teaser2->seriesname = $this->article_model->get_article_series($teaser2->series)->name;
             $teaser3 = $this->article_model->get_article($atf[4]->article);
+            $teaser3->seriesname = $this->article_model->get_article_series($teaser3->series)->name;
 
             // php 5.4 STRONGLY objects if you don't do this and E_STRICT is turned on (which it is by default on OSX)
             $data = new stdClass();
