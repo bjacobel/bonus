@@ -92,16 +92,24 @@ class Browse extends CI_Controller {
             }
 
             $atf = $this->tools_model->get_abovethefold();
+
             $leadstory = $this->article_model->get_article($atf[0]->article);
             $leadstory->seriesname = $this->article_model->get_article_series($leadstory->series)->name;
+            $leadstory->authors = $this->article_model->get_article_authors($leadstory->id);
+
             $carousel = $this->article_model->get_article($atf[1]->article);
+            $carousel->authors = $this->article_model->get_article_authors($carousel->id);
+
             $teaser1 = $this->article_model->get_article($atf[2]->article);
+            $teaser1->authors = $this->article_model->get_article_authors($teaser1->id);
             $teaser1->seriesname = $this->article_model->get_article_series($teaser1->series)->name;
             $teaser2 = $this->article_model->get_article($atf[3]->article);
+            $teaser2->authors = $this->article_model->get_article_authors($teaser2->id);
             $teaser2->seriesname = $this->article_model->get_article_series($teaser2->series)->name;
             $teaser3 = $this->article_model->get_article($atf[4]->article);
+            $teaser3->authors = $this->article_model->get_article_authors($teaser3->id);
             $teaser3->seriesname = $this->article_model->get_article_series($teaser3->series)->name;
-
+        
             // php 5.4 STRONGLY objects if you don't do this and E_STRICT is turned on (which it is by default on OSX)
             $data = new stdClass();
             $data->headerdata = new stdClass();
