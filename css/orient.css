@@ -695,7 +695,7 @@ img {
     font-variant: small-caps; }
   #bignews #lead {
     width: 25%;
-    height: 420px;
+    height: 500px;
     float: left;
     overflow: hidden;
     position: relative;
@@ -709,7 +709,7 @@ img {
     height: 40px;
     position: absolute;
     padding: 0 10px;
-    top: 405px;
+    top: 485px;
     z-index: 90;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white); }
   #bignews .lead {
@@ -723,7 +723,7 @@ img {
     overflow: hidden;
     float: left;
     width: 50%;
-    height: 420px;
+    height: 500px;
     padding: 0 10px;
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey; }
@@ -745,7 +745,7 @@ img {
         padding: 0; }
   #bignews #teasers {
     width: 25%;
-    height: 420px;
+    height: 500px;
     float: left; }
     #bignews #teasers .teaser {
       height: 33.3333%;
@@ -1230,7 +1230,7 @@ article header, .authorheader {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  max-height: 420px;
+  max-height: 500px;
   overflow: scroll; }
   .article-list li {
     margin: 5px 0 5px 0;
