@@ -36,7 +36,7 @@ class Article_model extends CI_Model {
     // for the love of god, either use a finite date span or a limit!
     // i.e. don't let both $date_since and $limit stay false.
     // maybe this function should control for that ugly possibility.
-    function get_articles_by_date($date_up_to=false, $date_since=false, $sec=false, $limit=false, $featured=false, $author=false, $series=false, $exclude=false, $sort='desc')
+    function get_articles_by_date($date_up_to=false, $date_since=false, $sec=false, $limit=false, $featured=false, $author=false, $series=false, $exclude=false, $sort='desc', $requirephoto=false)
     {
         $this->db->select("
             article.id, 
@@ -86,6 +86,11 @@ class Article_model extends CI_Model {
         $this->db->order_by("article.date", $sort);
         $this->db->order_by("article.priority", "asc");
 
+        // If we want stories with only photos
+        if($requirephoto==true){
+            $this->db->where('photo.active', 1);
+        }
+
         $query = $this->db->get();
         //echo $this->db->last_query();
         //if($date_since != false && $limit==1) exit($this->db->last_query());
@@ -99,7 +104,7 @@ class Article_model extends CI_Model {
         }
     }
     
-    function get_popular_articles_by_date($date_up_to, $date_since = false, $limit = '10', $featured=false, $author=false, $series=false)
+    function get_popular_articles_by_date($date_up_to, $date_since = false, $limit = '10', $featured=false, $author=false, $series=false, $needsphoto=false)
     {
         $this->db->select("
             article.id, 
@@ -120,7 +125,14 @@ class Article_model extends CI_Model {
         
         $this->db->join("series", "series.id=article.series");
         $this->db->join("articletype", "articletype.id=article.type");
-        $this->db->join("photo", "photo.article_id=article.id", "left");
+        
+        // if we specify to only return stories with photos, do an inside join instead of a left one
+        // stand back, I know mysql
+        if($needsphoto) {
+            $this->db->join("photo", "photo.article_id=article.id", "inside");
+        } else {
+            $this->db->join("photo", "photo.article_id=article.id", "left");
+        }
         
         // join author
         $this->db->join("articleauthor", "articleauthor.article_id=article.id", "left");
@@ -128,6 +140,7 @@ class Article_model extends CI_Model {
         
         // "active" basically means "hasn't been deleted". we should almost never show inactive articles.
         $this->db->where("article.active", "1");
+
         // show draft (unpublished) articles only if logged into bonus.
         if(!bonus()) $this->db->where("article.published", "1");
         
@@ -187,12 +200,21 @@ class Article_model extends CI_Model {
         return ($result->published == '1' ? true : false);
     }
     
-    function get_random()
+    function get_random($require_photos = false)
     {
-        // weighted by popularity; truncates the head of the list (offset of 10) because
-        // it kept returning the same articles too often, even with the natural-log
-        // softening. there's surely a better algorithm, but it works well. 
-        $query = $this->db->query("SELECT * FROM article ORDER BY (RAND() * ln(views)) desc limit 10,1;");
+        if ($require_photos) {
+            $this->db->from("article");
+            $this->db->join("photo", "article.id=photo.article_id", "inner");
+            $this->db->order_by('id', 'RANDOM');
+            $this->db->limit(1);
+            $this->db->select("article.*");
+            $query = $this->db->get();
+        } else {
+            // weighted by popularity; truncates the head of the list (offset of 10) because
+            // it kept returning the same articles too often, even with the natural-log
+            // softening. there's surely a better algorithm, but it works well.
+            $query = $this->db->query("SELECT * FROM article ORDER BY (RAND() * ln(views)) desc limit 10,1;");
+        }
         return $query->row();
     }
     

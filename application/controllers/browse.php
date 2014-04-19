@@ -52,8 +52,6 @@ class Browse extends CI_Controller {
             // get adjacent issues (for next/prev buttons)
             $nextissue = $this->issue_model->get_adjacent_issue($volume, $issue_number, 1);
             $previssue = $this->issue_model->get_adjacent_issue($volume, $issue_number, -1);
-
-            //$this->benchmark->mark('scribd_start'); 
             
             // scribd
             try {
@@ -78,21 +76,40 @@ class Browse extends CI_Controller {
                 // scribd sucks
             }
 
-            //$this->benchmark->mark('scribd_end'); 
-                        
-            // latest articles
-            $latest = $this->article_model->get_articles_by_date($date, false, false, '10');
-            
             // featured articles for footer
             $featured = $this->article_model->get_articles_by_date($date, false, false, '5', true);
-            
-            // popular articles for carousel
-            $popular = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '10');
-            // elasticity: zoom out to most popular of past five months if we've gone stale
-            if(count($popular) < 10) {
-                $popular = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '10');
+                        
+            if(bonus()) {
+                // latest/popular articles
+                $latest = $this->article_model->get_articles_by_date($date, false, false, '30');
+                $popular_week = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '30');
+                $popular_semester = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '30');
+
+                // latest/popular articles with photos
+                $latest_photo = $this->article_model->get_articles_by_date($date, false, false, 30, false, false, false, false, 'desc', true);  // I. Hate. PHP.
+                $popular_week_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_week_ago, '30', false, false, false, true);
+                $popular_semester_photo = $this->article_model->get_popular_articles_by_date($last_updated, $last_updated_fivemonths_ago, '30', false, false, false, true);
             }
 
+            $atf = $this->tools_model->get_abovethefold();
+
+            $leadstory = $this->article_model->get_article($atf[0]->article);
+            $leadstory->seriesname = $this->article_model->get_article_series($leadstory->series)->name;
+            $leadstory->authors = $this->article_model->get_article_authors($leadstory->id);
+
+            $carousel = $this->article_model->get_article($atf[1]->article);
+            $carousel->authors = $this->article_model->get_article_authors($carousel->id);
+
+            $teaser1 = $this->article_model->get_article($atf[2]->article);
+            $teaser1->authors = $this->article_model->get_article_authors($teaser1->id);
+            $teaser1->seriesname = $this->article_model->get_article_series($teaser1->series)->name;
+            $teaser2 = $this->article_model->get_article($atf[3]->article);
+            $teaser2->authors = $this->article_model->get_article_authors($teaser2->id);
+            $teaser2->seriesname = $this->article_model->get_article_series($teaser2->series)->name;
+            $teaser3 = $this->article_model->get_article($atf[4]->article);
+            $teaser3->authors = $this->article_model->get_article_authors($teaser3->id);
+            $teaser3->seriesname = $this->article_model->get_article_series($teaser3->series)->name;
+        
             // php 5.4 STRONGLY objects if you don't do this and E_STRICT is turned on (which it is by default on OSX)
             $data = new stdClass();
             $data->headerdata = new stdClass();
@@ -104,12 +121,10 @@ class Browse extends CI_Controller {
             // get sections
             $sections = $this->issue_model->get_sections();
             
-            foreach($sections as $section)
-            {
+            foreach($sections as $section) {
                 // get section articles
                 $articles[$section->name] = $this->article_model->get_articles_by_date($date, $date_week_ago, $section->id);
-                if(count($articles[$section->name]) < 10) 
-                {
+                if(count($articles[$section->name]) < 10) {
                     $articles[$section->name] = $this->article_model->get_articles_by_date($date, false, $section->id, 10);
                 }
             }
@@ -127,11 +142,29 @@ class Browse extends CI_Controller {
             $data->scribd_thumb_url = $scribd_thumb_url;
             $data->nextissue = $nextissue;
             $data->previssue = $previssue;
-            $data->latest = $latest;
             $data->featured = $featured;
-            $data->popular = $popular;
             $data->sections = $sections;
             $data->articles = $articles;
+
+            if(bonus()) {
+                $data->articlelists = new stdClass();
+                $data->photolists = new stdClass();
+
+                $data->articlelists->latest = $latest;
+                $data->articlelists->popular_week = $popular_week;
+                $data->articlelists->popular_semester = $popular_semester;
+
+                $data->photolists->latest_photo = $latest_photo;
+                $data->photolists->popular_week_photo = $popular_week_photo;
+                $data->photolists->popular_semester_photo = $popular_semester_photo;
+            }
+
+            $data->homepage = new stdClass();
+            $data->homepage->leadstory = $leadstory;
+            $data->homepage->carousel = $carousel;
+            $data->homepage->carousel->photos = $this->attachments_model->get_photos($carousel->id);
+            $data->homepage->teasers = array($teaser1, $teaser2, $teaser3);
+
             
             // meta
             $data->page_title = '';
@@ -156,36 +189,14 @@ class Browse extends CI_Controller {
         else
         {
             redirect('browse/'.$issue->issue_date, 'refresh');
-            
-            /*
-            // get adjacent issues (for next/prev buttons)
-            $nextissue = $this->issue_model->get_adjacent_issue($volume, $issue_number, 1);
-            $previssue = $this->issue_model->get_adjacent_issue($volume, $issue_number, -1);
-            
-            // popular articles
-            $popular = $this->article_model->get_popular_articles($volume, $issue_number, '10'); 
-            
-            // get random quote
-            $data->footerdata->quote = $this->attachments_model->get_random_quote();
-            
-            // get sections
-            $sections = $this->issue_model->get_sections();
-            
-            foreach($sections as $section)
-            {
-                // get articles
-                $articles[$section->name] = $this->article_model->get_articles($volume, $issue_number, $section->id);
-            }
-            
-            // load data, view
-            $data->issue = $issue;
-            $data->nextissue = $nextissue;
-            $data->previssue = $previssue;
-            $data->popular = $popular;
-            $data->sections = $sections;
-            $data->articles = $articles;    
-            $this->load->view('browse', $data);
-            */
+        }
+    }
+
+    public function ajax_set_atf($container){
+        if($this->input->server('REQUEST_METHOD') != "POST"){
+            $this->error();
+        } else {
+            return $this->tools_model->set_abovethefold($container, $this->input->post("id"));
         }
     }
 }

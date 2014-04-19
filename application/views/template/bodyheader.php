@@ -38,7 +38,7 @@ $(function() {
             <?endif;?>
 
                     
-            <nav id="mainnav">
+            <nav id="mainnav" class="hidetablet">
                 <ul>
                     <? if($this->uri->segment(1) == "" || $this->uri->segment(1) == "browse"): ?>
                         <li><a href="#News">News</a></li>
