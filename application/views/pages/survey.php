@@ -1,28 +1,36 @@
 <? $this->load->view('template/head'); ?>
 
+<style>
+.survey {
+   position:relative;
+   display:block;
+}
+.insidesurvey {
+    margin:0 auto;
+    overflow:hidden;
+    width:760px;
+    height:2150px;
+}
+</style
+
 <body>
 
 <? $this->load->view('template/bodyheader', $headerdata); ?>
 
-<div id="content">
+<div id="content">    
+    <!-- 
+    <header>
+        <hgroup>
+            <h2 id="articletitle" class="articletitle">This survey's response period has closed.</h2>
+        </hgroup>            
+    </header>
+    -->
     
-    <article id="mainstory">
-        
-        <header>
-            <hgroup>
-                <!-- <h2 id="articletitle" class="articletitle">This survey's response period has closed.</h2> -->
-            </hgroup>            
-        </header>
-        
-        <div id="articlebody" class="articlebody">
-            <!-- make a big div fill up some space -->
-            <!-- <div style="display:block;height:500px;width:1px;"></div> -->
-            
-        <iframe src="https://docs.google.com/forms/d/13f9kG6Z-GrKuoxuxl-KN-vxZ-HVvwH4vIECFa1lhIHY/viewform?embedded=true" width="760" height="2200" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>                    
-        </div>
-      
-    </article>
-
+    <div class="survey">
+        <div class="insidesurvey">
+        <iframe src="https://docs.google.com/forms/d/1ckQbOeTCIL4ZUaxZk0WigqdHXNWT-9k0nrwmsDs1HyY/viewform?embedded=true" width="760" height="2150" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+        </div>    
+    </div>
 </div>
 
 <? $this->load->view('template/bodyfooter', $footerdata); ?>
