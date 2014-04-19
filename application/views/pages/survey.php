@@ -8,7 +8,7 @@
 .insidesurvey {
     margin:0 auto;
     overflow:hidden;
-    width:760px;
+    width:740px;
     height:2150px;
 }
 </style
